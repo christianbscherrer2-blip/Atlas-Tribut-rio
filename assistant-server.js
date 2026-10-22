@@ -79,6 +79,12 @@ const server = http.createServer(async (req, res) => {
   if (typeof question !== "string" || question.trim().length < 3 || question.length > MAX_QUESTION) {
     return send(res, 400, { error: "Escreva uma pergunta de 3 a 800 caracteres." }, origin);
   }
+  const cleanQuestion = question.trim();
+  const hasCpf = /\\b\\d{3}[.\\s]?\\d{3}[.\\s]?\\d{3}[-\\s]?\\d{2}\\b/.test(cleanQuestion);
+  const hasCnpj = /\\b\\d{2}[.\\s]?\\d{3}[.\\s]?\\d{3}[\\/\\s]?\\d{4}[-\\s]?\\d{2}\\b/.test(cleanQuestion);
+  if (hasCpf || hasCnpj) {
+    return send(res, 400, { error: "Por segurança, não envie CPF/CNPJ. Reformule a pergunta sem dados identificáveis." }, origin);
+  }
   const key = rateKey(req);
   const now = Date.now();
   const entry = hits.get(key);
@@ -98,7 +104,7 @@ const server = http.createServer(async (req, res) => {
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || "gpt-6-luna",
         instructions: systemPrompt,
-        input: question.trim(),
+        input: cleanQuestion,
         max_output_tokens: 420,
         store: false
       }),
