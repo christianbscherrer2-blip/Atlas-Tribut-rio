@@ -1,0 +1,12 @@
+{
+  "name": "atlas-tributario-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend seguro do assistente educativo do Atlas Tributário",
+  "scripts": {
+    "start": "node assistant-server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
