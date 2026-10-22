@@ -92,15 +92,7 @@ const answerEl=document.getElementById("assistantAnswer");
 const questionEl=document.getElementById("assistantQuestion");
 const consentEl=document.getElementById("assistantConsent");
 const submitEl=document.getElementById("assistantSubmit");
-let aiEnabled=false;
-async function checkAssistant(){
- try{
-  const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),6500);
-  const r=await fetch(assistantApi+"/health",{signal:ctl.signal,cache:"no-store"});clearTimeout(timer);
-  const d=await r.json();aiEnabled=Boolean(d.enabled);
-  statusEl.textContent=aiEnabled?"IA educativa ativa. Use uma pergunta geral e consulte as fontes indicadas.":"Modo guiado ativo. A conversa livre com IA aguarda a configuração de uma chave segura.";
- }catch{statusEl.textContent="Modo guiado ativo. A IA pode demorar para iniciar; se não responder, use as dúvidas guiadas e os links oficiais."}
-}
+statusEl.textContent="Perguntas guiadas disponíveis. A conversa livre com IA depende da configuração segura da chave OpenAI.";
 function containsSensitiveId(s){
  return /\b\d{3}[.\s]?\d{3}[.\s]?\d{3}[-\s]?\d{2}\b/.test(s)||/\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[\/\s]?\d{4}[-\s]?\d{2}\b/.test(s);
 }
@@ -109,15 +101,19 @@ submitEl.addEventListener("click",async()=>{
  if(q.length<3){answerEl.textContent="Escreva uma pergunta geral com pelo menos 3 caracteres.";return}
  if(containsSensitiveId(q)){answerEl.textContent="Por segurança, não envie CPF/CNPJ, documentos ou identificadores. Apague esses números e reformule a pergunta sem dados de uma empresa.";return}
  if(!consentEl.checked){answerEl.textContent="Marque a caixa de ciência antes de enviar uma pergunta à IA. As dúvidas guiadas não enviam seus dados.";return}
- if(!aiEnabled){answerEl.textContent="A conversa livre com IA ainda está aguardando a configuração segura da chave OpenAI pelo responsável do Atlas. Você pode usar agora as perguntas guiadas ao lado.";return}
- submitEl.disabled=true;answerEl.textContent="Consultando o assistente educativo…";
+ submitEl.disabled=true;answerEl.textContent="Conectando ao assistente. Se o serviço estava inativo, pode levar até cerca de um minuto para iniciar.";
  try{
-  const r=await fetch(assistantApi+"/api/assist",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q})});
+  const healthCtl=new AbortController();const healthTimer=setTimeout(()=>healthCtl.abort(),70000);
+  const health=await fetch(assistantApi+"/health",{signal:healthCtl.signal,cache:"no-store"});clearTimeout(healthTimer);
+  const state=await health.json();
+  if(!state.enabled){statusEl.textContent="Modo guiado ativo. A conversa livre com IA aguarda a configuração da chave OpenAI.";answerEl.textContent="A chave segura da OpenAI ainda não foi configurada pelo responsável do Atlas. Você pode usar agora as perguntas guiadas ao lado.";return}
+  statusEl.textContent="IA educativa ativa. Respostas gerais, sem acesso a sistemas Gov.br.";
+  const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),40000);
+  const r=await fetch(assistantApi+"/api/assist",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q}),signal:ctl.signal});clearTimeout(timer);
   const d=await r.json();answerEl.textContent=r.ok?d.answer:(d.error||"Não consegui responder. Consulte as fontes oficiais do Atlas.");
- }catch{answerEl.textContent="Não foi possível conectar agora. Tente novamente ou consulte os links oficiais."}
+ }catch{answerEl.textContent="Não foi possível conectar agora. O serviço gratuito pode estar iniciando; tente novamente ou use as perguntas guiadas."}
  finally{submitEl.disabled=false}
 });
-checkAssistant();
 
 </script></body></html>
 
