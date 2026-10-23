@@ -13,5 +13,22 @@
 .taxMap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.callout{background:#fff6db;border-left:4px solid var(--gold);padding:16px 18px;border-radius:6px;margin:16px 0;color:var(--ink)}.callout strong{color:var(--green)}.deepDive{border:1px solid var(--line);border-radius:7px;background:var(--card);margin:12px 0;box-shadow:var(--shadow)}.deepDive summary{cursor:pointer;padding:15px 18px;color:var(--green);font-weight:800;list-style:none}.deepDive summary:after{content:"＋";float:right;color:var(--coral)}.deepDive[open] summary:after{content:"−"}.deepContent{padding:0 18px 18px;color:var(--muted)}.deepContent p{margin:8px 0 12px}.deepContent li{margin:7px 0}.reviewStamp{border-top:1px solid var(--line);padding-top:14px;margin-top:28px;font-size:12px;color:var(--muted)}.reviewStamp strong{color:var(--green)}
 @media(max-width:800px){.taxMap{grid-template-columns:1fr}}
 
-.articleGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.articleCard{display:flex;flex-direction:column;min-height:235px;padding:20px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.articleCard:hover{border-color:var(--green);transform:translateY(-2px)}.articleCard h2{font:600 21px/1.22 Arial,sans-serif;letter-spacing:0;margin:8px 0}.articleCard p{color:var(--muted);font-size:14px;margin:0 0 14px}.articleMeta,.articleKicker{color:var(--muted);font-size:12px;margin-top:auto}.articleKicker{color:#c4dfd6;text-transform:uppercase;letter-spacing:.08em;font-weight:750}.articleBody{max-width:800px;margin:auto}.articleLead{font-size:19px;color:var(--ink);border-left:4px solid var(--gold);background:#fff6db;padding:16px 20px;margin:18px 0 28px}.articleLead p{margin:0 0 8px}.articleLead .fine{font-size:13px}.articleBody h2{font:600 25px/1.2 Arial,sans-serif;letter-spacing:-.02em;margin:32px 0 10px}.articleBody p,.articleBody li{color:#344e53}.articleBody li{margin:8px 0}.articleBody a{font-weight:700}.sourceLinks{display:grid;gap:8px;padding:18px;background:var(--blue);border-radius:7px;margin:22px 0}.sourceBox{padding:22px 0;border-top:1px solid var(--line)}.sourceBox h2{margin-top:20px}.sourceBox p{font-size:14px}.compareGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.footerLinks{display:flex;gap:15px;flex-wrap:wrap;align-items:center}.siteFooterInner .footerLinks a{color:#bde0d3}.siteFooterInner .footerLinks a:hover{color:#fff}
-@media(max-width:800px){.articleGrid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.articleGrid,.compareGrid{grid-template-columns:1fr}}
+/* Atlas: movimentos de entrada discretos, com respeito à preferência por movimento reduzido. */
+.pageHeroIn{animation:atlasRise .65s cubic-bezier(.2,.7,.25,1) both}
+.pageWrap>.section{animation:atlasRise .55s ease both}
+.pageWrap>.section:nth-of-type(2){animation-delay:.06s}.pageWrap>.section:nth-of-type(3){animation-delay:.12s}.pageWrap>.section:nth-of-type(4){animation-delay:.18s}
+.card,.homeCard{transition:transform .22s ease,box-shadow .22s ease}
+.card:hover,.homeCard:hover{transform:translateY(-3px);box-shadow:0 14px 32px #142f2817}
+.typeCue{display:inline-block;margin-top:14px;color:#d6e9e2;font-size:13px;letter-spacing:.09em;overflow:hidden;white-space:nowrap;max-width:100%;animation:atlasType 2.8s steps(34,end) .45s both}
+@keyframes atlasRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes atlasType{from{width:0}to{width:34ch}}
+.regimeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.regimeGrid .card{height:100%}
+.tableWrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.tableWrap table{width:100%;border-collapse:collapse;min-width:680px}
+.tableWrap th,.tableWrap td{text-align:left;padding:12px 14px;vertical-align:top;border-bottom:1px solid var(--line)}
+.tableWrap th{color:var(--green);background:var(--mint)}
+.pathlinks{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.linkbtn{display:inline-block;border:1px solid var(--line);border-radius:7px;padding:10px 14px;background:var(--card);text-decoration:none;font-weight:700}
+@media(max-width:720px){.regimeGrid{grid-template-columns:1fr}.typeCue{white-space:normal;animation:none;width:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pageHeroIn,.pageWrap>.section,.typeCue{animation:none!important}.card,.homeCard{transition:none}.card:hover,.homeCard:hover{transform:none}}
