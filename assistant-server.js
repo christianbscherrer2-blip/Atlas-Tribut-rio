@@ -111,8 +111,29 @@ const server = http.createServer(async (req, res) => {
       signal: AbortSignal.timeout(25000)
     });
     if (!response.ok) {
-      // Não encaminha mensagens internas nem dados da resposta do provedor ao navegador.
-      return send(res, 502, { error: "Não consegui responder agora. Consulte os links oficiais ou tente novamente mais tarde." }, origin);
+      let providerError = {};
+      try {
+        const details = await response.json();
+        providerError = details && details.error && typeof details.error === "object" ? details.error : {};
+      } catch {}
+      // Registra somente metadados técnicos; nunca registra chave, pergunta ou conteúdo da resposta.
+      console.error("OpenAI API request failed", {
+        status: response.status,
+        type: typeof providerError.type === "string" ? providerError.type : undefined,
+        code: typeof providerError.code === "string" ? providerError.code : undefined,
+        requestId: response.headers.get("x-request-id") || undefined
+      });
+      let message = "Não consegui responder agora. Consulte os links oficiais ou tente novamente mais tarde.";
+      if (response.status === 401) {
+        message = "A OpenAI rejeitou a chave cadastrada no Render. Confira a chave e o projeto da API.";
+      } else if (response.status === 403) {
+        message = "A chave ou o projeto da API não tem acesso a este modelo. Confira as permissões e o modelo configurado.";
+      } else if (response.status === 404) {
+        message = "O modelo configurado não foi encontrado. Confira a variável OPENAI_MODEL no Render.";
+      } else if (response.status === 429) {
+        message = "A API da OpenAI informou limite ou cota indisponível. Confira faturamento, saldo e limites do projeto.";
+      }
+      return send(res, 502, { error: message }, origin);
     }
     const payload = await response.json();
     const answer = (payload.output || [])
@@ -123,7 +144,8 @@ const server = http.createServer(async (req, res) => {
       .trim();
     if (!answer) return send(res, 502, { error: "A resposta veio vazia. Consulte as fontes oficiais do Atlas." }, origin);
     return send(res, 200, { answer }, origin);
-  } catch {
+  } catch (error) {
+    console.error("OpenAI API request error", { name: error && typeof error.name === "string" ? error.name : "UnknownError" });
     return send(res, 502, { error: "O assistente está indisponível neste momento. Tente novamente depois." }, origin);
   }
 });
