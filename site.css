@@ -32,3 +32,33 @@
 .linkbtn{display:inline-block;border:1px solid var(--line);border-radius:7px;padding:10px 14px;background:var(--card);text-decoration:none;font-weight:700}
 @media(max-width:720px){.regimeGrid{grid-template-columns:1fr}.typeCue{white-space:normal;animation:none;width:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pageHeroIn,.pageWrap>.section,.typeCue{animation:none!important}.card,.homeCard{transition:none}.card:hover,.homeCard:hover{transform:none}}
+
+/* Transições e movimentos editoriais do Atlas */
+@view-transition{navigation:auto}
+.top{view-transition-name:atlas-navigation}
+.pageHero{view-transition-name:atlas-hero}
+::view-transition-group(atlas-navigation),::view-transition-group(atlas-hero){animation-duration:.52s;animation-timing-function:cubic-bezier(.2,.72,.2,1)}
+::view-transition-new(atlas-hero){animation:atlasTectonic .62s cubic-bezier(.18,.72,.25,1) both}
+::view-transition-old(atlas-hero){animation:atlasFadeOut .24s ease both}
+.pageHeroIn{animation:atlasRise .68s cubic-bezier(.2,.7,.25,1) both}
+.pageWrap>.section h2{animation:atlasAscend .62s cubic-bezier(.2,.7,.25,1) both}
+.eyeline{animation:atlasAscend .52s ease-out both}
+.homeCard:hover,.card:hover{transform:translateY(-4px) scale(1.012)}
+.linkbtn{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease}
+.linkbtn:hover{transform:translateY(-2px);box-shadow:0 8px 18px #142f2817}
+.knowledgeMap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.knowledgeMap .card{height:100%;border-top:3px solid var(--gold)}
+@keyframes atlasTectonic{from{opacity:.72;clip-path:inset(0 0 8% 0);transform:scale(.985)}to{opacity:1;clip-path:inset(0);transform:scale(1)}}
+@keyframes atlasFadeOut{to{opacity:0;transform:scale(.99)}}
+@keyframes atlasAscend{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.typeCue{width:34ch;border-right:2px solid #c4dfd6;padding-right:4px;animation:atlasType 2.8s steps(34,end) .45s both,atlasCaret .8s step-end infinite}
+@keyframes atlasCaret{50%{border-color:transparent}}
+@media(max-width:760px){.knowledgeMap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.knowledgeMap{grid-template-columns:1fr}}
+@media(max-width:720px){.typeCue{width:auto;border-right:0;padding-right:0;animation:atlasRise .5s ease both}}
+@media(prefers-reduced-motion:reduce){
+ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation-duration:.01ms!important}
+ .pageHeroIn,.pageWrap>.section,.pageWrap>.section h2,.eyeline,.typeCue{animation:none!important}
+ .card,.homeCard,.linkbtn{transition:none!important}
+ .card:hover,.homeCard:hover,.linkbtn:hover{transform:none}
+}
