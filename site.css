@@ -19,9 +19,9 @@
 .pageWrap>.section:nth-of-type(2){animation-delay:.06s}.pageWrap>.section:nth-of-type(3){animation-delay:.12s}.pageWrap>.section:nth-of-type(4){animation-delay:.18s}
 .card,.homeCard{transition:transform .22s ease,box-shadow .22s ease}
 .card:hover,.homeCard:hover{transform:translateY(-3px);box-shadow:0 14px 32px #142f2817}
-.typeCue{display:inline-block;margin-top:14px;color:#d6e9e2;font-size:13px;letter-spacing:.09em;overflow:hidden;white-space:nowrap;max-width:100%;animation:atlasType 2.8s steps(34,end) .45s both}
+.typeCue{display:inline-block;margin-top:14px;color:#d6e9e2;font-size:13px;letter-spacing:.09em;overflow:hidden;white-space:nowrap;max-width:100%;animation:atlasType 2.8s steps(41,end) .45s both}
 @keyframes atlasRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes atlasType{from{width:0}to{width:34ch}}
+@keyframes atlasType{from{width:0}to{width:41ch}}
 .regimeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .regimeGrid .card{height:100%}
 .tableWrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}
@@ -51,7 +51,7 @@
 @keyframes atlasTectonic{from{opacity:.72;clip-path:inset(0 0 8% 0);transform:scale(.985)}to{opacity:1;clip-path:inset(0);transform:scale(1)}}
 @keyframes atlasFadeOut{to{opacity:0;transform:scale(.99)}}
 @keyframes atlasAscend{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.typeCue{width:34ch;border-right:2px solid #c4dfd6;padding-right:4px;animation:atlasType 2.8s steps(34,end) .45s both,atlasCaret .8s step-end infinite}
+.typeCue{width:41ch;border-right:2px solid #c4dfd6;padding-right:4px;animation:atlasType 2.8s steps(41,end) .45s both,atlasCaret .8s step-end 4}
 @keyframes atlasCaret{50%{border-color:transparent}}
 @media(max-width:760px){.knowledgeMap{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.knowledgeMap{grid-template-columns:1fr}}
