@@ -3,6 +3,9 @@
   var d=document,root=d.documentElement,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   root.classList.add('js');
 
+  /* Avisos com data de validade: somem sozinhos depois do prazo (evita urgência desatualizada) */
+  d.querySelectorAll('[data-until]').forEach(function(el){var u=new Date(el.getAttribute('data-until')+'T23:59:59');if(Date.now()>u.getTime())el.hidden=true});
+
   /* Gradiente de meta: barra de leitura */
   var bar=d.createElement('div');bar.className='readBar';bar.setAttribute('aria-hidden','true');d.body.appendChild(bar);
 
