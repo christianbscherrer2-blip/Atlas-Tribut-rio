@@ -183,3 +183,40 @@
 .goals{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
 .goals span{background:var(--gold);color:var(--hard);border:2px solid var(--hard);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px;box-shadow:3px 3px 0 var(--hard)}
 [hidden]{display:none!important}
+
+/* ===== Navegação v3 e home em "quatro portas" ===== */
+.skip{position:absolute;left:-9999px;top:0;z-index:60}
+.skip:focus{left:10px;top:10px;background:var(--gold);color:var(--hard);padding:9px 14px;border:2px solid var(--hard);font-weight:800;border-radius:4px}
+.navToggle{display:none;background:var(--gold);color:var(--hard);border:2px solid var(--hard);border-radius:4px;box-shadow:3px 3px 0 var(--hard);font-weight:900;padding:8px 14px;cursor:pointer}
+.siteNav .navCta{background:var(--gold);color:var(--hard);border:2px solid var(--hard);border-radius:4px;font-weight:900;box-shadow:3px 3px 0 var(--hard)}
+.siteNav .navCta:hover{background:var(--gold-soft);color:var(--hard)}
+.navGroup:has(a[aria-current=page])>summary{color:var(--gold-soft);box-shadow:inset 0 -2px 0 var(--gold)}
+.navGroup[open]>summary{background:var(--navy2);color:#fff}
+.doors{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));margin:20px 0 8px}
+.door{background:var(--card);border:3px solid var(--hard);border-radius:6px;box-shadow:8px 8px 0 var(--gold);overflow:hidden;display:flex;flex-direction:column}
+.doorHead{background:var(--navy);color:#f3efe4;padding:15px 18px 14px}
+.doorHead .n{display:block;font:800 12px/1 "Public Sans",sans-serif;letter-spacing:.16em;color:var(--gold-soft)}
+.doorHead h3{margin:6px 0 4px;font-size:26px;color:#f3efe4}
+.doorHead p{margin:0;font-size:14px;color:#c4cbdb;line-height:1.45}
+.door ul{list-style:none;margin:0;padding:4px 8px 8px}
+.door li a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 10px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:800;border-radius:3px;transition:background-color .15s,padding-left .15s}
+.door li:last-child a{border-bottom:0}
+.door li a small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px}
+.door li a::after{content:"→";color:var(--coral);font-weight:900;flex:none}
+.door li a:hover{background:#f1e7c9;padding-left:16px;color:var(--ink)}
+.door.urgent{box-shadow:8px 8px 0 var(--navy)}
+.trustRow{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:16px 0}
+.trustRow>div{border-left:4px solid var(--gold);padding:2px 0 2px 14px}
+.trustRow b{display:block;font-size:16px;color:var(--navy)}
+.trustRow p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+@media(max-width:850px){
+ .topin{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+ .navToggle{display:inline-block}
+ .siteNav{display:none!important;flex-direction:column;align-items:stretch;width:100%;overflow:visible!important;padding:6px 0 10px;gap:2px}
+ .siteNav.open{display:flex!important}
+ .siteNav>a,.siteNav summary{padding:12px 10px;font-size:16px}
+ .navGroup summary:after{content:"+";float:right}.navGroup[open] summary:after{content:"–"}
+ .navPanel{position:static!important;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 0 8px 10px;background:transparent;min-width:0}
+ .navPanel a{padding:11px 10px;font-size:15px}
+ .siteNav .navCta{text-align:center;margin-top:6px}
+}

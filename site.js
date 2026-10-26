@@ -6,6 +6,17 @@
   /* Avisos com data de validade: somem sozinhos depois do prazo (evita urgência desatualizada) */
   d.querySelectorAll('[data-until]').forEach(function(el){var u=new Date(el.getAttribute('data-until')+'T23:59:59');if(Date.now()>u.getTime())el.hidden=true});
 
+  d.querySelectorAll('[data-after]').forEach(function(el){var u=new Date(el.getAttribute('data-after')+'T23:59:59');if(Date.now()<=u.getTime())el.hidden=true});
+
+  /* Menu: botão no celular, um grupo aberto por vez, fecha ao clicar fora ou com Esc */
+  var nav=d.getElementById('siteNav'),tg=d.querySelector('.navToggle'),groups=d.querySelectorAll('.navGroup');
+  var mq=matchMedia('(max-width: 850px)');
+  function sync(){groups.forEach(function(g){if(mq.matches)g.setAttribute('open','');else g.removeAttribute('open')});if(!mq.matches&&nav)nav.classList.remove('open')}
+  if(nav&&tg){tg.addEventListener('click',function(){var o=nav.classList.toggle('open');tg.setAttribute('aria-expanded',o);tg.textContent=o?'Fechar':'Menu'});sync();mq.addEventListener&&mq.addEventListener('change',sync)}
+  groups.forEach(function(g){g.addEventListener('toggle',function(){if(g.open&&!mq.matches)groups.forEach(function(o){if(o!==g)o.removeAttribute('open')})})});
+  d.addEventListener('click',function(e){if(!mq.matches&&!e.target.closest('.navGroup'))groups.forEach(function(g){g.removeAttribute('open')})});
+  d.addEventListener('keydown',function(e){if(e.key==='Escape'){groups.forEach(function(g){if(!mq.matches)g.removeAttribute('open')});if(nav&&nav.classList.contains('open')){nav.classList.remove('open');tg.setAttribute('aria-expanded','false');tg.textContent='Menu';tg.focus()}}});
+
   /* Gradiente de meta: barra de leitura */
   var bar=d.createElement('div');bar.className='readBar';bar.setAttribute('aria-hidden','true');d.body.appendChild(bar);
 
@@ -27,7 +38,7 @@
 
   /* Pop (cartões) e Ascensão (títulos), ao entrar na tela */
   if(!reduce&&'IntersectionObserver' in window){
-    var pops=d.querySelectorAll('.card,.homeCard,.sourceCard,.step,.newsItem,.deepDive,.story');
+    var pops=d.querySelectorAll('.card,.homeCard,.door,.sourceCard,.step,.newsItem,.deepDive,.story');
     pops.forEach(function(el,i){
       el.classList.add('pop');
       var sib=Array.prototype.indexOf.call(el.parentNode.children,el);
@@ -67,7 +78,7 @@
 
   /* Combinar e mover: o título do cartão clicado vira o título da página seguinte */
   var last=null;
-  d.addEventListener('click',function(e){last=e.target.closest&&e.target.closest('a.homeCard,a.card,a.linkbtn')},true);
+  d.addEventListener('click',function(e){last=e.target.closest&&e.target.closest('a.homeCard,a.card,a.linkbtn,.door li a')},true);
   addEventListener('pageswap',function(e){
     if(!e.viewTransition||!last)return;
     var t=last.querySelector('h2,h3')||last;t.style.viewTransitionName='matchmove';
