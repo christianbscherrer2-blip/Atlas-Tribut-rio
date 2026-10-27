@@ -112,9 +112,7 @@
 .btnGhost{background:#f3efe4;color:var(--hard);box-shadow:5px 5px 0 var(--gold);font-size:17px;padding:14px 22px}
 .btnPrimary:hover,.btnGhost:hover{transform:translate(-2px,-2px);color:var(--hard)}
 .heroHome .btnPrimary,.ctaBlock .btnPrimary{box-shadow:5px 5px 0 #f3efe4}
-.ticker{background:var(--gold);color:var(--hard);border-block:3px solid var(--hard);overflow:hidden;white-space:nowrap;font-weight:900;letter-spacing:.2em;font-size:13px}
-.tickTrack{display:inline-block;padding:9px 0;animation:atlasTick 32s linear infinite}
-@keyframes atlasTick{to{transform:translateX(-50%)}}
+}
 .heroHome h1{font-size:clamp(34px,6vw,62px);max-width:20ch}
 .heroHome p{font-size:18px}
 .ctaRow{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 10px}
@@ -154,8 +152,8 @@
 ::view-transition-old(root){animation:.22s ease both atlasFadeOut}
 ::view-transition-new(root){animation:.5s cubic-bezier(.2,.7,.25,1) both atlasAscend}
 @media(max-width:560px){.ctaBlock{padding:20px;box-shadow:6px 6px 0 var(--gold)}.nextPill a{font-size:14px;padding:10px 12px}}
-@media(prefers-reduced-motion:reduce){.tickTrack,.typeCue.live{animation:none!important}.js .pop,.w>i{opacity:1!important;transform:none!important}.readBar{transition:none}.nextPill{transition:none}}
-@media print{.readBar,.nextPill,.ticker{display:none}.js .pop,.w>i{opacity:1!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.typeCue.live{animation:none!important}.js .pop,.w>i{opacity:1!important;transform:none!important}.readBar{transition:none}.nextPill{transition:none}}
+@media print{.readBar,.nextPill{display:none}.js .pop,.w>i{opacity:1!important;transform:none!important}}
 .step .ask b,.step .src b{display:inline;border:0;padding:0;margin:0;color:inherit;font-size:inherit}
 .step .ask{font-weight:600;line-height:1.45}
 
