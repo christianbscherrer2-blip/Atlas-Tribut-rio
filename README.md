@@ -1,4 +1,4 @@
-# Atlas Tributário & Previdenciário
+# Prumo
 
 Site estático (Render, `atlas-tributario`) + backend opcional do assistente (Render, `atlas-tributario-assistente`).
 

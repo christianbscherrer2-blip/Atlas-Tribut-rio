@@ -1,4 +1,4 @@
-/* Assistente Atlas: triagem guiada + busca local em todo o site + IA opcional.
+/* Assistente Prumo: triagem guiada + busca local em todo o site + IA opcional.
    Por padrão nada do que você digita sai do navegador. */
 (function () {
   'use strict';
@@ -38,8 +38,8 @@
       first: 'Obtenha hoje a íntegra dos autos e a CDA, e leve a um advogado. Não espere o prazo apertar.',
       gather: 'Citação, petição inicial, CDA, processo administrativo de origem e comprovantes de pagamento.',
       avoid: 'Ignorar a citação ou presumir que um parcelamento já suspendeu tudo sem conferir nos autos.',
-      pro: 'Este é um caso para advogado: os prazos correm da citação ou da intimação, conforme o caso. O Atlas explica conceitos, mas não calcula prazo.',
-      atlas: [['/execucao-fiscal.html', 'Como funciona a execução fiscal'], ['/processos.html', 'Mapa das áreas e processos']], off: ['lef', 'reg'] },
+      pro: 'Este é um caso para advogado: os prazos correm da citação ou da intimação, conforme o caso. O Prumo explica conceitos, mas não calcula prazo.',
+      atlas: [['/execucao-fiscal.html', 'Como funciona a execução fiscal'], ['/execucao-fiscal.html#negociar', 'Como negociar a dívida'], ['/inadimplencia.html', 'Se a empresa não regulariza']], off: ['lef', 'reg'] },
     { id: 'regime', label: 'Quero escolher ou mudar de regime (MEI, Simples, Presumido, Real)',
       what: 'A escolha depende de atividade, receita, margem, folha e custos. Não existe regime melhor em abstrato: só a comparação com números reais mostra a diferença.',
       first: 'Reúna faturamento, folha e custos dos últimos meses e compare os regimes possíveis para a sua atividade.',
@@ -67,7 +67,21 @@
       gather: 'Comprovantes, DARF/guia, competência, código de receita e extratos de apropriação.',
       avoid: 'Descontar por conta própria de uma guia futura.',
       pro: 'Se o valor for relevante ou envolver contribuições previdenciárias, confirme o caminho com um contador.',
-      atlas: [['/artigos/restituicao-ou-compensacao.html', 'Restituição ou compensação?']], off: ['per', 'comp'] }
+      atlas: [['/artigos/restituicao-ou-compensacao.html', 'Restituição ou compensação?']], off: ['per', 'comp'] },
+    { id: 'parr', label: 'Fui notificado como sócio (PARR) ou meu nome apareceu na dívida da empresa', urgent: true,
+      what: 'O PARR é um procedimento da PGFN que apura se um sócio ou administrador responde por dívida ativa da empresa. Não é um tributo.',
+      first: 'Abra o Regularize e confira os Correios: a notificação eletrônica vale 15 dias depois de disponibilizada, e a impugnação tem prazo de 15 dias corridos.',
+      gather: 'Contrato social e alterações, período em que exerceu a gestão, data de saída e documentos que mostrem a ausência de responsabilidade.',
+      avoid: 'Ignorar a notificação, ou presumir que sair da sociedade encerra a responsabilidade pelo período em que era gestor.',
+      pro: 'Procure advogado: o caso mistura Direito Tributário, empresarial e processual, e os prazos são curtos.',
+      atlas: [['/parr.html', 'PARR: o que é e como funciona'], ['/inadimplencia.html', 'Se a empresa não regulariza']], off: ['reg'] },
+    { id: 'seis', label: 'Fim da escala 6x1: o que a empresa precisa fazer?',
+      what: 'A EC 141/2026, promulgada em 16/10/2026, prevê escala 5x2 e jornada de 42 horas em até 60 dias, e de 40 horas em até 14 meses, sem redução de salário.',
+      first: 'Mapeie escalas e convenções coletivas, calcule o custo por posto e planeje a nova escala para o prazo de 60 dias.',
+      gather: 'Escalas atuais, convenção coletiva da categoria, controle de ponto, contratos de preço fixo e contratos públicos.',
+      avoid: 'Esperar a regulamentação para começar: a primeira etapa vence em cerca de 60 dias.',
+      pro: 'Ajustes de escala, banco de horas e custo pedem advogado trabalhista e contador.',
+      atlas: [['/escala-6x1.html', 'Fim da escala 6x1: página completa'], ['/trabalho-empresa.html', 'CLT, PJ e responsabilidades']], off: [] }
   ];
   var tri = $('#triageButtons'), triOut = $('#triageOut');
   function dateNote(t) {
@@ -90,9 +104,9 @@
     tri.appendChild(b);
   });
 
-  /* ---------- 2) Busca local (BM25) em todo o Atlas ---------- */
+  /* ---------- 2) Busca local (BM25) em todo o Prumo ---------- */
   var STOP = new Set('a o as os um uma uns umas de do da dos das em no na nos nas por para com sem sobre entre e ou que se ao aos como qual quais quando onde meu minha meus minhas seu sua isso esse essa este esta mais muito ja nao ser ter tem foi sao eu me nos voce'.split(' '));
-  var SYN = { debito: ['divida', 'cobranca'], divida: ['debito'], penhora: ['bloqueio', 'garantia'], bloqueio: ['penhora'], cobranca: ['execucao', 'debito'], execucao: ['cobranca'], reforma: ['ibs', 'cbs'], ibs: ['reforma'], cbs: ['reforma'], imposto: ['tributo'], tributo: ['imposto'], mei: ['simei'], pj: ['pessoa', 'vinculo'], clt: ['emprego', 'vinculo'], restituicao: ['compensacao'], compensacao: ['restituicao'], aposentadoria: ['previdencia', 'beneficio'], inss: ['previdencia'], prazo: ['data'], cda: ['certidao', 'inscricao'], multa: ['penalidade'] };
+  var SYN = { debito: ['divida', 'cobranca'], divida: ['debito'], penhora: ['bloqueio', 'garantia'], bloqueio: ['penhora'], cobranca: ['execucao', 'debito'], execucao: ['cobranca'], reforma: ['ibs', 'cbs'], ibs: ['reforma'], cbs: ['reforma'], imposto: ['tributo'], tributo: ['imposto'], mei: ['simei'], pj: ['pessoa', 'vinculo'], clt: ['emprego', 'vinculo'], restituicao: ['compensacao'], compensacao: ['restituicao'], aposentadoria: ['previdencia', 'beneficio'], inss: ['previdencia'], prazo: ['data'], parr: ['responsabilidade', 'socio'], socio: ['responsabilidade', 'parr'], escala: ['jornada'], jornada: ['escala'], '6x1': ['escala', 'jornada', '5x2'], pejotizacao: ['pj', 'vinculo'], cda: ['certidao', 'inscricao'], multa: ['penalidade'] };
   var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s]/g, ' '); };
   var stem = function (w) { if (w.length > 4) w = w.replace(/(coes|oes)$/, 'ao').replace(/(ais|eis|ois)$/, 'al'); if (w.length > 3) w = w.replace(/s$/, ''); return w; };
   var toks = function (s) { return norm(s).split(/\s+/).filter(function (w) { return w && !STOP.has(w); }).map(stem); };
@@ -136,7 +150,7 @@
     load().then(function () {
       var r = search(q); lastHits = r.hits.map(function (x) { return x.d.c; });
       if (!r.hits.length) { out.innerHTML = '<p class="alert">Não achei um trecho sobre isso. Tente outras palavras (por exemplo "penhora", "regime", "dívida ativa") ou escolha uma situação acima. Veja também as <a href="/fontes.html">fontes oficiais</a>.</p>'; return; }
-      out.innerHTML = '<p class="fine">' + r.hits.length + ' trecho(s) do Atlas. São extratos das páginas, não uma resposta gerada.</p>' + r.hits.map(function (x) {
+      out.innerHTML = '<p class="fine">' + r.hits.length + ' trecho(s) do Prumo. São extratos das páginas, não uma resposta gerada.</p>' + r.hits.map(function (x) {
         var c = x.d.c; return '<article class="card searchHit"><span class="tag">' + esc(c.page) + '</span><h3><a href="' + c.url + '">' + esc(c.title) + '</a></h3><p>' + snippet(c.text, r.q) + '</p><a class="linkbtn" href="' + c.url + '">Abrir a seção →</a></article>'; }).join('');
       updateAi();
     }).catch(function () { out.innerHTML = '<p class="alert">Não consegui carregar a busca agora. Use as situações acima ou as <a href="/fontes.html">fontes oficiais</a>.</p>'; });
@@ -160,7 +174,7 @@
     }).then(function (x) {
       if (!x.ok) { aiOut.textContent = (x.j && x.j.error) || 'Não consegui responder agora.'; return; }
       aiOut.textContent = x.j.answer;
-      if (x.ctx.length) { var p = document.createElement('p'); p.className = 'fine'; p.innerHTML = 'Trechos do Atlas consultados: ' + x.ctx.map(function (h) { return '<a href="' + h.d.c.url + '">' + esc(h.d.c.title) + '</a>'; }).join(' · '); aiOut.appendChild(p); }
+      if (x.ctx.length) { var p = document.createElement('p'); p.className = 'fine'; p.innerHTML = 'Trechos do Prumo consultados: ' + x.ctx.map(function (h) { return '<a href="' + h.d.c.url + '">' + esc(h.d.c.title) + '</a>'; }).join(' · '); aiOut.appendChild(p); }
     }).catch(function () { aiOut.textContent = 'O assistente de IA está indisponível agora. Use a triagem e a busca acima.'; }).then(function () { aiBtn.disabled = false; });
   });
 })();

@@ -9,7 +9,7 @@ const MAX_BODY = 4096;
 const MAX_QUESTION = 800;
 const hits = new Map();
 
-const systemPrompt = `Você é o Assistente Educativo do Atlas Tributário & Previdenciário, em português do Brasil.
+const systemPrompt = `Você é o Assistente Educativo do Prumo, em português do Brasil.
 Sua missão é explicar conceitos para leigos com frases simples, sem juridiquês desnecessário.
 Escopo: noções gerais de direito tributário e previdenciário brasileiro, tributos e competências, MEI/SIMEI, Simples, Lucro Presumido/Real, reforma do consumo, consulta de débitos, dívida ativa, restituição/compensação, DCTFWeb/eSocial e caminhos para fontes oficiais.
 Não presta consultoria jurídica, contábil ou financeira, não diagnostica a situação de uma empresa e não promete resultado. Nunca instrua a entrar, autenticar, enviar declarações, pagar, parcelar ou movimentar contas pelo usuário. Não tem acesso ao Gov.br, e-CAC, REGULARIZE ou dados privados. Apenas explique e forneça links.
@@ -155,7 +155,7 @@ const server = http.createServer(async (req, res) => {
       .map(part => part.text)
       .join("\n")
       .trim();
-    if (!answer) return send(res, 502, { error: "A resposta veio vazia. Consulte as fontes oficiais do Atlas." }, origin);
+    if (!answer) return send(res, 502, { error: "A resposta veio vazia. Consulte as fontes oficiais do Prumo." }, origin);
     return send(res, 200, { answer }, origin);
   } catch (error) {
     console.error("OpenAI API request error", { name: error && typeof error.name === "string" ? error.name : "UnknownError" });

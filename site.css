@@ -240,3 +240,9 @@ mark{background:#f1e7c9;color:inherit;padding:0 2px;border-bottom:2px solid var(
 #aiPanel textarea{width:100%;min-height:90px;padding:12px;border:2px solid var(--hard);border-radius:4px;font:inherit;color:var(--ink);background:var(--card)}
 .assistantConsent{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;margin:10px 0}
 .assistantAnswer{white-space:pre-wrap;background:var(--blue);border-left:4px solid var(--gold);border-radius:4px;padding:14px;margin-top:12px;min-height:50px}
+
+/* ===== Abas de seção ===== */
+.tabsBar{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.tabsBar a{background:var(--card);color:var(--ink);border:2px solid var(--hard);border-radius:4px;box-shadow:3px 3px 0 var(--gold);padding:8px 14px;font-weight:800;font-size:14px;text-decoration:none}
+.tabsBar a:hover{background:#f1e7c9}
+.tabsBar a.tabNew{background:var(--gold);box-shadow:3px 3px 0 var(--hard)}
