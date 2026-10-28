@@ -246,3 +246,31 @@ mark{background:#f1e7c9;color:inherit;padding:0 2px;border-bottom:2px solid var(
 .tabsBar a{background:var(--card);color:var(--ink);border:2px solid var(--hard);border-radius:4px;box-shadow:3px 3px 0 var(--gold);padding:8px 14px;font-weight:800;font-size:14px;text-decoration:none}
 .tabsBar a:hover{background:#f1e7c9}
 .tabsBar a.tabNew{background:var(--gold);box-shadow:3px 3px 0 var(--hard)}
+
+/* ===== Estrutura v4: leitura, índice, relacionados, áreas ===== */
+.pageMeta{margin:14px 0 0;font:700 12px/1.4 "Public Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft)}
+.pageMeta:empty{display:none}
+.siteNav .navCta[aria-current=page]{color:var(--hard);box-shadow:3px 3px 0 var(--hard)}
+details.toc{border:3px solid var(--hard);border-radius:6px;background:var(--card);box-shadow:6px 6px 0 var(--gold);margin:22px 0 8px}
+details.toc>summary{padding:12px 16px;font-weight:900;cursor:pointer;list-style:none}
+details.toc>summary::-webkit-details-marker{display:none}
+details.toc>summary::after{content:"+";float:right;font-weight:900}
+details.toc[open]>summary::after{content:"–"}
+details.toc ol{margin:0;padding:2px 18px 14px 40px;columns:2;column-gap:30px}
+details.toc li{margin:6px 0;break-inside:avoid}
+details.toc a{color:var(--ink);text-decoration:none;font-weight:600}
+details.toc a:hover,details.toc a.on{color:var(--coral);text-decoration:underline}
+.related{margin:38px 0 6px}
+.related h2{font-size:clamp(20px,2.4vw,26px);margin:0 0 12px}
+.related h2::after{display:none}
+.relGrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.relGrid a{display:block;border:2px solid var(--hard);border-radius:4px;background:var(--card);padding:12px 14px;text-decoration:none;color:var(--ink);box-shadow:4px 4px 0 var(--gold);transition:transform .15s,box-shadow .15s}
+.relGrid a b{display:block;color:var(--navy)}
+.relGrid a span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+.relGrid a:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--gold)}
+.areaList{list-style:none;margin:8px 0 0;padding:0}
+.areaList li{border-top:1px solid var(--line)}
+.areaList a{display:block;padding:9px 2px;font-weight:700;color:var(--ink);text-decoration:none}
+.areaList a:hover{color:var(--coral);text-decoration:underline}
+@media(max-width:700px){details.toc ol{columns:1}}
+@media print{details.toc,.related{display:none}}
