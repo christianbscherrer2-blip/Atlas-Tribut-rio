@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent.parent
-SKIP = {'index.html', 'assistente.html', 'noticias.html', 'guia-tributos-previdencia.html', '404.html', 'sobre.html'}
+SKIP = {'googleb49ad066d7bdc0dd.html', 'index.html', 'assistente.html', 'noticias.html', 'guia-tributos-previdencia.html', '404.html', 'sobre.html'}
 MAXLEN = 900
 
 def clean(t): return re.sub(r'\s+', ' ', t).strip()
