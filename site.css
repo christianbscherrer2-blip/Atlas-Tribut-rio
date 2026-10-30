@@ -274,3 +274,5 @@ details.toc a:hover,details.toc a.on{color:var(--coral);text-decoration:underlin
 .areaList a:hover{color:var(--coral);text-decoration:underline}
 @media(max-width:700px){details.toc ol{columns:1}}
 @media print{details.toc,.related{display:none}}
+
+.feed{display:grid;gap:20px}.feed .card h3{font-size:20px}.feed .card p{max-width:78ch}
