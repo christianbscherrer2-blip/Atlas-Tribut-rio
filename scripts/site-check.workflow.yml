@@ -1,0 +1,16 @@
+# Para ativar: copie este arquivo para .github/workflows/site-check.yml (pelo site do GitHub: Add file > Create new file).
+# Roda as verificações do site a cada alteração. Não é aplicado automaticamente porque o token usado nas edições não tem permissão de "workflows".
+name: site-check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install playwright && playwright install --with-deps chromium
+      - run: mkdir -p /tmp/axe && cd /tmp/axe && npm i axe-core
+      - run: python3 scripts/site_check.py
+      - run: python3 scripts/browser_check.py

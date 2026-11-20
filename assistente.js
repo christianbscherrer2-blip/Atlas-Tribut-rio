@@ -108,7 +108,8 @@
   var STOP = new Set('a o as os um uma uns umas de do da dos das em no na nos nas por para com sem sobre entre e ou que se ao aos como qual quais quando onde meu minha meus minhas seu sua isso esse essa este esta mais muito ja nao ser ter tem foi sao eu me nos voce'.split(' '));
   var SYN = { debito: ['divida', 'cobranca'], divida: ['debito'], penhora: ['bloqueio', 'garantia'], bloqueio: ['penhora'], cobranca: ['execucao', 'debito'], execucao: ['cobranca'], reforma: ['ibs', 'cbs'], ibs: ['reforma'], cbs: ['reforma'], imposto: ['tributo'], tributo: ['imposto'], mei: ['simei'], pj: ['pessoa', 'vinculo'], clt: ['emprego', 'vinculo'], restituicao: ['compensacao'], compensacao: ['restituicao'], aposentadoria: ['previdencia', 'beneficio'], inss: ['previdencia'], prazo: ['data'], parr: ['responsabilidade', 'socio'], socio: ['responsabilidade', 'parr'], escala: ['jornada'], jornada: ['escala'], '6x1': ['escala', 'jornada', '5x2'], pejotizacao: ['pj', 'vinculo'], cda: ['certidao', 'inscricao'], multa: ['penalidade'] };
   var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s]/g, ' '); };
-  var stem = function (w) { if (w.length > 4) w = w.replace(/(coes|oes)$/, 'ao').replace(/(ais|eis|ois)$/, 'al'); if (w.length > 3) w = w.replace(/s$/, ''); return w; };
+  var stem = function (w) { if (w.length > 4) w = w.replace(/(coes|oes)$/, 'ao').replace(/(ais|eis|ois)$/, 'al'); if (w.length > 3) w = w.replace(/s$/, ''); return w.length > 6 ? w.slice(0, 6) : w; };
+  var rawToks = function (s) { return norm(s).split(/\s+/).filter(function (w) { return w && !STOP.has(w); }); };
   var toks = function (s) { return norm(s).split(/\s+/).filter(function (w) { return w && !STOP.has(w); }).map(stem); };
   var docs = [], df = {}, avg = 1, ready = null;
   function load() {
@@ -120,8 +121,8 @@
     return ready;
   }
   function search(q) {
-    var base = toks(q), extra = [];
-    base.forEach(function (w) { (SYN[w] || []).forEach(function (s) { extra.push(stem(s)); }); });
+    var raw = rawToks(q), base = raw.map(stem), extra = [];
+    raw.forEach(function (w) { (SYN[w] || []).forEach(function (s) { extra.push(stem(s)); }); });
     var k1 = 1.4, b = .75, N = docs.length, scored = [];
     docs.forEach(function (d) {
       var s = 0, hit = 0;

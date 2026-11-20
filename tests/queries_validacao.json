@@ -1,0 +1,71 @@
+[
+ {
+  "q": "como funciona o seguro garantia na execução",
+  "ok": [
+   "/execucao-fiscal.html"
+  ]
+ },
+ {
+  "q": "quem pode ser corresponsável pela dívida",
+  "ok": [
+   "/parr.html",
+   "/tributario.html",
+   "/inadimplencia.html"
+  ]
+ },
+ {
+  "q": "posso reduzir salário com a jornada menor",
+  "ok": [
+   "/escala-6x1.html"
+  ]
+ },
+ {
+  "q": "o que é fato gerador",
+  "ok": [
+   "/tributario.html"
+  ]
+ },
+ {
+  "q": "quando o contrato PJ vira vínculo de emprego",
+  "ok": [
+   "/trabalho-empresa.html"
+  ]
+ },
+ {
+  "q": "o que é transação tributária",
+  "ok": [
+   "/execucao-fiscal.html",
+   "/empresa.html",
+   "/inadimplencia.html"
+  ]
+ },
+ {
+  "q": "CBS substitui PIS e Cofins",
+  "ok": [
+   "/reforma.html",
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "ato administrativo e seus elementos",
+  "ok": [
+   "/administrativo.html"
+  ]
+ },
+ {
+  "q": "folha de pagamento e INSS patronal",
+  "ok": [
+   "/previdenciario.html",
+   "/escala-6x1.html",
+   "/mudancas.html",
+   "/gestao.html"
+  ]
+ },
+ {
+  "q": "cadin e certidão negativa",
+  "ok": [
+   "/inadimplencia.html",
+   "/empresa.html"
+  ]
+ }
+]

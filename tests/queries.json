@@ -1,0 +1,196 @@
+[
+ {
+  "q": "recebi notificação da receita",
+  "ok": [
+   "/empresa.html",
+   "/processos.html",
+   "/artigos/primeiros-passos-pendencia.html"
+  ]
+ },
+ {
+  "q": "o que é CDA",
+  "ok": [
+   "/execucao-fiscal.html"
+  ]
+ },
+ {
+  "q": "penhora de conta bancária da empresa",
+  "ok": [
+   "/execucao-fiscal.html"
+  ]
+ },
+ {
+  "q": "como parcelar dívida com a PGFN",
+  "ok": [
+   "/execucao-fiscal.html",
+   "/empresa.html"
+  ]
+ },
+ {
+  "q": "MEI pode contratar funcionário",
+  "ok": [
+   "/mudancas.html",
+   "/escala-6x1.html",
+   "/regimes.html"
+  ]
+ },
+ {
+  "q": "novo limite do MEI em 2027",
+  "ok": [
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "fim da escala 6x1 quando começa",
+  "ok": [
+   "/escala-6x1.html",
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "5x2 é sábado e domingo",
+  "ok": [
+   "/escala-6x1.html"
+  ]
+ },
+ {
+  "q": "PJ pode ser considerado empregado",
+  "ok": [
+   "/trabalho-empresa.html"
+  ]
+ },
+ {
+  "q": "carteira de trabalho digital",
+  "ok": [
+   "/trabalho-empresa.html"
+  ]
+ },
+ {
+  "q": "sócio responde por dívida da empresa",
+  "ok": [
+   "/parr.html",
+   "/inadimplencia.html",
+   "/tributario.html"
+  ]
+ },
+ {
+  "q": "o que é PARR",
+  "ok": [
+   "/parr.html",
+   "/tributario.html"
+  ]
+ },
+ {
+  "q": "prazo para impugnar o PARR",
+  "ok": [
+   "/parr.html",
+   "/tributario.html"
+  ]
+ },
+ {
+  "q": "o que acontece se não pagar imposto",
+  "ok": [
+   "/inadimplencia.html"
+  ]
+ },
+ {
+  "q": "protesto de CDA",
+  "ok": [
+   "/inadimplencia.html",
+   "/empresa.html"
+  ]
+ },
+ {
+  "q": "exclusão do Simples Nacional por dívida",
+  "ok": [
+   "/inadimplencia.html",
+   "/regimes.html"
+  ]
+ },
+ {
+  "q": "reforma tributária IBS CBS quando começa",
+  "ok": [
+   "/reforma.html",
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "por que existe a reforma tributária",
+  "ok": [
+   "/reforma.html"
+  ]
+ },
+ {
+  "q": "imposto seletivo",
+  "ok": [
+   "/mudancas.html",
+   "/reforma.html",
+   "/tributario.html"
+  ]
+ },
+ {
+  "q": "diferença entre direito material e processual",
+  "ok": [
+   "/processos.html",
+   "/administrativo.html"
+  ]
+ },
+ {
+  "q": "princípios da administração pública",
+  "ok": [
+   "/administrativo.html"
+  ]
+ },
+ {
+  "q": "prazo dos embargos à execução fiscal",
+  "ok": [
+   "/execucao-fiscal.html"
+  ]
+ },
+ {
+  "q": "prescrição intercorrente",
+  "ok": [
+   "/execucao-fiscal.html",
+   "/processos.html"
+  ]
+ },
+ {
+  "q": "NR-1 riscos psicossociais",
+  "ok": [
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "imposto de renda sobre dividendos",
+  "ok": [
+   "/trabalho-empresa.html",
+   "/mudancas.html"
+  ]
+ },
+ {
+  "q": "restituição ou compensação de imposto",
+  "ok": [
+   "/artigos/restituicao-ou-compensacao.html",
+   "/artigos.html"
+  ]
+ },
+ {
+  "q": "qual regime tributário é melhor para minha empresa",
+  "ok": [
+   "/regimes.html"
+  ]
+ },
+ {
+  "q": "teto do INSS 2026",
+  "ok": [
+   "/mudancas.html",
+   "/previdenciario.html"
+  ]
+ },
+ {
+  "q": "quanto custa reduzir a jornada de 44 para 40 horas",
+  "ok": [
+   "/escala-6x1.html"
+  ]
+ }
+]

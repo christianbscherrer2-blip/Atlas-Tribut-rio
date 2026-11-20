@@ -276,3 +276,24 @@ details.toc a:hover,details.toc a.on{color:var(--coral);text-decoration:underlin
 @media print{details.toc,.related{display:none}}
 
 .feed{display:grid;gap:20px}.feed .card h3{font-size:20px}.feed .card p{max-width:78ch}
+
+/* ===== Usabilidade v5 (baseada em medição) ===== */
+.pageWrap .section>p,.pageWrap .section>ul,.pageWrap .section>ol,.alert p,.callout{max-width:75ch}
+.breadcrumbs{font-size:13px}.breadcrumbs a{display:inline-block;padding:5px 3px;min-height:24px}
+.fine{font-size:14px}
+details.toc a{display:inline-block;padding:3px 0;min-height:24px;line-height:1.5}
+.filterBar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+.filterBar .chip{min-height:40px;font-weight:700}
+.tool{border:3px solid var(--hard);border-radius:6px;background:var(--card);box-shadow:8px 8px 0 var(--gold);padding:20px;margin:24px 0}
+.tool h3{margin:0 0 4px;font-size:22px}
+.toolGrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin:14px 0 6px}
+.toolGrid label{display:block;font-weight:800;font-size:14px;margin-bottom:5px}
+.toolGrid input{width:100%;min-height:44px;padding:10px;border:2px solid var(--hard);border-radius:4px;font:inherit;background:#fff;color:var(--ink)}
+.toolGrid .hint{font-size:13px;color:var(--muted);margin-top:4px}
+.toolErr{color:#8a1c1c;font-weight:700;min-height:1.5em;margin:4px 0}
+.toolOut table{width:100%;border-collapse:collapse;font-size:15px}
+.toolOut th,.toolOut td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right}
+.toolOut th:first-child,.toolOut td:first-child{text-align:left}
+.toolOut th{background:var(--navy);color:var(--gold-soft);font-size:13px}
+.toolNote{font-size:14px;color:var(--muted);margin-top:10px}
+@media(max-width:700px){.toolOut{overflow-x:auto}}
