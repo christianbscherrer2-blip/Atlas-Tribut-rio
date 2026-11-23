@@ -5,7 +5,7 @@ Depois: no Render, adicione o domínio ao serviço do site e, no serviço do ass
 defina a variável SITE_ORIGINS com o novo endereço (separe vários por vírgula).
 """
 import sys, glob
-OLD = 'https://atlas-tributario.onrender.com'
+OLD = 'https://prumo.onrender.com'
 if len(sys.argv) != 2 or not sys.argv[1].startswith('https://'):
     sys.exit(__doc__)
 new = sys.argv[1].rstrip('/')

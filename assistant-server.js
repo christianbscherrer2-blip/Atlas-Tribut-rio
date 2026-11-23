@@ -1,6 +1,6 @@
 const http = require("node:http");
 
-const ALLOWED = (process.env.SITE_ORIGINS || "https://atlas-tributario.onrender.com").split(",").map(x => x.trim()).filter(Boolean);
+const ALLOWED = (process.env.SITE_ORIGINS || "https://prumo.onrender.com,https://atlas-tributario.onrender.com").split(",").map(x => x.trim()).filter(Boolean);
 const SITE_ORIGIN = ALLOWED[0];
 const isAllowed = o => ALLOWED.includes(o);
 const WINDOW_MS = 10 * 60 * 1000;

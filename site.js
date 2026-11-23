@@ -2,6 +2,12 @@
    Tudo é aprimoramento: sem JavaScript o site continua legível e navegável. */
 (function () {
   var d = document, root = d.documentElement;
+  /* Endereço antigo: leva para o novo mantendo a página, a busca e o # (o link do painel continua valendo).
+     As páginas já apontam o endereço novo como canônico, então o Google transfere o que indexou. */
+  if (location.hostname === 'atlas-tributario.onrender.com') {
+    location.replace('https://prumo.onrender.com' + location.pathname + location.search + location.hash);
+    return;
+  }
   root.classList.add('js');
 
   /* Medição sem cookies: só contagens por mês (visitas, "Esta página ajudou?" e uso das ferramentas).
