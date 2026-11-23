@@ -8,12 +8,18 @@
    "motivos": {}
   },
   "/": {
-   "visitas": 1,
+   "visitas": 2,
    "sim": 0,
    "nao": 0,
    "motivos": {}
   },
   "/calculadora-jornada.html": {
+   "visitas": 1,
+   "sim": 0,
+   "nao": 0,
+   "motivos": {}
+  },
+  "/execucao-fiscal.html": {
    "visitas": 1,
    "sim": 0,
    "nao": 0,
@@ -25,12 +31,12 @@
  },
  "origens": {
   "direta": 1,
-  "interna": 2
+  "interna": 4
  },
  "buscas_vazias": {},
  "dias": {
-  "2026-11-23": 3
+  "2026-11-23": 5
  },
  "campanhas": {},
- "atualizado_em": "2026-11-23T20:42:53.958Z"
+ "atualizado_em": "2026-11-23T20:52:54.043Z"
 }
