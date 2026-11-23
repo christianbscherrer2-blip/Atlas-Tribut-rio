@@ -1,0 +1,161 @@
+# Fundamentos de design do Prumo
+
+Este documento registra **por que** cada escolha de interface do Prumo foi feita, qual evidência a sustenta e como ela é verificada. Ele vale para qualquer mudança futura: uma alteração visual ou de organização deve citar o princípio que a justifica, ou dizer com clareza que é uma escolha de marca.
+
+Regras de leitura deste documento:
+
+- **Evidência forte:** resultado replicado ou norma técnica consolidada (por exemplo, WCAG).
+- **Evidência moderada:** estudos consistentes, mas com limites de contexto.
+- **Escolha de marca:** decisão de identidade, sem pretensão científica. Só é mantida se a verificação mostrar que não prejudica a leitura ou o uso.
+
+Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, títulos em Georgia, faixas pretas nos sobretítulos, barra dourada sob os títulos de seção, contorno escuro com sombra dourada deslocada, etiquetas douradas inclinadas e a máquina de escrever da página inicial.
+
+---
+
+## 1. Carga cognitiva e organização do conteúdo
+
+| Decisão no Prumo | Princípio | Evidência |
+|---|---|---|
+| Bloco **"Em 30 segundos"** no topo das páginas longas (texto em `scripts/resumos.json`) | Antecipar os conceitos-chave reduz a carga durante a leitura do detalhe (princípio do pré-treino) e funciona como organizador prévio | Mayer, Mathias e Wetzell (2002), *Journal of Experimental Psychology: Applied*; Ausubel (1960), organizadores prévios. Moderada |
+| Índice **"Nesta página"** e seções recolhíveis | Sinalizar a estrutura e revelar o detalhe aos poucos | Mayer (2009), princípios de sinalização e segmentação; Nielsen (2006), *progressive disclosure*. Moderada |
+| **Glossário no próprio texto** (toque ou passe o mouse no termo sublinhado) | Evitar que o leitor divida a atenção entre o texto e uma página de definições | Chandler e Sweller (1991), efeito da atenção dividida, *Cognition and Instruction*. Moderada |
+| Parágrafos curtos, conclusão no começo, listas para passos | A memória de trabalho guarda poucos blocos (cerca de quatro) | Cowan (2001), *Behavioral and Brain Sciences*; Sweller (1988), teoria da carga cognitiva. Forte |
+| Títulos que respondem perguntas ("Como uma cobrança chega ao juiz") | Leitura em varredura: o começo dos títulos e parágrafos recebe mais fixações | Nielsen (2006) e Pernice (2017), Nielsen Norman Group, rastreamento ocular. Moderada |
+| Linguagem simples | Texto fácil de processar é compreendido mais rápido e percebido como mais confiável | ISO 24495-1:2023 (linguagem simples); Reber, Schwarz e Winkielman (2004), fluência de processamento. Forte |
+
+## 2. Navegação e arquitetura da informação
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| Menu em **quatro grupos por tarefa** (Resolver, Decidir, Aprender, Consultar) | Agrupar reduz o custo de escolher entre muitas opções | Hick (1952) e Hyman (1953); Miller (1956), agrupamento. Forte para a lei; moderada para menus |
+| Cabeçalho, rodapé e componentes **idênticos em todas as páginas** (gerados de `scripts/templates`) | Consistência permite aprender o padrão uma vez e reaproveitar | Nielsen (1994), heurística 4; Norman (1988). Forte |
+| Indicação de **onde estou**: item atual no menu, trilha (breadcrumbs), seção ativa no índice | Visibilidade do estado do sistema | Nielsen (1994), heurística 1. Forte |
+| **Busca em toda página** e atalho de teclado "/" | Reconhecer é mais fácil que lembrar; atalhos atendem usuários frequentes sem atrapalhar iniciantes | Nielsen (1994), heurísticas 6 e 7. Forte |
+| Triagem do assistente parte do **documento que a pessoa tem na mão** | Reconhecimento em vez de evocação | Anderson, memória de reconhecimento versus evocação; Nielsen (1994), heurística 6. Forte |
+
+## 3. Percepção visual e Gestalt
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| Espaçamento em escala fixa de 4 px | Proximidade: o que está perto é lido como grupo | Wertheimer (1923). Forte |
+| Cartões delimitados por contorno | Região comum: elementos dentro de uma mesma borda são agrupados mais fortemente que por proximidade | Palmer (1992), *Cognitive Psychology*. Forte |
+| Mesmo componente, mesma aparência e mesma função | Semelhança | Wertheimer (1923). Forte |
+| **Dourado reservado para ação e destaque** (botão principal, sobretítulo, item ativo) | Um atributo único salta à vista sem busca serial; um item isolado é mais lembrado | Treisman e Gelade (1980), integração de características; von Restorff (1933). Forte |
+| Sombra dourada deslocada e etiquetas inclinadas | **Escolha de marca.** A sombra também reforça a região comum e indica que o cartão é clicável | Verificado: não reduz contraste; a inclinação de 1,5° não afeta a leitura de rótulos curtos |
+
+## 4. Cor, contraste e conforto visual
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **Tema claro como padrão** (texto escuro em fundo claro) | Polaridade positiva melhora a leitura e a detecção de detalhes | Piepenbrock, Mayr, Mund e Buchner (2013), *Ergonomics*. Forte |
+| Tema escuro opcional, seguindo o aparelho | Preferência individual e ambientes com pouca luz; mesma hierarquia | Escolha de conforto. Contraste verificado |
+| Contraste mínimo de **4,5:1** em todo texto e **3:1** em indicadores (foco) | Legibilidade para baixa visão | WCAG 2.2, critérios 1.4.3 e 1.4.11. Norma |
+| Estado nunca indicado só por cor | Daltonismo afeta cerca de 8% dos homens | WCAG 2.2, 1.4.1; Birch (2012). Forte |
+| Fundo papel em vez de branco puro | **Escolha de marca.** Reduz o brilho total da página | Contraste verificado (texto 16,4:1) |
+
+## 5. Tipografia
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| Texto em 17 px | Fontes maiores melhoram a leitura e a compreensão na tela | Rello, Pielot e Marcos (2016), *CHI*. Moderada |
+| Entrelinha de 1,65 e linhas de até cerca de 70 caracteres | Conforto de leitura | Dyson e Haselgrove (2001): linhas longas leem mais rápido, mas leitores preferem e compreendem bem linhas médias. Evidência mista; adotado o meio-termo |
+| Georgia nos títulos e fonte do sistema no texto | Contraste de famílias marca a hierarquia; fonte do sistema não precisa ser baixada, então a página aparece mais rápido | Hierarquia: Gestalt de semelhança. Desempenho: medido |
+
+## 6. Interação, movimento e prevenção de erros
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| Nada fica escondido esperando a rolagem | Quem varre a página precisa ver o conteúdo de imediato | Nielsen (2006), leitura em varredura. Moderada |
+| Máquina de escrever digita cada frase uma vez e **para** | Movimento contínuo na periferia captura a atenção de forma involuntária | Abrams e Christ (2003), *Psychological Science*. Forte |
+| Tudo respeita "reduzir movimento" do aparelho | Movimento pode causar desconforto vestibular | WCAG 2.2, 2.3.3. Norma |
+| Alvos de toque de pelo menos 24 px; botões com 44 px | O tempo para acertar depende do tamanho e da distância do alvo | Fitts (1954); WCAG 2.2, 2.5.8. Forte |
+| Bloqueio de CPF e CNPJ na busca e na IA; calculadoras mostram as premissas | Prevenir o erro em vez de só avisar depois | Nielsen (1994), heurística 5; Norman (1988). Forte |
+
+---
+
+## 7. Avaliação heurística (estado após a Fase 2)
+
+Feita por um avaliador, com as 10 heurísticas de Nielsen (1994) e severidade de 0 (não é problema) a 4 (catástrofe). Um avaliador encontra só parte dos problemas; Nielsen e Molich (1990) recomendam de 3 a 5 avaliadores independentes.
+
+| Heurística | Situação | Pendência | Severidade |
+|---|---|---|---|
+| 1. Visibilidade do estado | Página atual no menu, seção ativa no índice, tempo de leitura e data de revisão | Nenhuma relevante | 0 |
+| 2. Correspondência com o mundo real | Linguagem simples e glossário com 26 termos | Alguns títulos técnicos ("Sobrestamento dentro da execução fiscal") | 2 |
+| 3. Controle e liberdade | Esc fecha menu, busca e glossário; voltar funciona | Nenhuma relevante | 0 |
+| 4. Consistência e padrões | Layout comum nas 27 páginas | Corrigido nesta fase: o guia mandava "escolher um tema no menu", que não existe mais; agora aponta o índice "Nesta página" | 0 |
+| 5. Prevenção de erros | CPF/CNPJ bloqueados, premissas visíveis | Falta aviso automático quando a revisão passar de 90 dias | 2 |
+| 6. Reconhecimento | Triagem por situação, busca em toda página, glossário | Nenhuma relevante | 0 |
+| 7. Flexibilidade e eficiência | Atalho "/", tema, índice | Nenhuma relevante | 0 |
+| 8. Estética e minimalismo | Resumos no topo das páginas longas | Avisos "conteúdo educativo" repetidos várias vezes na mesma página | 1 |
+| 9. Reconhecer e recuperar erros | Busca sem resultado sugere termos; página 404 com caminhos | Nenhuma relevante | 0 |
+| 10. Ajuda e documentação | Assistente, fontes, glossário | IA desligada até a chave ser cadastrada | 1 |
+
+## 8. Métricas medidas (23/11/2026)
+
+| Métrica | Valor | Meta |
+|---|---|---|
+| Contraste texto/fundo, tema claro | 16,4:1 | ≥ 4,5:1 |
+| Menor contraste de texto, tema claro (sobretítulo dourado) | 6,4:1 | ≥ 4,5:1 |
+| Contraste do indicador de foco, tema claro | 6,4:1 (antes 2,2:1, corrigido) | ≥ 3:1 |
+| Menor contraste de texto, tema escuro | 8,9:1 | ≥ 4,5:1 |
+| Páginas com texto abaixo do contraste mínimo, nos dois temas, a 375 px | 0 de 27 | 0 |
+| Páginas com rolagem lateral no celular | 0 de 27 | 0 |
+| Erros de JavaScript | 0 de 27 | 0 |
+| Busca do assistente, acerto entre os 3 primeiros (hit@3) | 28 de 29 perguntas | ≥ 85% |
+| Peso do CSS / script comum | 43 KB / 24 KB | < 100 KB por página |
+
+Essas medições rodam sozinhas a cada mudança no GitHub (`.github/workflows/site-check.yml`), com o axe para acessibilidade.
+
+## 9. Validação com pessoas (próxima etapa)
+
+Medições automáticas e avaliação heurística não substituem observar pessoas reais. O roteiro abaixo deve ser aplicado a cada fase.
+
+**Participantes:** 5 por rodada, do público do Prumo (donos de pequenas empresas, pessoas de departamento fiscal ou financeiro, contadores). Cinco participantes encontram a maior parte dos problemas graves de uma rodada (Nielsen e Landauer, 1993).
+
+**Método:** teste moderado com pensamento em voz alta, no celular e no computador.
+
+**Tarefas:**
+
+1. "Sua empresa recebeu uma carta da PGFN dizendo que há dívida inscrita. Descubra o que isso significa e qual é o primeiro passo."
+2. "Descubra se um MEI pode ter dois empregados em 2027."
+3. "Calcule quanto sobe o valor da hora de quem ganha R$ 2.500 quando a jornada cai para 40 horas."
+4. "Sem sair da página de execução fiscal, descubra o que é CDA."
+5. "Explique a diferença entre restituição e compensação."
+
+**O que medir:** taxa de sucesso por tarefa, tempo por tarefa, erros, a pergunta de facilidade de 1 a 7 depois de cada tarefa (SEQ; Sauro e Dumas, 2009) e o questionário SUS ao final (Brooke, 1996; a média de referência é 68).
+
+**Depois de publicar:** estatística de uso sem cookies (por exemplo, Plausible ou GoatCounter), botão "esta página ajudou?" e lista de buscas sem resultado. Testes A/B só com tráfego suficiente para resultado estatístico (Kohavi, Tang e Xu, 2020); com pouco tráfego, os testes com pessoas são mais confiáveis.
+
+---
+
+## Referências
+
+- Abrams, R. A.; Christ, S. E. (2003). Motion onset captures attention. *Psychological Science*, 14(5).
+- Ausubel, D. P. (1960). The use of advance organizers in the learning and retention of meaningful verbal material. *Journal of Educational Psychology*, 51(5).
+- Birch, J. (2012). Worldwide prevalence of red-green color deficiency. *Journal of the Optical Society of America A*, 29(3).
+- Brooke, J. (1996). SUS: a quick and dirty usability scale. In *Usability Evaluation in Industry*.
+- Chandler, P.; Sweller, J. (1991). Cognitive load theory and the format of instruction. *Cognition and Instruction*, 8(4).
+- Cowan, N. (2001). The magical number 4 in short-term memory. *Behavioral and Brain Sciences*, 24(1).
+- Dyson, M. C.; Haselgrove, M. (2001). The influence of reading speed and line length on the effectiveness of reading from screen. *International Journal of Human-Computer Studies*, 54(4).
+- Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. *Journal of Experimental Psychology*, 47(6).
+- Hick, W. E. (1952). On the rate of gain of information. *Quarterly Journal of Experimental Psychology*, 4(1).
+- Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
+- ISO 24495-1:2023. Plain language — Part 1: Governing principles and guidelines.
+- Kohavi, R.; Tang, D.; Xu, Y. (2020). *Trustworthy Online Controlled Experiments*. Cambridge University Press.
+- Mayer, R. E. (2009). *Multimedia Learning* (2ª ed.). Cambridge University Press.
+- Mayer, R. E.; Mathias, A.; Wetzell, K. (2002). Fostering understanding of multimedia messages through pre-training. *Journal of Experimental Psychology: Applied*, 8(3).
+- Miller, G. A. (1956). The magical number seven, plus or minus two. *Psychological Review*, 63(2).
+- Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. *CHI '94*.
+- Nielsen, J.; Landauer, T. K. (1993). A mathematical model of the finding of usability problems. *INTERCHI '93*.
+- Nielsen, J.; Molich, R. (1990). Heuristic evaluation of user interfaces. *CHI '90*.
+- Norman, D. A. (1988). *The Design of Everyday Things*.
+- Palmer, S. E. (1992). Common region: a new principle of perceptual grouping. *Cognitive Psychology*, 24(3).
+- Piepenbrock, C.; Mayr, S.; Mund, I.; Buchner, A. (2013). Positive display polarity is advantageous for both younger and older adults. *Ergonomics*, 56(7).
+- Reber, R.; Schwarz, N.; Winkielman, P. (2004). Processing fluency and aesthetic pleasure. *Personality and Social Psychology Review*, 8(4).
+- Rello, L.; Pielot, M.; Marcos, M.-C. (2016). Make it big! The effect of font size and line spacing on online readability. *CHI '16*.
+- Sauro, J.; Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. *CHI '09*.
+- Sweller, J. (1988). Cognitive load during problem solving. *Cognitive Science*, 12(2).
+- Treisman, A. M.; Gelade, G. (1980). A feature-integration theory of attention. *Cognitive Psychology*, 12(1).
+- von Restorff, H. (1933). Über die Wirkung von Bereichsbildungen im Spurenfeld. *Psychologische Forschung*, 18.
+- W3C (2023). *Web Content Accessibility Guidelines (WCAG) 2.2*.
+- Wertheimer, M. (1923). Untersuchungen zur Lehre von der Gestalt II. *Psychologische Forschung*, 4.

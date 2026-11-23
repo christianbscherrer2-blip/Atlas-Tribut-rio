@@ -2,6 +2,14 @@
 
 Site estático (Render, serviço `atlas-tributario`) + backend opcional do assistente (serviço `atlas-tributario-assistente`).
 
+## Fundamentos
+Cada decisão de interface tem a evidência e a verificação registradas em `docs/fundamentos-de-design.md` (psicologia cognitiva, percepção, Gestalt, WCAG, avaliação heurística, métricas e roteiro de teste com usuários). Mudanças novas devem citar o princípio que as justifica ou dizer que são escolha de marca.
+
+## Conteúdo de apoio
+- `scripts/resumos.json`: texto do bloco "Em 30 segundos" das páginas longas (aplicado pelo `build_pages.py`).
+- Glossário (26 termos): lista `GLOSSARIO` em `site.js`; a primeira ocorrência de cada termo no texto vira um botão com a explicação.
+- Busca em toda página: botão "Buscar" do cabeçalho e atalho "/", que levam à busca do assistente (`/assistente.html?q=...#busca`).
+
 ## Sistema de design
 - **Identidade do Prumo (preservar):** fundo papel, azul-marinho e dourado, títulos em Georgia, faixas pretas nos sobretítulos, barra dourada sob os títulos de seção, contorno escuro com sombra dourada deslocada em cartões e botões, etiquetas douradas inclinadas e a máquina de escrever da página inicial. Melhorias devem evoluir o que existe, não trocar essa identidade (seção 13 de `site.css`).
 - `site.css` é uma camada única organizada por tokens (cores com função, tipografia, espaçamento de 4 px, raios). Para mudar a aparência, mude os tokens no topo do arquivo; os componentes só usam variáveis.
