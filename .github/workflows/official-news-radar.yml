@@ -19,15 +19,26 @@ jobs:
         with:
           python-version: "3.x"
       - name: Consultar feed público oficial
+        id: noticias
+        continue-on-error: true
         run: python scripts/update_news.py
-      - name: Publicar alterações do radar
+      - name: Atualizar a Selic mensal (Banco Central, série 4390)
+        id: selic
+        continue-on-error: true
+        run: python scripts/update_selic.py
+      - name: Publicar alterações
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add noticias.json
+          git add noticias.json selic.json
           if git diff --cached --quiet; then
-            echo "Sem alterações no radar."
+            echo "Sem alterações no radar nem na Selic."
           else
-            git commit -m "Atualiza radar de publicações oficiais"
+            git commit -m "Atualiza radar de publicações oficiais e Selic"
             git push
           fi
+      - name: Sinalizar fonte que falhou
+        if: steps.noticias.outcome == 'failure' || steps.selic.outcome == 'failure'
+        run: |
+          echo "Radar: ${{ steps.noticias.outcome }} · Selic: ${{ steps.selic.outcome }}"
+          exit 1

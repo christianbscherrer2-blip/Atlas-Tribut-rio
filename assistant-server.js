@@ -64,6 +64,31 @@ async function sendNews(res, origin) {
   }
 }
 
+// Selic acumulada no mês (Banco Central, série SGS 4390): reserva para o robô que atualiza selic.json.
+const SELIC_URL = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4390/dados?formato=json&dataInicial=01/01/2010";
+const SELIC_TTL_MS = 6 * 60 * 60 * 1000;
+let selicCache = null;
+
+async function sendSelic(res, origin) {
+  if (selicCache && Date.now() - selicCache.at < SELIC_TTL_MS) return send(res, 200, selicCache.data, origin);
+  try {
+    const r = await fetch(SELIC_URL, { headers: { "User-Agent": "PrumoSelic/1.0", "Accept": "application/json" }, signal: AbortSignal.timeout(20000) });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const lista = JSON.parse((await r.text()).slice(0, 2000000));
+    const meses = (Array.isArray(lista) ? lista : [])
+      .filter(i => i && /^\d{2}\/\d{2}\/\d{4}$/.test(i.data) && /^-?\d+(\.\d+)?$/.test(String(i.valor)))
+      .map(i => ({ data: i.data, valor: String(i.valor) }));
+    if (meses.length < 12) throw new Error("serie curta");
+    selicCache = { at: Date.now(), data: { fonte: "BCB SGS 4390", meses } };
+    return send(res, 200, selicCache.data, origin);
+  } catch (error) {
+    const detail = String((error && error.cause && error.cause.code) || (error && error.message) || "erro").slice(0, 120);
+    console.error("Falha ao ler a Selic do Banco Central", { detail });
+    if (selicCache) return send(res, 200, selicCache.data, origin);
+    return send(res, 502, { error: "Nao consegui ler a Selic agora.", detail }, origin);
+  }
+}
+
 const systemPrompt = `Você é o Assistente Educativo do Prumo, em português do Brasil.
 Sua missão é explicar conceitos para leigos com frases simples, sem juridiquês desnecessário.
 Escopo: noções gerais de direito tributário e previdenciário brasileiro, tributos e competências, MEI/SIMEI, Simples, Lucro Presumido/Real, reforma do consumo, consulta de débitos, dívida ativa, restituição/compensação, DCTFWeb/eSocial e caminhos para fontes oficiais.
@@ -123,6 +148,9 @@ const server = http.createServer(async (req, res) => {
   }
   if (req.method === "GET" && url.pathname === "/api/noticias") {
     return sendNews(res, origin);
+  }
+  if (req.method === "GET" && url.pathname === "/api/selic") {
+    return sendSelic(res, origin);
   }
   if (req.method !== "POST" || url.pathname !== "/api/assist") {
     return send(res, 404, { error: "Caminho não encontrado." }, origin);

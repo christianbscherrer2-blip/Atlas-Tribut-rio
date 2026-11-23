@@ -71,6 +71,18 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | Alvos de toque de pelo menos 24 px; botões com 44 px | O tempo para acertar depende do tamanho e da distância do alvo | Fitts (1954); WCAG 2.2, 2.5.8. Forte |
 | Bloqueio de CPF e CNPJ na busca e na IA; calculadoras mostram as premissas | Prevenir o erro em vez de só avisar depois | Nielsen (1994), heurística 5; Norman (1988). Forte |
 
+## 6b. Ferramentas (Fase 3)
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **"Que documento é este?"** parte de quem enviou o documento e mostra os mesmos quatro rótulos em todo cartão (como reconhecer, o que significa, primeiro passo, prazo) | Reconhecimento em vez de evocação; estrutura repetida vira esquema e acelera a leitura das próximas fichas | Nielsen (1994), heurística 6; Sweller (1988), aquisição de esquemas. Forte |
+| Prazos citados só quando estão fixados em lei, com o artigo ao lado; nos demais, "o indicado no documento" | Prevenção de erro: um prazo genérico errado é mais perigoso que nenhum | Nielsen (1994), heurística 5. Forte |
+| **Calculadora de multa e juros** abre com um exemplo preenchido e mostra cada parcela com a regra usada | Exemplo resolvido reduz a carga de quem aprende o cálculo; transparência permite conferir | Sweller e Cooper (1985), efeito do exemplo resolvido, *Cognition and Instruction*. Forte |
+| Validação enquanto a pessoa digita, com mensagem que diz como corrigir | Prevenir e explicar o erro no momento | Nielsen (1994), heurísticas 5 e 9. Forte |
+| Aviso explícito quando a Selic de um mês ainda não foi publicada | Visibilidade do estado e honestidade sobre a incerteza | Nielsen (1994), heurística 1. Forte |
+| Coluna de texto alinhada à esquerda e números à direita | Texto alinhado à direita é lido mais devagar; números alinhados à direita facilitam comparar casas decimais | Convenção tipográfica consolidada. Moderada |
+| **Plano de ação** da triagem em passos numerados, com copiar e imprimir | A ordem é informação; registrar o plano fora da cabeça libera a memória de trabalho | Risko e Gilbert (2016), descarregamento cognitivo, *Trends in Cognitive Sciences*. Moderada |
+
 ---
 
 ## 7. Avaliação heurística (estado após a Fase 2)
@@ -153,6 +165,8 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Piepenbrock, C.; Mayr, S.; Mund, I.; Buchner, A. (2013). Positive display polarity is advantageous for both younger and older adults. *Ergonomics*, 56(7).
 - Reber, R.; Schwarz, N.; Winkielman, P. (2004). Processing fluency and aesthetic pleasure. *Personality and Social Psychology Review*, 8(4).
 - Rello, L.; Pielot, M.; Marcos, M.-C. (2016). Make it big! The effect of font size and line spacing on online readability. *CHI '16*.
+- Risko, E. F.; Gilbert, S. J. (2016). Cognitive offloading. *Trends in Cognitive Sciences*, 20(9).
+- Sweller, J.; Cooper, G. A. (1985). The use of worked examples as a substitute for problem solving in learning algebra. *Cognition and Instruction*, 2(1).
 - Sauro, J.; Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. *CHI '09*.
 - Sweller, J. (1988). Cognitive load during problem solving. *Cognitive Science*, 12(2).
 - Treisman, A. M.; Gelade, G. (1980). A feature-integration theory of attention. *Cognitive Psychology*, 12(1).
