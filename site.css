@@ -503,6 +503,32 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .painelFiltros label{display:grid;gap:4px;font-weight:600;font-size:var(--fs-sm)}
 .painelFiltros select{min-height:44px;padding:0 var(--s3);border:2px solid var(--hard);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit}
 
+/* ---------- 13g. Selos de situação jurídica e calculadoras da jornada ---------- */
+/* Texto + cor + forma: a situação nunca depende só da cor (WCAG 1.4.1) */
+.selo{display:inline-block;font:700 var(--fs-xs)/1.2 var(--font-text);letter-spacing:.02em;padding:3px 8px;border-radius:3px;border:1.5px solid var(--hard);vertical-align:middle;white-space:nowrap}
+.seloVigente{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.seloRegula{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.seloSimula{background:transparent;color:var(--ink);border-style:dashed}
+.seloLegenda{list-style:none;padding:0;margin:var(--s3) 0;display:grid;gap:var(--s2)}
+.seloLegenda li{display:flex;gap:var(--s3);align-items:baseline;flex-wrap:wrap}
+.toolGrid select{width:100%;min-height:44px;padding:var(--s2) var(--s3);border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--surface);color:var(--ink);font:inherit}
+.toolGrid select:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--brand)}
+.toolOut td small,.toolOut th small{color:var(--muted);font-weight:400}
+.proInteresse .btnPrimary[disabled]{opacity:.6;cursor:default}
+
+/* Página inicial: caminhos por papel e destaques (identidade: contorno escuro e sombra dourada) */
+.caminhos{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin-top:var(--s4)}
+.caminho{background:var(--surface);border:2px solid var(--hard);border-radius:4px;box-shadow:6px 6px 0 var(--offset);padding:var(--s4) var(--s5)}
+.caminho h3{margin:0 0 var(--s1);font-family:var(--font-display)}
+.caminho p{margin:0 0 var(--s3);color:var(--muted);font-size:var(--fs-sm)}
+.caminho ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+.caminho li a{display:block;padding:6px 0;min-height:24px;font-weight:600;line-height:1.35}
+.caminho li a::after{content:" →"}
+.destaques{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:var(--s4)}
+.destaque{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--shadow-1)}
+.destaque h3{margin:var(--s3) 0 var(--s2);font-size:var(--fs-xl);font-family:var(--font-display)}
+.destaque .pathlinks{margin-top:var(--s4)}
+
 /* ---------- 13c. Guia introdutório (guia-tributos-previdencia.html) ---------- */
 .guia .wrap{max-width:none}
 .guia .sectionHead{max-width:var(--measure);margin-bottom:var(--s5)}

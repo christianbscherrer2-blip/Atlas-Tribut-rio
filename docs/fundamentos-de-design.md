@@ -93,6 +93,18 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | **Agenda** mostra a regra do prazo e a base legal, e manda para a Agenda Tributária oficial para a data exata | Uma data calculada errada causa multa; a fonte oficial resolve dias úteis e feriados | Nielsen (1994), heurística 5 (prevenção de erro). Forte |
 | Teto diário de perguntas à IA (`OPENAI_MAX_DIARIO`) | Custo previsível; quando o teto é atingido, a mensagem indica a alternativa gratuita | Prevenção e recuperação de erro (heurísticas 5 e 9). Forte |
 
+## 6e. Jornada de trabalho e página inicial por papel (Fase 6, etapa 1)
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **Selos "Em vigor", "Aguardando regulamentação" e "Simulação"** em regras, cálculos e escalas | Distinguir norma de hipótese reduz erro de interpretação; o selo usa texto, cor e forma (contorno tracejado na simulação), nunca só cor | WCAG 2.2, critério 1.4.1; Nielsen (1994), heurísticas 2 e 5. Forte |
+| Conta aberta em cada calculadora (fórmula, divisor, base legal) | Transparência aumenta a confiança e permite conferir; evita que um número isolado vire âncora | Tversky e Kahneman (1974), ancoragem; Nielsen (1994), heurística 1. Moderada |
+| Tabela "mesmo salário, jornada menor" e as três opções da empresa (horas extras, contratar, reorganizar) lado a lado | Comparar alternativas explícitas melhora a decisão em relação a avaliar uma opção isolada | Hsee (1996), avaliação conjunta × separada. Moderada |
+| Exemplos já preenchidos nas calculadoras | Um caso pronto mostra o que a ferramenta faz e reduz o esforço inicial | Sweller e Cooper (1985), efeito do exemplo resolvido. Moderada |
+| **Página inicial: três caminhos por papel** (trabalhador, empresa, contador ou advogado) antes dos temas | Menos opções na primeira decisão e rótulos em que a pessoa se reconhece; o menu por tema continua para quem não quer se identificar | Hick (1952) e Hyman (1953); Nielsen Norman Group, navegação por público. Moderada |
+| Dois destaques (6x1 e execução fiscal) com uma ação principal e uma secundária cada | Hierarquia visual clara e ação primária única por bloco | Nielsen (1994), heurística 8; Fitts (1954). Moderada |
+| Botão "Tenho interesse" no plano Pro, só contado | Medir demanda antes de construir login e pagamento | Kohavi, Tang e Xu (2020). Forte |
+
 ## 6d. Medição contínua (Fase 5)
 
 | Decisão | Princípio | Evidência |
@@ -177,10 +189,13 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
 - ISO 24495-1:2023. Plain language — Part 1: Governing principles and guidelines.
 - Kohavi, R.; Tang, D.; Xu, Y. (2020). *Trustworthy Online Controlled Experiments*. Cambridge University Press.
+- Hick, W. E. (1952). On the rate of gain of information. *Quarterly Journal of Experimental Psychology*, 4(1).
+- Hsee, C. K. (1996). The evaluability hypothesis. *Organizational Behavior and Human Decision Processes*, 67(3).
 - Krosnick, J. A. (1991). Response strategies for coping with the cognitive demands of attitude measures in surveys. *Applied Cognitive Psychology*, 5(3).
 - Mayer, R. E. (2009). *Multimedia Learning* (2ª ed.). Cambridge University Press.
 - Mayer, R. E.; Mathias, A.; Wetzell, K. (2002). Fostering understanding of multimedia messages through pre-training. *Journal of Experimental Psychology: Applied*, 8(3).
 - Miller, G. A. (1956). The magical number seven, plus or minus two. *Psychological Review*, 63(2).
+- Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
 - Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. *CHI '94*.
 - Rosenfeld, L.; Morville, P.; Arango, J. (2015). *Information Architecture: For the Web and Beyond*. 4. ed. O'Reilly.
 - Nielsen, J.; Landauer, T. K. (1993). A mathematical model of the finding of usability problems. *INTERCHI '93*.
@@ -194,6 +209,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Sweller, J.; Cooper, G. A. (1985). The use of worked examples as a substitute for problem solving in learning algebra. *Cognition and Instruction*, 2(1).
 - Sauro, J.; Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. *CHI '09*.
 - Sweller, J. (1988). Cognitive load during problem solving. *Cognitive Science*, 12(2).
+- Tversky, A.; Kahneman, D. (1974). Judgment under uncertainty: heuristics and biases. *Science*, 185(4157).
 - Treisman, A. M.; Gelade, G. (1980). A feature-integration theory of attention. *Cognitive Psychology*, 12(1).
 - von Restorff, H. (1933). Über die Wirkung von Bereichsbildungen im Spurenfeld. *Psychologische Forschung*, 18.
 - W3C (2023). *Web Content Accessibility Guidelines (WCAG) 2.2*.

@@ -12,7 +12,8 @@
     plano_acao: 'Plano de ação montado na triagem', plano_copiado: 'Plano de ação copiado', plano_impresso: 'Plano de ação impresso',
     busca: 'Buscas no assistente', busca_vazia: 'Buscas sem resultado', ia_pergunta: 'Perguntas à IA',
     calculo_acrescimos: 'Cálculos de multa e juros', glossario: 'Termos do glossário abertos',
-    regime_escolhido: 'Regime da empresa escolhido', tema_trocado: 'Troca de tema claro/escuro'
+    regime_escolhido: 'Regime da empresa escolhido', tema_trocado: 'Troca de tema claro/escuro',
+    calculo_jornada: 'Cálculos da jornada (6x1)', interesse_pro: 'Interesse no plano Pro'
   };
   var ORIGENS = { direta: 'Acesso direto ou link salvo', buscador: 'Buscadores (Google, Bing etc.)', outro_site: 'Links em outros sites', interna: 'Navegação dentro do Prumo' };
   var MOTIVOS = { faltou_informacao: 'Faltou informação', dificil_entender: 'Difícil de entender', desatualizado: 'Parece desatualizado', nao_era_isso: 'Não era o que buscava' };
