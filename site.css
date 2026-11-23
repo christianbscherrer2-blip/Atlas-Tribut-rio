@@ -440,7 +440,7 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .searchDialog .fine{margin:var(--s3) 0 0}
 .searchClose{position:absolute;top:-6px;right:-6px;width:44px;height:44px;border:2px solid var(--hard);border-radius:4px;background:var(--surface);color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer}
 .searchClose:hover{background:var(--surface-2)}
-.term{display:inline;font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:help;text-decoration:underline dotted var(--accent-strong);text-decoration-thickness:2px;text-underline-offset:3px}
+.term{display:inline;font:inherit;color:inherit;background:none;border:0;padding:4px 2px;margin:-4px -2px;border-radius:3px;cursor:help;text-decoration:underline dotted var(--accent-strong);text-decoration-thickness:2px;text-underline-offset:3px}
 .term:hover,.term[aria-expanded=true]{background:var(--accent-soft)}
 .termTip{position:absolute;z-index:45;max-width:min(340px,calc(100vw - 32px));background:var(--surface);color:var(--ink);border:2px solid var(--hard);border-radius:4px;box-shadow:6px 6px 0 var(--offset);padding:var(--s3) var(--s4);font:400 var(--fs-sm)/1.5 var(--font-text);text-align:left}
 .termTip b{display:block;margin-bottom:2px}
