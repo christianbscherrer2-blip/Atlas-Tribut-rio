@@ -3,7 +3,7 @@
   "q": "recebi notificação da receita",
   "ok": [
    "/empresa.html",
-   "/processos.html",
+   "/documentos.html",
    "/artigos/primeiros-passos-pendencia.html"
   ]
  },
@@ -60,9 +60,10 @@
   ]
  },
  {
-  "q": "carteira de trabalho digital",
+  "q": "pró-labore paga INSS",
   "ok": [
-   "/trabalho-empresa.html"
+   "/trabalho-empresa.html",
+   "/previdenciario.html"
   ]
  },
  {
@@ -129,16 +130,19 @@
   ]
  },
  {
-  "q": "diferença entre direito material e processual",
+  "q": "suspensão da exigibilidade do crédito tributário",
   "ok": [
-   "/processos.html",
-   "/administrativo.html"
+   "/execucao-fiscal.html",
+   "/tributario.html",
+   "/empresa.html"
   ]
  },
  {
-  "q": "princípios da administração pública",
+  "q": "contribuição patronal no simples anexo IV",
   "ok": [
-   "/administrativo.html"
+   "/trabalho-empresa.html",
+   "/regimes.html",
+   "/previdenciario.html"
   ]
  },
  {
@@ -151,13 +155,15 @@
   "q": "prescrição intercorrente",
   "ok": [
    "/execucao-fiscal.html",
-   "/processos.html"
+   "/execucao-fiscal-ferramentas.html"
   ]
  },
  {
-  "q": "NR-1 riscos psicossociais",
+  "q": "reoneração da folha e contribuição ao INSS",
   "ok": [
-   "/mudancas.html"
+   "/mudancas.html",
+   "/previdenciario.html",
+   "/trabalho-empresa.html"
   ]
  },
  {
