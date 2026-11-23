@@ -36,7 +36,21 @@
         origemVisita = hRef === location.hostname ? 'interna' : /(^|\.)(google|bing|duckduckgo|yahoo|ecosia|yandex|brave)\./.test(hRef) ? 'buscador' : 'outro_site';
       }
     } catch (e) {}
-    enviarMedida({ t: 'v', p: caminho, r: origemVisita }, false);
+    /* Links divulgados com ?origem=linkedin (ou utm_source) contam como campanha; o parâmetro sai do
+       endereço para não se espalhar quando a pessoa compartilha a página. */
+    var campanha = '';
+    try {
+      var qs = new URLSearchParams(location.search), bruto = qs.get('origem') || qs.get('utm_source') || '';
+      campanha = bruto.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
+      if (bruto) {
+        ['origem', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { qs.delete(k); });
+        var resto = qs.toString();
+        history.replaceState(history.state, '', location.pathname + (resto ? '?' + resto : '') + location.hash);
+      }
+    } catch (e) {}
+    var visita = { t: 'v', p: caminho, r: origemVisita };
+    if (campanha.length >= 2) visita.c = campanha;
+    enviarMedida(visita, false);
   }
 
   /* Avisos com data de validade: somem sozinhos depois do prazo (evita urgência desatualizada) */

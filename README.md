@@ -36,6 +36,11 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 ## Qualidade da busca do assistente
 `python3 scripts/eval_assistant.py` mede acerto na 1ª posição (hit@1) e entre as 3 primeiras (hit@3) com `tests/queries.json` (ajuste) e `tests/queries_validacao.json` (validação, não use para ajustar). Meta: hit@3 ≥ 85%. Ao mudar a busca, meça antes e depois.
 
+## Divulgação e busca
+- `docs/kit-divulgacao.md`: passo a passo do Search Console e do Bing, links marcados, textos prontos e calendário.
+- Links marcados: `?origem=nome` (ou `utm_source`) em qualquer endereço vira uma campanha no painel; o parâmetro sai do endereço ao abrir.
+- IndexNow (`.github/workflows/indexnow.yml` + arquivo de chave na raiz): a cada publicação na `main` que muda páginas, avisa Bing e outros buscadores. O Google usa o sitemap enviado no Search Console.
+
 ## Ferramentas
 - `acrescimos.html` + `acrescimos.js`: calculadora de multa de mora e juros Selic de tributo federal pago em atraso (Lei 9.430/1996, art. 61). Usa `selic.json`.
 - `selic.json`: Selic acumulada por mês (Banco Central, série SGS 4390), só meses encerrados. Atualizado por `scripts/update_selic.py` no mesmo robô do radar; reserva em `/api/selic` do servidor do assistente.

@@ -87,6 +87,10 @@
     $('#painelOrigens').innerHTML = tabela('Como as visitas chegaram ao Prumo', ['Origem', 'Visitas', 'Parte'],
       Object.keys(ORIGENS).filter(function (k) { return org[k]; }).sort(function (a, b) { return org[b] - org[a]; }).map(function (k) { return [esc(ORIGENS[k]), num.format(org[k]), pct(org[k], totalOrg)]; }), 'Sem dados de origem neste mês.');
 
+    var camps = dados.campanhas || {};
+    $('#painelCampanhas').innerHTML = tabela('Visitas que chegaram por links marcados com ?origem=', ['Campanha', 'Visitas'],
+      Object.keys(camps).sort(function (a, b) { return camps[b] - camps[a]; }).map(function (k) { return [esc(k), num.format(camps[k])]; }), 'Nenhum link marcado foi usado neste mês. Veja o kit de divulgação para marcar os links que você compartilha.');
+
     var termos = dados.buscas_vazias || {};
     $('#painelBuscas').innerHTML = tabela('Termos buscados que não encontraram nenhum trecho', ['Termo buscado', 'Vezes'],
       Object.keys(termos).sort(function (a, b) { return termos[b] - termos[a]; }).slice(0, 20).map(function (t) { return [esc(t), num.format(termos[t])]; }), 'Nenhuma busca sem resultado registrada neste mês.');

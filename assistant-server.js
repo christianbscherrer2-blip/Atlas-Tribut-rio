@@ -107,7 +107,7 @@ const metMeses = new Map(); // "AAAA-MM" -> { base, delta, carregado, sha }
 let metUltimaGravacao = "";
 
 function mesAtual() { return new Date().toISOString().slice(0, 7); }
-function metVazio(mes) { return { mes, paginas: {}, eventos: {}, origens: {}, buscas_vazias: {}, dias: {} }; }
+function metVazio(mes) { return { mes, paginas: {}, eventos: {}, origens: {}, buscas_vazias: {}, dias: {}, campanhas: {} }; }
 // Painel privado: só quem tem a chave pessoal lê os números. O repositório guarda apenas o hash SHA-256 da chave.
 const PAINEL_HASH = process.env.PAINEL_CHAVE_HASH || "085aeb94a371e535d9c16d16ca74499fb0b59e52059a525928c394426eb4adda";
 const crypto = require("node:crypto");
@@ -129,7 +129,7 @@ function metMesclar(alvo, extra) {
     a.visitas += d.visitas || 0; a.sim += d.sim || 0; a.nao += d.nao || 0;
     for (const [m, n] of Object.entries(d.motivos || {})) somar(a.motivos, m, n);
   }
-  for (const k of ["eventos", "origens", "buscas_vazias", "dias"]) {
+  for (const k of ["eventos", "origens", "buscas_vazias", "dias", "campanhas"]) {
     if (!alvo[k]) alvo[k] = {};
     for (const [c, n] of Object.entries(extra[k] || {})) somar(alvo[k], c, n);
   }
@@ -183,7 +183,7 @@ async function metGravar() {
   metGravando = true;
   try {
     for (const [mes, m] of metMeses) {
-      const temDelta = Object.keys(m.delta.paginas).length || Object.keys(m.delta.eventos).length || Object.keys(m.delta.origens).length || Object.keys(m.delta.buscas_vazias).length || Object.keys(m.delta.dias).length;
+      const temDelta = Object.keys(m.delta.paginas).length || Object.keys(m.delta.eventos).length || Object.keys(m.delta.origens).length || Object.keys(m.delta.buscas_vazias).length || Object.keys(m.delta.dias).length || Object.keys(m.delta.campanhas).length;
       if (!temDelta) continue;
       await metGarantirBranch();
       const enviado = m.delta; m.delta = metVazio(mes);
@@ -242,6 +242,11 @@ async function receberMetrica(req, res, origin) {
     recentes.push({ t: now, p });
     while (recentes.length && (recentes[0].t < now - 30 * 60 * 1000 || recentes.length > 5000)) recentes.shift();
     if (MET_ORIGENS.has(d.r)) somar(delta.origens, d.r, 1);
+    // Campanha: rótulo do link divulgado (?origem=linkedin). Só letras, números e hífen; no máximo 50 por mês.
+    if (typeof d.c === "string" && /^[a-z0-9-]{2,24}$/.test(d.c)) {
+      const camps = new Set([...Object.keys(m.base.campanhas || {}), ...Object.keys(delta.campanhas)]);
+      if (camps.has(d.c) || camps.size < 50) somar(delta.campanhas, d.c, 1);
+    }
   } else if (d.t === "f" && (d.s === "sim" || d.s === "nao")) {
     pag()[d.s] += 1;
   } else if (d.t === "m" && MET_MOTIVOS.has(d.m)) {

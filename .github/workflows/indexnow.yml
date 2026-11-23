@@ -1,0 +1,38 @@
+# Avisa Bing, Yandex e outros buscadores do protocolo IndexNow quando páginas mudam.
+# O Google não usa IndexNow: para ele, basta o sitemap enviado no Search Console.
+# O endereço do site é lido do sitemap.xml (acompanha scripts/set_domain.py); a chave fica em 8dc0975ff50e599e04bdac2c9a3b1fcd.txt.
+name: indexnow
+on:
+  push:
+    branches: [main]
+    paths: ["**.html", "sitemap.xml"]
+  workflow_dispatch:
+jobs:
+  avisar:
+    runs-on: ubuntu-latest
+    env:
+      CHAVE: 8dc0975ff50e599e04bdac2c9a3b1fcd
+    steps:
+      - uses: actions/checkout@v4
+      - name: Esperar o Render publicar a versão nova
+        run: |
+          SITE=$(grep -o '<loc>[^<]*' sitemap.xml | head -1 | sed 's/<loc>//; s#/$##')
+          for i in $(seq 1 40); do
+            if curl -fsS "$SITE/$CHAVE.txt" | grep -q "$CHAVE"; then exit 0; fi
+            sleep 15
+          done
+          echo "A chave do IndexNow não ficou disponível no site"; exit 1
+      - name: Enviar as páginas do sitemap
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.parse, urllib.request
+          urls = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml", encoding="utf-8").read())
+          base = urllib.parse.urlsplit(urls[0])
+          chave = os.environ["CHAVE"]
+          corpo = json.dumps({"host": base.netloc, "key": chave,
+                              "keyLocation": f"{base.scheme}://{base.netloc}/{chave}.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", data=corpo,
+                                       headers={"Content-Type": "application/json; charset=utf-8"})
+          with urllib.request.urlopen(req, timeout=30) as r:
+              print("IndexNow:", r.status, len(urls), "páginas")
+          PY
