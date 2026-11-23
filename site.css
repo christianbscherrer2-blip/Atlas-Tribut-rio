@@ -82,7 +82,7 @@ table{border-collapse:collapse}
 .skip:focus,.skipLink:focus{left:var(--s3);top:var(--s3);background:var(--accent);color:var(--accent-ink);padding:var(--s2) var(--s4);border-radius:var(--r-sm);font-weight:700}
 .top{position:sticky;top:0;z-index:30;background:var(--brand);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
 .topin{max-width:var(--page);margin:0 auto;min-height:64px;display:flex;align-items:center;gap:var(--s4);padding:0 max(var(--s5),env(safe-area-inset-right,0px)) 0 max(var(--s5),env(safe-area-inset-left,0px))}
-.brand{font:700 1.15rem/1.2 var(--font-display);color:var(--brand-ink);text-decoration:none;margin-right:auto;white-space:nowrap}
+.brand{display:inline-flex;align-items:center;min-height:44px;font:700 1.15rem/1.2 var(--font-display);color:var(--brand-ink);text-decoration:none;margin-right:auto;white-space:nowrap}
 .brand em{font:500 var(--fs-xs)/1 var(--font-text);font-style:normal;color:var(--accent);letter-spacing:.02em;margin-left:var(--s2)}
 .brand:hover{color:var(--brand-ink)}
 .siteNav{display:flex;align-items:center;gap:var(--s1)}
