@@ -95,7 +95,12 @@ async function sendSelic(res, origin) {
 // sem ele, ficam só na memória do servidor até ele reiniciar.
 const MET_REPO = process.env.METRICAS_REPO || "christianbscherrer2-blip/Atlas-Tribut-rio";
 const MET_BRANCH = process.env.METRICAS_BRANCH || "metricas";
-const MET_TOKEN = process.env.METRICAS_GITHUB_TOKEN || "";
+// Limpa espaços, quebras de linha e aspas que às vezes vêm junto ao colar o token no painel do Render
+const MET_TOKEN = String(process.env.METRICAS_GITHUB_TOKEN || "").trim().replace(/^["'\s]+|["'\s]+$/g, "");
+if (MET_TOKEN) {
+  // Diagnóstico sem expor o segredo: só o formato
+  console.log("Métricas: token configurado", { formato: /^github_pat_[A-Za-z0-9_]{20,}$/.test(MET_TOKEN) ? "github_pat ok" : /^ghp_[A-Za-z0-9]{20,}$/.test(MET_TOKEN) ? "ghp ok" : "formato inesperado", tamanho: MET_TOKEN.length });
+}
 const MET_EVENTOS = new Set(["calculo_acrescimos", "plano_acao", "plano_copiado", "plano_impresso", "busca", "busca_vazia", "ia_pergunta", "glossario", "regime_escolhido", "tema_trocado", "calculo_jornada", "interesse_pro", "calculo_execucao", "cda_organizada"]);
 const MET_ORIGENS = new Set(["interna", "buscador", "outro_site", "direta"]);
 const MET_MOTIVOS = new Set(["faltou_informacao", "dificil_entender", "desatualizado", "nao_era_isso"]);
