@@ -1,0 +1,21 @@
+{
+ "mes": "2026-11",
+ "paginas": {
+  "/sobre.html": {
+   "visitas": 1,
+   "sim": 0,
+   "nao": 0,
+   "motivos": {}
+  }
+ },
+ "eventos": {},
+ "origens": {
+  "direta": 1
+ },
+ "buscas_vazias": {},
+ "dias": {
+  "2026-11-23": 1
+ },
+ "campanhas": {},
+ "atualizado_em": "2026-11-23T20:26:40.281Z"
+}
