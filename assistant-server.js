@@ -96,7 +96,7 @@ async function sendSelic(res, origin) {
 const MET_REPO = process.env.METRICAS_REPO || "christianbscherrer2-blip/Atlas-Tribut-rio";
 const MET_BRANCH = process.env.METRICAS_BRANCH || "metricas";
 const MET_TOKEN = process.env.METRICAS_GITHUB_TOKEN || "";
-const MET_EVENTOS = new Set(["calculo_acrescimos", "plano_acao", "plano_copiado", "plano_impresso", "busca", "busca_vazia", "ia_pergunta", "glossario", "regime_escolhido", "tema_trocado", "calculo_jornada", "interesse_pro"]);
+const MET_EVENTOS = new Set(["calculo_acrescimos", "plano_acao", "plano_copiado", "plano_impresso", "busca", "busca_vazia", "ia_pergunta", "glossario", "regime_escolhido", "tema_trocado", "calculo_jornada", "interesse_pro", "calculo_execucao", "cda_organizada"]);
 const MET_ORIGENS = new Set(["interna", "buscador", "outro_site", "direta"]);
 const MET_MOTIVOS = new Set(["faltou_informacao", "dificil_entender", "desatualizado", "nao_era_isso"]);
 const MET_MAX_PAGINAS = 300;

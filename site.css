@@ -514,6 +514,11 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .toolGrid select{width:100%;min-height:44px;padding:var(--s2) var(--s3);border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--surface);color:var(--ink);font:inherit}
 .toolGrid select:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--brand)}
 .toolOut td small,.toolOut th small{color:var(--muted);font-weight:400}
+/* Selos e notas dentro do cabeçalho azul-marinho das tabelas (identidade): cores próprias para manter o contraste */
+.toolOut th small,.tableWrap th small{color:inherit;opacity:.9}
+.toolOut th .seloVigente,.tableWrap th .seloVigente{background:#e3c47a;color:#0c1a33;border-color:#e3c47a}
+.toolOut th .seloRegula,.tableWrap th .seloRegula{background:#f1e7c9;color:#0c1a33;border-color:#f1e7c9}
+.toolOut th .seloSimula,.tableWrap th .seloSimula{background:transparent;color:#e3c47a;border-color:#e3c47a}
 .proInteresse .btnPrimary[disabled]{opacity:.6;cursor:default}
 
 /* Página inicial: caminhos por papel e destaques (identidade: contorno escuro e sombra dourada) */
@@ -528,6 +533,14 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .destaque{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--shadow-1)}
 .destaque h3{margin:var(--s3) 0 var(--s2);font-size:var(--fs-xl);font-family:var(--font-display)}
 .destaque .pathlinks{margin-top:var(--s4)}
+
+/* Ferramentas de execução fiscal */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#cdas{min-width:0}
+#cdaTabelaWrap{display:block;max-width:100%;overflow-x:auto;position:relative}
+.cdaBotoes{white-space:nowrap}
+.cdaBotoes .linkbtn{padding:4px 10px;min-height:36px;margin:2px}
+@media print{body.imprimindoCdas *{visibility:hidden}body.imprimindoCdas #cdas,body.imprimindoCdas #cdas *{visibility:visible}body.imprimindoCdas #cdas{position:absolute;left:0;top:0;width:100%}body.imprimindoCdas #cdaForm,body.imprimindoCdas #cdaAcoes,body.imprimindoCdas .cdaBotoes{display:none!important}}
 
 /* ---------- 13c. Guia introdutório (guia-tributos-previdencia.html) ---------- */
 .guia .wrap{max-width:none}

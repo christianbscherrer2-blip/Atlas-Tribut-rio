@@ -105,6 +105,17 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | Dois destaques (6x1 e execução fiscal) com uma ação principal e uma secundária cada | Hierarquia visual clara e ação primária única por bloco | Nielsen (1994), heurística 8; Fitts (1954). Moderada |
 | Botão "Tenho interesse" no plano Pro, só contado | Medir demanda antes de construir login e pagamento | Kohavi, Tang e Xu (2020). Forte |
 
+## 6f. Ferramentas de execução fiscal (Fase 6, etapa 2)
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| Regras conferidas no texto oficial (Planalto) antes de programar; portaria não confirmada na fonte marcada como "Depende" | Precisão e transparência sobre o grau de certeza de cada número | Nielsen (1994), heurística 5 (prevenção de erros). Forte |
+| **Prazos em duas colunas** (dias corridos e dias úteis), com a orientação de usar a data mais cedo | A aplicação do CPC aos prazos da LEF é controvertida; mostrar as duas evita uma certeza falsa e protege contra a perda do prazo | Princípio da precaução; Nielsen (1994), heurística 5. Forte |
+| Atualização do débito "levada" para o simulador com um botão | Reaproveitar dados digitados reduz retrabalho e erro de transcrição | Nielsen (1994), heurística 7 (eficiência). Moderada |
+| À vista, parcelamento e transação lado a lado, com o total projetado | Avaliação conjunta de alternativas melhora a decisão | Hsee (1996). Moderada |
+| Carteira de CDAs só no navegador, com exportação para planilha e bloqueio de CPF e CNPJ | Privacidade por padrão e portabilidade dos dados | LGPD, art. 6º, III (necessidade). Norma |
+| Prazos baixados para a agenda do celular (.ics), com lembrete 3 dias antes | Lembretes externos compensam a memória prospectiva falha | Einstein e McDaniel (1990), memória prospectiva. Moderada |
+
 ## 6d. Medição contínua (Fase 5)
 
 | Decisão | Princípio | Evidência |
@@ -184,6 +195,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Cowan, N. (2001). The magical number 4 in short-term memory. *Behavioral and Brain Sciences*, 24(1).
 - Dyson, M. C.; Haselgrove, M. (2001). The influence of reading speed and line length on the effectiveness of reading from screen. *International Journal of Human-Computer Studies*, 54(4).
 - Findlater, L.; McGrenere, J. (2004). A comparison of static, adaptive, and adaptable menus. *CHI '04*.
+- Einstein, G. O.; McDaniel, M. A. (1990). Normal aging and prospective memory. *Journal of Experimental Psychology: Learning, Memory, and Cognition*, 16(4).
 - Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. *Journal of Experimental Psychology*, 47(6).
 - Hick, W. E. (1952). On the rate of gain of information. *Quarterly Journal of Experimental Psychology*, 4(1).
 - Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
