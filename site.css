@@ -114,6 +114,7 @@ table{border-collapse:collapse}
 .siteFooter p{color:var(--brand-muted);font-size:var(--fs-sm);max-width:62ch;margin:var(--s2) 0 0}
 .footerLinks{display:flex;gap:var(--s2) var(--s5);flex-wrap:wrap;align-items:flex-start}
 .siteFooter a{color:var(--accent);display:inline-block;padding:var(--s1) 0}
+.siteFooter .footerLegal{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid color-mix(in srgb,var(--brand-muted) 35%,transparent);font-size:var(--fs-xs)}
 @media (max-width:900px){
   .navToggle{display:inline-block}
   .topin{flex-wrap:wrap;padding-top:var(--s2);padding-bottom:var(--s2)}

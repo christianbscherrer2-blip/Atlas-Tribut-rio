@@ -2,6 +2,9 @@
 
 Site estático (Render, serviço `atlas-tributario`) + backend opcional do assistente (serviço `atlas-tributario-assistente`).
 
+## Direitos e licença
+Todos os direitos reservados (veja `LICENSE`). O código é protegido pela Lei 9.609/1998 e os textos pela Lei 9.610/1998; o repositório estar visível não autoriza copiar, adaptar ou usar o código ou o conteúdo. Os termos de uso do site ficam em `termos.html`, e o rodapé de todas as páginas traz o aviso de direitos com links para os termos e a privacidade.
+
 ## Fundamentos
 Cada decisão de interface tem a evidência e a verificação registradas em `docs/fundamentos-de-design.md` (psicologia cognitiva, percepção, Gestalt, WCAG, avaliação heurística, métricas e roteiro de teste com usuários). Mudanças novas devem citar o princípio que as justifica ou dizer que são escolha de marca.
 
