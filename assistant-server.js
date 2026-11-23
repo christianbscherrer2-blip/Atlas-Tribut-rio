@@ -8,6 +8,7 @@ const MAX_REQUESTS = 4;
 const MAX_BODY = 4096;
 const MAX_QUESTION = 800;
 const hits = new Map();
+const dailyUse = { day: "", count: 0 };
 
 // Radar de noticias: o servidor le o feed publico da Receita (o GitHub Actions e bloqueado por ela).
 const NEWS_FEED = "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/ultimas-noticias/RSS";
@@ -184,6 +185,13 @@ const server = http.createServer(async (req, res) => {
   if (hasCpf || hasCnpj) {
     return send(res, 400, { error: "Por segurança, não envie CPF/CNPJ. Reformule a pergunta sem dados identificáveis." }, origin);
   }
+  // Teto diário total de perguntas à IA: mantém o gasto previsível (OPENAI_MAX_DIARIO, padrão 200)
+  const hojeUTC = new Date().toISOString().slice(0, 10);
+  if (dailyUse.day !== hojeUTC) { dailyUse.day = hojeUTC; dailyUse.count = 0; }
+  const maxDiario = Math.max(0, Number(process.env.OPENAI_MAX_DIARIO) || 200);
+  if (dailyUse.count >= maxDiario) {
+    return send(res, 429, { error: "O limite diário de perguntas à IA foi atingido. A triagem e a busca do Prumo continuam disponíveis; tente a IA amanhã." }, origin);
+  }
   const key = rateKey(req);
   const now = Date.now();
   const entry = hits.get(key);
@@ -193,6 +201,7 @@ const server = http.createServer(async (req, res) => {
   if (!entry || now >= entry.until) hits.set(key, { count: 1, until: now + WINDOW_MS });
   else entry.count += 1;
 
+  dailyUse.count += 1;
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",

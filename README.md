@@ -38,6 +38,8 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 - `selic.json`: Selic acumulada por mês (Banco Central, série SGS 4390), só meses encerrados. Atualizado por `scripts/update_selic.py` no mesmo robô do radar; reserva em `/api/selic` do servidor do assistente.
 - `documentos.html`: "Que documento é este?", com os documentos fiscais mais comuns, como reconhecer, o que significam, primeiro passo e prazo legal.
 - Triagem do assistente: termina num plano de ação numerado, com copiar e imprimir.
+- `agenda.html`: obrigações recorrentes por regime, com regra de prazo e base legal; links para a Agenda Tributária oficial do mês corrente e do seguinte (gerados em `site.js`).
+- Perfil do regime: seletor em regimes, Reforma, débitos e agenda; guarda a escolha em `localStorage` (`prumo-regime`), destaca o cartão do regime, pré-seleciona os painéis e filtra a agenda. Itens marcados com `data-regime="mei simples presumido real"`.
 - `jornada.js`: calculadora do custo da jornada (página do 6x1). Roda no navegador.
 - `mudancas.js`: filtros de "O que mudou"; guarda a escolha em localStorage.
 
@@ -46,7 +48,7 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 3. IA opcional: só aparece se `GET /health` do backend retornar `enabled: true` (exige `OPENAI_API_KEY`). CPF/CNPJ são bloqueados no navegador e no servidor.
 
 ## Variáveis do backend
-`OPENAI_API_KEY`, `OPENAI_MODEL` (opcional), `SITE_ORIGINS` (opcional, lista separada por vírgula).
+`OPENAI_API_KEY`, `OPENAI_MODEL` (opcional), `OPENAI_MAX_DIARIO` (opcional, teto diário total de perguntas à IA; padrão 200), `SITE_ORIGINS` (opcional, lista separada por vírgula).
 
 ## Domínio
 `python3 scripts/set_domain.py https://www.seudominio.com.br`; no serviço do assistente, defina `SITE_ORIGINS`.

@@ -83,6 +83,16 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | Coluna de texto alinhada à esquerda e números à direita | Texto alinhado à direita é lido mais devagar; números alinhados à direita facilitam comparar casas decimais | Convenção tipográfica consolidada. Moderada |
 | **Plano de ação** da triagem em passos numerados, com copiar e imprimir | A ordem é informação; registrar o plano fora da cabeça libera a memória de trabalho | Risko e Gilbert (2016), descarregamento cognitivo, *Trends in Cognitive Sciences*. Moderada |
 
+## 6c. Personalização e agenda (Fase 4)
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **Perfil do regime escolhido pela pessoa**: o site só destaca o cartão, pré-seleciona a Reforma e o painel de débitos e filtra a agenda; nada muda de lugar sozinho | Interfaces que o usuário ajusta são mais previsíveis e mais bem aceitas que as que se reorganizam automaticamente | Findlater e McGrenere (2004), *CHI*; Nielsen (1994), heurística 3. Moderada |
+| Filtro sempre reversível ("ver todas", "esquecer a escolha") | Controle e liberdade do usuário | Nielsen (1994), heurística 3. Forte |
+| Escolha guardada só no navegador | Privacidade por padrão; nada a enviar ou proteger no servidor | LGPD, art. 6º (necessidade). Norma |
+| **Agenda** mostra a regra do prazo e a base legal, e manda para a Agenda Tributária oficial para a data exata | Uma data calculada errada causa multa; a fonte oficial resolve dias úteis e feriados | Nielsen (1994), heurística 5 (prevenção de erro). Forte |
+| Teto diário de perguntas à IA (`OPENAI_MAX_DIARIO`) | Custo previsível; quando o teto é atingido, a mensagem indica a alternativa gratuita | Prevenção e recuperação de erro (heurísticas 5 e 9). Forte |
+
 ---
 
 ## 7. Avaliação heurística (estado após a Fase 2)
@@ -149,6 +159,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Chandler, P.; Sweller, J. (1991). Cognitive load theory and the format of instruction. *Cognition and Instruction*, 8(4).
 - Cowan, N. (2001). The magical number 4 in short-term memory. *Behavioral and Brain Sciences*, 24(1).
 - Dyson, M. C.; Haselgrove, M. (2001). The influence of reading speed and line length on the effectiveness of reading from screen. *International Journal of Human-Computer Studies*, 54(4).
+- Findlater, L.; McGrenere, J. (2004). A comparison of static, adaptive, and adaptable menus. *CHI '04*.
 - Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. *Journal of Experimental Psychology*, 47(6).
 - Hick, W. E. (1952). On the rate of gain of information. *Quarterly Journal of Experimental Psychology*, 4(1).
 - Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).

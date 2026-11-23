@@ -157,8 +157,8 @@
       }
     }
 
-    var T = {'/documentos.html':['Que documento é este?','Identifique a carta que chegou'],'/acrescimos.html':['Calculadora de multa e juros','Tributo federal pago em atraso'],'/empresa.html':['Débitos e regularização','Órgão, fase e opções'],'/execucao-fiscal.html':['Execução fiscal','Processo, CDAs e negociação'],'/inadimplencia.html':['Se a empresa não regulariza','O que acontece, fase a fase'],'/parr.html':['PARR','Quando a dívida chega ao sócio'],'/gestao.html':['Gestão fiscal','Prazos, responsáveis e provas'],'/regimes.html':['Regimes e rotina','MEI, Simples, Presumido e Real'],'/reforma.html':['Reforma Tributária','Por que existe e o que muda'],'/escala-6x1.html':['Fim da escala 6x1','EC 141/2026 e seus impactos'],'/trabalho-empresa.html':['CLT, PJ e responsabilidades','Carteira, prós e contras'],'/tributario.html':['Direito tributário','De onde vêm as regras'],'/previdenciario.html':['Direito previdenciário','Folha, custeio e benefícios'],'/administrativo.html':['Direito administrativo','Como o Estado age e se controla'],'/processos.html':['Processos e áreas','Material × formal'],'/biblioteca.html':['Legislação e jurisprudência','Textos oficiais e precedentes'],'/assistente.html':['Assistente educativo','Triagem e busca'],'/noticias.html':['Radar de novidades','Publicações oficiais'],'/fontes.html':['Fontes e livros','Onde confirmar'],'/areas.html':['Navegar por área','Pelo ramo do Direito'],'/mudancas.html':['O que mudou','Mudanças recentes, com fonte']};
-    var R = {'/documentos.html':['/empresa.html','/acrescimos.html','/execucao-fiscal.html'],'/acrescimos.html':['/empresa.html','/documentos.html','/inadimplencia.html'],'/empresa.html':['/documentos.html','/acrescimos.html','/execucao-fiscal.html'],'/execucao-fiscal.html':['/inadimplencia.html','/parr.html','/processos.html'],'/inadimplencia.html':['/acrescimos.html','/execucao-fiscal.html','/parr.html'],'/parr.html':['/inadimplencia.html','/execucao-fiscal.html','/tributario.html'],'/gestao.html':['/empresa.html','/trabalho-empresa.html','/previdenciario.html'],'/regimes.html':['/reforma.html','/escala-6x1.html','/trabalho-empresa.html'],'/reforma.html':['/regimes.html','/escala-6x1.html','/trabalho-empresa.html'],'/escala-6x1.html':['/trabalho-empresa.html','/regimes.html','/previdenciario.html'],'/trabalho-empresa.html':['/escala-6x1.html','/previdenciario.html','/reforma.html'],'/tributario.html':['/reforma.html','/administrativo.html','/execucao-fiscal.html'],'/previdenciario.html':['/trabalho-empresa.html','/gestao.html','/administrativo.html'],'/administrativo.html':['/processos.html','/tributario.html','/execucao-fiscal.html'],'/processos.html':['/administrativo.html','/execucao-fiscal.html','/biblioteca.html'],'/biblioteca.html':['/tributario.html','/trabalho-empresa.html','/assistente.html'],'/fontes.html':['/biblioteca.html','/noticias.html','/assistente.html'],'/noticias.html':['/mudancas.html','/reforma.html','/escala-6x1.html'],'/areas.html':['/assistente.html','/biblioteca.html','/fontes.html'],'/artigos.html':['/reforma.html','/empresa.html','/assistente.html'],'/mudancas.html':['/reforma.html','/regimes.html','/escala-6x1.html']};
+    var T = {'/agenda.html':['Agenda de obrigações','O que vence em cada regime'],'/documentos.html':['Que documento é este?','Identifique a carta que chegou'],'/acrescimos.html':['Calculadora de multa e juros','Tributo federal pago em atraso'],'/empresa.html':['Débitos e regularização','Órgão, fase e opções'],'/execucao-fiscal.html':['Execução fiscal','Processo, CDAs e negociação'],'/inadimplencia.html':['Se a empresa não regulariza','O que acontece, fase a fase'],'/parr.html':['PARR','Quando a dívida chega ao sócio'],'/gestao.html':['Gestão fiscal','Prazos, responsáveis e provas'],'/regimes.html':['Regimes e rotina','MEI, Simples, Presumido e Real'],'/reforma.html':['Reforma Tributária','Por que existe e o que muda'],'/escala-6x1.html':['Fim da escala 6x1','EC 141/2026 e seus impactos'],'/trabalho-empresa.html':['CLT, PJ e responsabilidades','Carteira, prós e contras'],'/tributario.html':['Direito tributário','De onde vêm as regras'],'/previdenciario.html':['Direito previdenciário','Folha, custeio e benefícios'],'/administrativo.html':['Direito administrativo','Como o Estado age e se controla'],'/processos.html':['Processos e áreas','Material × formal'],'/biblioteca.html':['Legislação e jurisprudência','Textos oficiais e precedentes'],'/assistente.html':['Assistente educativo','Triagem e busca'],'/noticias.html':['Radar de novidades','Publicações oficiais'],'/fontes.html':['Fontes e livros','Onde confirmar'],'/areas.html':['Navegar por área','Pelo ramo do Direito'],'/mudancas.html':['O que mudou','Mudanças recentes, com fonte']};
+    var R = {'/agenda.html':['/gestao.html','/regimes.html','/acrescimos.html'],'/documentos.html':['/empresa.html','/acrescimos.html','/execucao-fiscal.html'],'/acrescimos.html':['/empresa.html','/documentos.html','/inadimplencia.html'],'/empresa.html':['/documentos.html','/acrescimos.html','/execucao-fiscal.html'],'/execucao-fiscal.html':['/inadimplencia.html','/parr.html','/processos.html'],'/inadimplencia.html':['/acrescimos.html','/execucao-fiscal.html','/parr.html'],'/parr.html':['/inadimplencia.html','/execucao-fiscal.html','/tributario.html'],'/gestao.html':['/empresa.html','/trabalho-empresa.html','/previdenciario.html'],'/regimes.html':['/reforma.html','/escala-6x1.html','/trabalho-empresa.html'],'/reforma.html':['/regimes.html','/escala-6x1.html','/trabalho-empresa.html'],'/escala-6x1.html':['/trabalho-empresa.html','/regimes.html','/previdenciario.html'],'/trabalho-empresa.html':['/escala-6x1.html','/previdenciario.html','/reforma.html'],'/tributario.html':['/reforma.html','/administrativo.html','/execucao-fiscal.html'],'/previdenciario.html':['/trabalho-empresa.html','/gestao.html','/administrativo.html'],'/administrativo.html':['/processos.html','/tributario.html','/execucao-fiscal.html'],'/processos.html':['/administrativo.html','/execucao-fiscal.html','/biblioteca.html'],'/biblioteca.html':['/tributario.html','/trabalho-empresa.html','/assistente.html'],'/fontes.html':['/biblioteca.html','/noticias.html','/assistente.html'],'/noticias.html':['/mudancas.html','/reforma.html','/escala-6x1.html'],'/areas.html':['/assistente.html','/biblioteca.html','/fontes.html'],'/artigos.html':['/reforma.html','/empresa.html','/assistente.html'],'/mudancas.html':['/reforma.html','/regimes.html','/escala-6x1.html']};
     var rel = R[path] || (path.indexOf('/artigos/') === 0 ? ['/reforma.html', '/empresa.html', '/assistente.html'] : null);
     if (rel) {
       var g = '';
@@ -170,6 +170,74 @@
       }
     }
   }
+
+  /* Perfil do regime: a pessoa escolhe uma vez; o site só destaca e pré-seleciona (nada muda de
+     lugar sozinho). Personalização controlada pelo usuário é mais previsível que a automática
+     (Findlater e McGrenere, 2004). A escolha fica só neste navegador. */
+  var REGIMES = { mei: 'MEI', simples: 'Simples Nacional', presumido: 'Lucro Presumido', real: 'Lucro Real' };
+  var lerRegime = function () { try { var r = localStorage.getItem('prumo-regime'); return REGIMES[r] ? r : null; } catch (e) { return null; } };
+  var gravarRegime = function (r) { try { if (r) localStorage.setItem('prumo-regime', r); else localStorage.removeItem('prumo-regime'); } catch (e) {} };
+  var paginaComRegime = /\/(regimes|reforma|empresa|agenda)\.html$/.test(location.pathname);
+  var principal = d.getElementById('conteudo');
+  if (paginaComRegime && principal) {
+    var pick = d.createElement('div'); pick.className = 'regimePick'; pick.setAttribute('role', 'group'); pick.setAttribute('aria-labelledby', 'regimePickTitulo');
+    pick.innerHTML = '<p id="regimePickTitulo"><strong>Qual é o regime da sua empresa?</strong> <span class="fine">A página destaca o que vale para ele. A escolha fica só neste navegador.</span></p>' +
+      '<div class="regimePickOpcoes">' + Object.keys(REGIMES).map(function (k) { return '<button type="button" class="chip" data-escolha="' + k + '" aria-pressed="false">' + REGIMES[k] + '</button>'; }).join('') +
+      '<button type="button" class="regimeEsquecer" hidden>Esquecer a escolha</button></div>';
+    var ancora = principal.querySelector('.quick30') || [].filter.call(principal.children, function (c) { return c.classList.contains('alert'); }).pop();
+    if (ancora) ancora.insertAdjacentElement('afterend', pick); else principal.insertBefore(pick, principal.firstChild);
+    var aplicarRegime = function (r, inicial) {
+      pick.querySelectorAll('[data-escolha]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-escolha') === r ? 'true' : 'false'); });
+      pick.querySelector('.regimeEsquecer').hidden = !r;
+      /* Regimes: marca o cartão do regime escolhido */
+      d.querySelectorAll('[data-regime]').forEach(function (el) {
+        if (el.classList.contains('agendaItem')) return;
+        var meu = !!r && el.getAttribute('data-regime').split(' ').indexOf(r) >= 0;
+        el.classList.toggle('meuRegime', meu);
+        var selo = el.querySelector('.seloRegime');
+        if (meu && !selo) { selo = d.createElement('span'); selo.className = 'seloRegime'; selo.textContent = 'Seu regime'; el.insertBefore(selo, el.firstChild); }
+        if (!meu && selo) selo.remove();
+      });
+      if (!r) return;
+      /* Reforma: abre no regime escolhido */
+      var btnReforma = d.querySelector('.regime[data-reg="' + r + '"]');
+      if (btnReforma && btnReforma.getAttribute('aria-pressed') !== 'true') btnReforma.click();
+      /* Débitos: pré-seleciona o regime no painel */
+      var sel = d.getElementById('debtReg');
+      if (sel) { var v = (r === 'presumido' || r === 'real') ? 'normal' : r; if (sel.value !== v) { sel.value = v; sel.dispatchEvent(new Event('change', { bubbles: true })); } }
+      if (!inicial) d.dispatchEvent(new CustomEvent('prumo:regime', { detail: r }));
+    };
+    pick.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var r = b.classList.contains('regimeEsquecer') ? null : b.getAttribute('data-escolha');
+      gravarRegime(r); aplicarRegime(r, false); mostrarTodas = false; filtrarAgenda();
+    });
+    aplicarRegime(lerRegime(), true);
+  }
+
+  /* Agenda: links para o mês atual e o próximo na Agenda Tributária oficial e filtro pelo regime */
+  var agendaLinks = d.getElementById('agendaLinks'), agendaLista = d.getElementById('agendaLista'), verTodas = d.getElementById('agendaVerTodas'), mostrarTodas = false;
+  if (agendaLinks) {
+    var NOMES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    var agora = new Date(), html = '';
+    [0, 1].forEach(function (k) {
+      var dt = new Date(agora.getFullYear(), agora.getMonth() + k, 1), nome = NOMES[dt.getMonth()];
+      html += '<a class="linkbtn" href="https://www.gov.br/receitafederal/pt-br/assuntos/agenda-tributaria/' + dt.getFullYear() + '/' + encodeURIComponent(nome) + '" target="_blank" rel="noopener">' + nome + ' de ' + dt.getFullYear() + ' na Agenda da Receita ↗</a>';
+    });
+    agendaLinks.innerHTML = html + agendaLinks.innerHTML;
+  }
+  function filtrarAgenda() {
+    if (!agendaLista) return;
+    var r = lerRegime(), txt = d.getElementById('agendaFiltroTexto');
+    agendaLista.querySelectorAll('.agendaItem').forEach(function (el) {
+      el.hidden = !!r && !mostrarTodas && el.getAttribute('data-regime').split(' ').indexOf(r) < 0;
+    });
+    if (verTodas) verTodas.hidden = !r || mostrarTodas;
+    if (txt) txt.textContent = r && !mostrarTodas ? 'Mostrando as obrigações que valem para empresas do ' + REGIMES[r] + '. As de folha valem se a empresa tiver empregados.' :
+      'Mostrando as obrigações de todos os regimes.' + (r ? '' : ' Escolha o regime da empresa acima para ver só as que valem para ela.');
+  }
+  if (verTodas) verTodas.addEventListener('click', function () { mostrarTodas = true; filtrarAgenda(); });
+  filtrarAgenda();
 
   /* Glossário: a primeira ocorrência de cada termo no texto vira um botão discreto;
      tocar ou passar o mouse mostra a explicação. Nunca em títulos, links, botões ou menu. */
