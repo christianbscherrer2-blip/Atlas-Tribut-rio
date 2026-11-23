@@ -4,7 +4,7 @@ Uso: python3 scripts/site_check.py"""
 import re, glob, json, os, subprocess, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent; os.chdir(ROOT)
 O = 'https://atlas-tributario.onrender.com'
-files = sorted(f for f in glob.glob('*.html') + glob.glob('artigos/*.html') if not f.startswith('google'))
+files = sorted(f.replace(os.sep, '/') for f in glob.glob('*.html') + glob.glob('artigos/*.html') if not f.startswith('google'))
 sm = open('sitemap.xml', encoding='utf-8').read(); locs = re.findall(r'<loc>([^<]*)</loc>', sm)
 err, warn = [], []
 for f in files:
