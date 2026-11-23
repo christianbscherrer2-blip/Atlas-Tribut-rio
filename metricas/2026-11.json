@@ -24,6 +24,12 @@
    "sim": 0,
    "nao": 0,
    "motivos": {}
+  },
+  "/assistente.html": {
+   "visitas": 1,
+   "sim": 0,
+   "nao": 0,
+   "motivos": {}
   }
  },
  "eventos": {
@@ -32,13 +38,13 @@
  },
  "origens": {
   "direta": 1,
-  "interna": 5,
+  "interna": 6,
   "outro_site": 1
  },
  "buscas_vazias": {},
  "dias": {
-  "2026-11-23": 7
+  "2026-11-23": 8
  },
  "campanhas": {},
- "atualizado_em": "2026-11-23T22:58:26.602Z"
+ "atualizado_em": "2026-11-23T23:28:47.527Z"
 }
