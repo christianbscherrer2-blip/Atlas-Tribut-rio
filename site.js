@@ -5,7 +5,7 @@
   /* Endereço antigo: leva para o novo mantendo a página, a busca e o # (o link do painel continua valendo).
      As páginas já apontam o endereço novo como canônico, então o Google transfere o que indexou. */
   if (location.hostname === 'atlas-tributario.onrender.com') {
-    location.replace('https://prumo.onrender.com' + location.pathname + location.search + location.hash);
+    location.replace('https://prumo-empresas.onrender.com' + location.pathname + location.search + location.hash);
     return;
   }
   root.classList.add('js');

@@ -10,15 +10,15 @@ Objetivo: fazer o Prumo ser encontrado por quem precisa dele (donos de pequenas 
 1. Entre em https://search.google.com/search-console com a conta Google que verificou o site (o arquivo `googleb49ad066d7bdc0dd.html` já está no ar).
 2. Menu **Sitemaps** → envie `sitemap.xml`. Status esperado: "Sucesso".
 3. Menu **Inspeção de URL** → cole cada endereço abaixo e clique em **Solicitar indexação** (há limite diário; faça alguns por dia):
-   - `https://prumo.onrender.com/`
-   - `https://prumo.onrender.com/acrescimos.html`
-   - `https://prumo.onrender.com/documentos.html`
-   - `https://prumo.onrender.com/agenda.html`
-   - `https://prumo.onrender.com/empresa.html`
-   - `https://prumo.onrender.com/execucao-fiscal.html`
-   - `https://prumo.onrender.com/regimes.html`
-   - `https://prumo.onrender.com/reforma.html`
-   - `https://prumo.onrender.com/escala-6x1.html`
+   - `https://prumo-empresas.onrender.com/`
+   - `https://prumo-empresas.onrender.com/acrescimos.html`
+   - `https://prumo-empresas.onrender.com/documentos.html`
+   - `https://prumo-empresas.onrender.com/agenda.html`
+   - `https://prumo-empresas.onrender.com/empresa.html`
+   - `https://prumo-empresas.onrender.com/execucao-fiscal.html`
+   - `https://prumo-empresas.onrender.com/regimes.html`
+   - `https://prumo-empresas.onrender.com/reforma.html`
+   - `https://prumo-empresas.onrender.com/escala-6x1.html`
 4. Volte em 1 a 2 semanas: menu **Páginas** mostra quantas foram indexadas; **Desempenho** mostra as buscas que trouxeram visitas.
 
 ### Bing Webmaster Tools (também alimenta DuckDuckGo, Yahoo e assistentes de IA)
@@ -32,7 +32,7 @@ Endereços `onrender.com` passam menos confiança e rendem menos nas buscas.
 3. Peça para eu rodar `scripts/set_domain.py` com o domínio novo e cadastrar o domínio em `SITE_ORIGINS` no serviço do assistente; depois, adicione o domínio novo no Search Console.
 
 ### Perfis
-- No seu LinkedIn, em **Contato** e no **Destaque**, coloque o link `https://prumo.onrender.com/?origem=linkedin-perfil`.
+- No seu LinkedIn, em **Contato** e no **Destaque**, coloque o link `https://prumo-empresas.onrender.com/?origem=linkedin-perfil`.
 
 ---
 
@@ -44,14 +44,14 @@ Regras do nome: só letras minúsculas, números e hífen, até 24 caracteres. U
 
 | Canal | Link pronto |
 |---|---|
-| Post no LinkedIn sobre a calculadora | `https://prumo.onrender.com/acrescimos.html?origem=linkedin` |
-| Post no LinkedIn sobre documentos | `https://prumo.onrender.com/documentos.html?origem=linkedin` |
-| Perfil do LinkedIn | `https://prumo.onrender.com/?origem=linkedin-perfil` |
-| Grupos de WhatsApp | `https://prumo.onrender.com/acrescimos.html?origem=whatsapp` |
-| Grupos de Telegram | `https://prumo.onrender.com/?origem=telegram` |
-| Instagram (link na bio) | `https://prumo.onrender.com/?origem=instagram` |
-| Contador parceiro (um nome por escritório) | `https://prumo.onrender.com/documentos.html?origem=parceiro-silva` |
-| Assinatura de e-mail | `https://prumo.onrender.com/?origem=email` |
+| Post no LinkedIn sobre a calculadora | `https://prumo-empresas.onrender.com/acrescimos.html?origem=linkedin` |
+| Post no LinkedIn sobre documentos | `https://prumo-empresas.onrender.com/documentos.html?origem=linkedin` |
+| Perfil do LinkedIn | `https://prumo-empresas.onrender.com/?origem=linkedin-perfil` |
+| Grupos de WhatsApp | `https://prumo-empresas.onrender.com/acrescimos.html?origem=whatsapp` |
+| Grupos de Telegram | `https://prumo-empresas.onrender.com/?origem=telegram` |
+| Instagram (link na bio) | `https://prumo-empresas.onrender.com/?origem=instagram` |
+| Contador parceiro (um nome por escritório) | `https://prumo-empresas.onrender.com/documentos.html?origem=parceiro-silva` |
+| Assinatura de e-mail | `https://prumo-empresas.onrender.com/?origem=email` |
 
 Links de ferramentas convertem mais que o link da página inicial: quem chega com um problema concreto encontra a resposta na hora.
 
@@ -71,7 +71,7 @@ Adapte à sua voz. Evite prometer resultado ("resolva sua dívida") e não ofere
 > Exemplo: R$ 1.000 vencidos em 20/03/2026 e pagos em 15/06/2026 ficam em R$ 1.231,60.
 >
 > Montei uma calculadora gratuita que faz a conta com a Selic oficial do Banco Central e mostra mês a mês de onde vem cada centavo:
-> https://prumo.onrender.com/acrescimos.html?origem=linkedin
+> https://prumo-empresas.onrender.com/acrescimos.html?origem=linkedin
 >
 > É uma estimativa educativa: o valor que vale é o da guia emitida no Sicalc.
 
@@ -81,7 +81,7 @@ Adapte à sua voz. Evite prometer resultado ("resolva sua dívida") e não ofere
 > Antes de qualquer coisa, três perguntas: quem enviou (Receita, PGFN, estado, município ou Justiça)? Que documento é? Qual é o prazo?
 >
 > Organizei os 10 documentos fiscais mais comuns com como reconhecer, o que costumam significar, o primeiro passo e o prazo previsto em lei:
-> https://prumo.onrender.com/documentos.html?origem=linkedin
+> https://prumo-empresas.onrender.com/documentos.html?origem=linkedin
 >
 > Conteúdo educativo; o caso concreto pede contador ou advogado.
 
@@ -89,25 +89,25 @@ Adapte à sua voz. Evite prometer resultado ("resolva sua dívida") e não ofere
 > Qual é a lista de obrigações que a sua empresa entrega e paga todo mês?
 >
 > Fiz uma agenda com 15 obrigações federais recorrentes, filtrável por regime (MEI, Simples, Presumido e Real), com a regra do prazo, a base legal e o link direto para a Agenda Tributária oficial do mês:
-> https://prumo.onrender.com/agenda.html?origem=linkedin
+> https://prumo-empresas.onrender.com/agenda.html?origem=linkedin
 
 ### LinkedIn 4 · Fim da escala 6x1
 > A EC 141/2026 prevê escala 5x2 e jornada de 42 horas em até 60 dias, e de 40 horas em até 14 meses, sem redução de salário.
 >
 > Reuni o que muda para a empresa (CLT, PJ, regime tributário, previdência e custos) e uma calculadora do custo da jornada:
-> https://prumo.onrender.com/escala-6x1.html?origem=linkedin
+> https://prumo-empresas.onrender.com/escala-6x1.html?origem=linkedin
 
 ### WhatsApp ou Telegram (curtas, para grupos de empreendedores e MEIs)
-- "Pra quem paga imposto atrasado: essa calculadora gratuita mostra a multa e os juros do DARF com a Selic oficial, antes de emitir a guia → https://prumo.onrender.com/acrescimos.html?origem=whatsapp"
-- "Recebeu carta da Receita ou da PGFN e não sabe o que é? Aqui explica cada tipo de documento e o primeiro passo → https://prumo.onrender.com/documentos.html?origem=whatsapp"
-- "Lista das obrigações do mês por regime (MEI, Simples, Presumido, Real), com link pra agenda oficial da Receita → https://prumo.onrender.com/agenda.html?origem=whatsapp"
+- "Pra quem paga imposto atrasado: essa calculadora gratuita mostra a multa e os juros do DARF com a Selic oficial, antes de emitir a guia → https://prumo-empresas.onrender.com/acrescimos.html?origem=whatsapp"
+- "Recebeu carta da Receita ou da PGFN e não sabe o que é? Aqui explica cada tipo de documento e o primeiro passo → https://prumo-empresas.onrender.com/documentos.html?origem=whatsapp"
+- "Lista das obrigações do mês por regime (MEI, Simples, Presumido, Real), com link pra agenda oficial da Receita → https://prumo-empresas.onrender.com/agenda.html?origem=whatsapp"
 
 Leia as regras de cada grupo antes de postar; em muitos, links só são aceitos se responderem a uma pergunta.
 
 ### Mensagem para contadores parceiros
 > Olá, [nome]. Sou estudante de Direito e mantenho o Prumo, um site gratuito que explica para donos de empresa, em linguagem simples, temas como débitos, dívida ativa, documentos da Receita e da PGFN, agenda de obrigações e Reforma Tributária. Ele não presta consultoria e sempre orienta a procurar o contador.
 >
-> Pensei que poderia ajudar o seu escritório a responder dúvidas repetidas dos clientes. Se fizer sentido, este é um link para indicar: https://prumo.onrender.com/documentos.html?origem=parceiro-[escritorio]
+> Pensei que poderia ajudar o seu escritório a responder dúvidas repetidas dos clientes. Se fizer sentido, este é um link para indicar: https://prumo-empresas.onrender.com/documentos.html?origem=parceiro-[escritorio]
 >
 > Se quiser, me diga quais dúvidas mais aparecem aí, que eu priorizo esse conteúdo.
 

@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES = ROOT / "scripts" / "templates"
-ORIGIN = "https://prumo.onrender.com"
+ORIGIN = "https://prumo-empresas.onrender.com"
 SKIP = {"googleb49ad066d7bdc0dd.html"}
 
 THEME_SCRIPT = ('<script data-prumo="tema">try{var t=localStorage.getItem("prumo-tema");'

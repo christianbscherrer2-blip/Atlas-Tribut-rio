@@ -2,7 +2,7 @@
 """Atualiza o <lastmod> do sitemap.xml com a data real da última alteração de cada página (git)."""
 import re, subprocess, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-O = 'https://prumo.onrender.com'
+O = 'https://prumo-empresas.onrender.com'
 sm = (ROOT/'sitemap.xml').read_text(encoding='utf-8')
 def last(path):
     r = subprocess.run(['git', 'log', '-1', '--format=%cs', '--', path], cwd=ROOT, capture_output=True, text=True).stdout.strip()
