@@ -9,17 +9,20 @@
 /* ---------- 1. Tokens ---------- */
 :root{
   /* superfícies e texto */
-  --bg:#f5f6f8; --surface:#ffffff; --surface-2:#eef1f6; --ink:#101828; --muted:#475467;
-  --line:#d9dee7; --line-strong:#b9c2d1;
+  /* paleta original do Prumo: papel, cartão creme, linhas bege (tema claro) */
+  --bg:#f6f3ea; --surface:#fffdf8; --surface-2:#f1e7c9; --ink:#0d1526; --muted:#4a5468;
+  --line:#ddd5c0; --line-strong:#b9ad8c;
+  /* traço da identidade: contorno escuro e sombra dourada deslocada */
+  --hard:#07090f; --offset:#c9a24b;
   /* marca */
   --brand:#0c1a33; --brand-2:#16294f; --brand-ink:#f2f4f8; --brand-muted:#c3cbdb;
-  --accent:#c9a24b; --accent-soft:#f4ead0; --accent-ink:#0c1a33; --accent-strong:#6f540f; --accent-hover:#b8913c;
+  --accent:#c9a24b; --accent-soft:#f1e7c9; --accent-ink:#0c1a33; --accent-strong:#6f540f; --accent-hover:#b8913c;
   --link:#1b4a8c; --link-hover:#0c1a33; --focus:#c9a24b;
   /* estados */
   --ok:#17663f; --ok-soft:#e3f2ea; --warn:#8a5a00; --warn-soft:#fbf0d9; --danger:#a12a1e; --danger-soft:#fbe5e2;
   /* tipografia */
   --font-text:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  --font-display:"Iowan Old Style","Charter","Georgia","Times New Roman",serif;
+  --font-display:Georgia,"Times New Roman",serif;
   --font-mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
   --fs-xs:.8125rem; --fs-sm:.9375rem; --fs-md:1.0625rem; --fs-lg:1.25rem; --fs-xl:1.5rem; --fs-2xl:clamp(1.65rem,2.6vw,2rem); --fs-3xl:clamp(1.9rem,3.6vw,2.6rem); --fs-4xl:clamp(2.1rem,5vw,3.25rem);
   /* espaço (escala de 4px) */
@@ -37,7 +40,7 @@
   --accent:#d9b660; --accent-soft:#2c2614; --accent-ink:#0b111c; --accent-strong:#e7c97f; --accent-hover:#e7c97f;
   --link:#9cc3f7; --link-hover:#cfe1fb; --focus:#d9b660;
   --ok:#6fd19c; --ok-soft:#10291d; --warn:#f2bf62; --warn-soft:#2d2210; --danger:#f3958a; --danger-soft:#2e1513;
-  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 6px 16px rgba(0,0,0,.35);
+  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 6px 16px rgba(0,0,0,.35); --hard:#3a4864; --offset:#8a6a1f;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0b111c; --surface:#121a29; --surface-2:#18233a; --ink:#e8ecf3; --muted:#a8b2c4; --line:#27334b; --line-strong:#3a4864;
@@ -45,7 +48,7 @@
   --accent:#d9b660; --accent-soft:#2c2614; --accent-ink:#0b111c; --accent-strong:#e7c97f; --accent-hover:#e7c97f;
   --link:#9cc3f7; --link-hover:#cfe1fb; --focus:#d9b660;
   --ok:#6fd19c; --ok-soft:#10291d; --warn:#f2bf62; --warn-soft:#2d2210; --danger:#f3958a; --danger-soft:#2e1513;
-  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 6px 16px rgba(0,0,0,.35);
+  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 6px 16px rgba(0,0,0,.35); --hard:#3a4864; --offset:#8a6a1f;
   color-scheme:dark}
 
 /* ---------- 2. Base ---------- */
@@ -366,7 +369,63 @@ details.toc a:hover,details.toc a.on{color:var(--link);text-decoration:underline
 .nextPill a{background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none;padding:var(--s3) var(--s4);border-radius:var(--r-sm) 0 0 var(--r-sm);min-height:44px;display:flex;align-items:center}
 .nextPill button{background:var(--brand);color:var(--brand-ink);border:0;border-radius:0 var(--r-sm) var(--r-sm) 0;cursor:pointer;padding:0 var(--s3);font-size:1.1rem;min-width:44px}
 
-/* ---------- 13. Responsivo ---------- */
+/* ---------- 13. Identidade Prumo ----------
+   Traços originais do site (contorno escuro, sombra dourada deslocada, etiquetas
+   douradas, faixas pretas e barra dourada sob os títulos), sobre os tokens.
+   --hard = contorno; --offset = cor da sombra deslocada. */
+.pageHero{background:linear-gradient(135deg,#07090f 0,var(--brand) 62%,var(--brand-2) 100%)}
+.pageHero h1,.pageWrap h2,.door h3,.doorHead h3{font-weight:500}
+.pageWrap h2{letter-spacing:-.03em}
+.pageWrap>.section>h2::after,.pageWrap>section>h2::after{content:"";display:block;width:76px;height:7px;background:var(--accent);border:2px solid var(--hard);margin-top:var(--s3)}
+.whyBox h2::after,.ctaBlock h2::after,.related h2::after{display:none!important}
+.siteFooter{background:#07090f;border-top:3px solid var(--accent)}
+.eyeline{display:inline-block;background:#07090f;color:#e3c47a;padding:4px 10px;letter-spacing:.14em}
+.pageHero .eyeline{background:#07090f;color:#e3c47a;padding:4px 10px}
+.tag,.authority{background:var(--accent);color:var(--accent-ink);border:2px solid var(--hard);border-radius:3px;font-weight:800;transform:rotate(-1.5deg)}
+.ctaTag{background:var(--accent);color:var(--accent-ink);border:2px solid var(--hard);padding:3px 9px;transform:rotate(-2deg)}
+.card,.sourceCard,.areaCard,.articleCard,.deepDive,.step,.newsItem,.stat,.versus>div,.relGrid a,details.toc,.tool,.result,.story{border:2px solid var(--hard);border-radius:4px;box-shadow:6px 6px 0 var(--offset)}
+.door,.whyBox,.ctaBlock{border:3px solid var(--hard);border-radius:6px;box-shadow:8px 8px 0 var(--offset)}
+.ctaBlock{box-shadow:10px 10px 0 var(--offset)}
+.door.urgent,.versus .con{box-shadow:8px 8px 0 var(--brand)}
+.door.urgent .doorHead{border-bottom:0}
+.result{border-top:4px solid var(--accent)}
+.story{border-style:dashed;box-shadow:none}
+a.card:hover,a.articleCard:hover,a.areaCard:hover,.relGrid a:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--offset);border-color:var(--hard)}
+a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--offset)}
+.btnPrimary,.linkbtn,.aiBtn,.searchBar button,.chip,.triBtn,.tabsBar a,.sourceLinks a{border:2px solid var(--hard);border-radius:4px;transition:transform .15s,box-shadow .15s,background-color .15s}
+.btnPrimary{background:var(--accent);color:var(--accent-ink);box-shadow:5px 5px 0 var(--hard);font-size:var(--fs-md);font-weight:800;padding:var(--s3) var(--s5)}
+.pageHero .btnPrimary,.ctaBlock .btnPrimary{box-shadow:5px 5px 0 #f3efe4}
+.btnGhost,.pageHero .btnGhost,.ctaBlock .btnGhost,.whyBox .btnGhost{background:#f3efe4;color:#07090f;border:2px solid #07090f;border-radius:4px;box-shadow:5px 5px 0 var(--accent);font-size:var(--fs-md);font-weight:800;padding:var(--s3) var(--s5)}
+.btnGhost:hover,.pageHero .btnGhost:hover,.ctaBlock .btnGhost:hover,.whyBox .btnGhost:hover{background:#fffdf8;color:#07090f}
+.linkbtn,.aiBtn,.searchBar button{background:var(--accent);color:var(--accent-ink);box-shadow:4px 4px 0 var(--hard);font-weight:800}
+.btnPrimary:hover,.linkbtn:hover,.btnGhost:hover,.aiBtn:hover,.searchBar button:hover{transform:translate(-2px,-2px);color:var(--accent-ink)}
+.btnGhost:hover{color:#07090f}
+.linkbtn:hover{background:var(--accent-hover);box-shadow:6px 6px 0 var(--hard)}
+.btnPrimary:active,.btnGhost:active,.linkbtn:active,.aiBtn:active,.searchBar button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--hard)}
+.triBtn{box-shadow:4px 4px 0 var(--offset)}
+.triBtn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--offset);border-color:var(--hard)}
+.triBtn[aria-pressed=true]{background:var(--brand);color:#e3c47a;box-shadow:4px 4px 0 var(--hard)}
+.tabsBar a,.sourceLinks a{box-shadow:3px 3px 0 var(--offset);border-radius:4px}
+.tabsBar a.tabNew{background:var(--accent);color:var(--accent-ink);box-shadow:3px 3px 0 var(--hard)}
+.chip[aria-pressed=true]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.goals span{background:var(--accent);color:var(--accent-ink);border:2px solid var(--hard);box-shadow:3px 3px 0 var(--hard);font-weight:800}
+.chain span{background:var(--brand);color:var(--brand-ink);border:2px solid var(--hard);font-weight:700}
+.searchBar input,.toolGrid input,#aiPanel textarea{border:2px solid var(--hard);border-radius:4px}
+#aiPanel{border:3px dashed var(--brand);border-radius:6px}
+.alert,.callout{border-radius:6px}
+.tableWrap th,.toolOut th{background:var(--brand);color:#e3c47a}
+.siteNav .navCta{border:2px solid var(--hard);box-shadow:3px 3px 0 var(--hard);font-weight:800}
+.navToggle{background:var(--accent);color:var(--accent-ink);border:2px solid #07090f;box-shadow:3px 3px 0 #07090f;font-weight:800}
+.navToggle:hover{background:var(--accent-hover)}
+.readBar{height:5px;box-shadow:0 2px 0 #07090f}
+.nextPill{box-shadow:none}
+.nextPill a{border:2px solid #07090f;border-radius:4px 0 0 4px;box-shadow:4px 4px 0 #07090f;font-weight:900}
+.nextPill button{border:2px solid #07090f;border-radius:0 4px 4px 0;box-shadow:4px 4px 0 #07090f;color:#e3c47a;background:#07090f}
+.typeCue{color:#e3c47a;letter-spacing:.09em;min-height:1.6em}
+.typeCue.live{border-right:2px solid #e3c47a;padding-right:4px;display:inline-block;animation:prumoCaret .8s step-end infinite}
+@keyframes prumoCaret{50%{border-color:transparent}}
+
+/* ---------- 14. Responsivo ---------- */
 @media (max-width:860px){
   .cols,.regimeGrid,.learningGrid,.managementGrid,.compareGrid{grid-template-columns:minmax(0,1fr)}
   .taxMap,.knowledgeMap,.sourceGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -384,9 +443,12 @@ details.toc a:hover,details.toc a.on{color:var(--link);text-decoration:underline
   .card,.sourceCard,.areaCard,.articleCard{padding:var(--s4)}
   .brand em{display:none}
   .nextPill a{font-size:var(--fs-sm)}
+  .ctaBlock{box-shadow:6px 6px 0 var(--offset)}
+  .door,.whyBox{box-shadow:6px 6px 0 var(--offset)}
+  .door.urgent{box-shadow:6px 6px 0 var(--brand)}
 }
 
-/* ---------- 14. Movimento (mínimo e com propósito) ---------- */
+/* ---------- 15. Movimento (mínimo e com propósito) ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important;animation:none!important}
