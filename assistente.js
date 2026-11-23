@@ -25,14 +25,14 @@
       gather: 'O documento completo, declarações do período, comprovantes de pagamento e notas fiscais.',
       avoid: 'Pagar ou parcelar sem conferir o valor, e deixar o prazo correr.',
       pro: 'Se houver auto de infração, multa ou prazo de defesa em andamento, fale com contador ou advogado antes de responder.',
-      atlas: [['/empresa.html#roteiro-operacional', 'Roteiro de débitos'], ['/artigos/primeiros-passos-pendencia.html', 'Primeiros passos diante de uma pendência'], ['/processos.html', 'Em que fase está a cobrança']], off: [] },
+      atlas: [['/documentos.html', 'Que documento é este?'], ['/empresa.html#roteiro-operacional', 'Roteiro de débitos'], ['/artigos/primeiros-passos-pendencia.html', 'Primeiros passos diante de uma pendência']], off: [] },
     { id: 'debito', label: 'Tenho um débito e quero regularizar',
       what: 'O caminho muda conforme o órgão (federal, estadual ou municipal) e a fase: em aberto, vencido ou já inscrito em dívida ativa. Parcelamento não é desconto automático.',
       first: 'Descubra onde o débito está registrado e em que fase. Dívida ativa da União costuma ser tratada na PGFN; débitos do Simples, no Portal do Simples.',
       gather: 'Extratos de débitos, comprovantes de pagamento e declarações do período.',
       avoid: 'Aceitar o valor sem conferir pagamentos já feitos, e confundir parcelar com quitar.',
       pro: 'Se o valor for alto ou houver ação judicial, peça orientação profissional antes de assinar qualquer acordo.',
-      atlas: [['/empresa.html#roteiro-operacional', 'Roteiro de débitos'], ['/execucao-fiscal.html', 'Quando a dívida vai ao Judiciário']], off: ['reg', 'sn'] },
+      atlas: [['/empresa.html#roteiro-operacional', 'Roteiro de débitos'], ['/acrescimos.html', 'Calcular multa e juros do atraso'], ['/execucao-fiscal.html', 'Quando a dívida vai ao Judiciário']], off: ['reg', 'sn'] },
     { id: 'exec', label: 'Fui citado em execução fiscal, ou houve bloqueio/penhora', urgent: true,
       what: 'A cobrança já está no Judiciário. O juiz pode ter determinado citação, garantia ou bloqueio, e os prazos processuais são curtos.',
       first: 'Obtenha hoje a íntegra dos autos e a CDA, e leve a um advogado. Não espere o prazo apertar.',
@@ -88,14 +88,43 @@
     if (!t.date) return '';
     return new Date() <= new Date('2026-10-30T23:59:59') ? '<p class="alert" style="margin:10px 0"><strong>Prazo curto:</strong> até 30/10/2026, empresas do Simples podem optar pelo regime regular de IBS e CBS (jan–jun/2027). Veja os detalhes na página da Reforma.</p>' : '';
   }
+  /* Plano de ação: os mesmos conteúdos, em sequência numerada (a ordem é parte da informação),
+     com opção de copiar o texto ou imprimir só o plano. */
+  function planoTexto(t) {
+    return 'Prumo · plano de ação: ' + t.label + '\n\n' +
+      'O que costuma ser: ' + t.what + '\n\n' +
+      '1. Primeiro passo: ' + t.first + '\n' +
+      '2. Reúna: ' + t.gather + '\n' +
+      '3. Evite: ' + t.avoid + '\n' +
+      '4. Quando procurar um profissional: ' + t.pro + '\n\n' +
+      'Para aprofundar: ' + t.atlas.map(function (a) { return a[1] + ' (' + location.origin + a[0] + ')'; }).join('; ') + '\n' +
+      'Orientação geral e educativa; não analisa o seu caso concreto.';
+  }
   function showTriage(t) {
     var links = t.atlas.map(function (a) { return '<a class="linkbtn" href="' + a[0] + '">' + esc(a[1]) + '</a>'; }).join('') +
       t.off.map(function (k) { return '<a class="linkbtn" href="' + OFF[k][1] + '" target="_blank" rel="noopener">' + esc(OFF[k][0]) + ' ↗</a>'; }).join('');
-    triOut.innerHTML = '<article class="card triageCard"><span class="tag">' + (t.urgent ? 'Atenção a prazos' : 'Guia rápido') + '</span><h3>' + esc(t.label) + '</h3>' + dateNote(t) +
-      '<p><strong>O que costuma ser:</strong> ' + esc(t.what) + '</p><p><strong>Primeiro passo:</strong> ' + esc(t.first) + '</p>' +
-      '<p><strong>Reúna:</strong> ' + esc(t.gather) + '</p><p><strong>Evite:</strong> ' + esc(t.avoid) + '</p>' +
-      '<p class="alert" style="margin:10px 0"><strong>Quando procurar um profissional:</strong> ' + esc(t.pro) + '</p>' +
-      '<div class="pathlinks">' + links + '</div><p class="fine">Orientação geral e educativa; não analisa o seu caso concreto. Confirme sempre na fonte oficial.</p></article>';
+    triOut.innerHTML = '<article class="card triageCard" id="planoAcao"><span class="tag">' + (t.urgent ? 'Atenção a prazos' : 'Plano de ação') + '</span><h3>' + esc(t.label) + '</h3>' + dateNote(t) +
+      '<p><strong>O que costuma ser:</strong> ' + esc(t.what) + '</p>' +
+      '<ol class="steps planSteps">' +
+      '<li><strong>Primeiro passo.</strong> ' + esc(t.first) + '</li>' +
+      '<li><strong>Reúna.</strong> ' + esc(t.gather) + '</li>' +
+      '<li><strong>Evite.</strong> ' + esc(t.avoid) + '</li>' +
+      '<li><strong>Quando procurar um profissional.</strong> ' + esc(t.pro) + '</li></ol>' +
+      '<div class="pathlinks">' + links + '</div>' +
+      '<div class="planActions"><button type="button" class="linkbtn" data-plano="copiar">Copiar o plano</button><button type="button" class="linkbtn" data-plano="imprimir">Imprimir o plano</button><span class="fine planStatus" role="status"></span></div>' +
+      '<p class="fine">Orientação geral e educativa; não analisa o seu caso concreto. Confirme sempre na fonte oficial.</p></article>';
+    var status = triOut.querySelector('.planStatus');
+    triOut.querySelector('[data-plano="copiar"]').addEventListener('click', function () {
+      var texto = planoTexto(t);
+      var ok = function () { status.textContent = 'Plano copiado. Cole onde quiser guardar.'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok, function () { status.textContent = 'Não consegui copiar. Selecione o texto do plano e copie.'; });
+      else status.textContent = 'Seu navegador não permite copiar daqui. Selecione o texto do plano e copie.';
+    });
+    triOut.querySelector('[data-plano="imprimir"]').addEventListener('click', function () {
+      document.body.classList.add('imprimindoPlano');
+      window.print();
+      setTimeout(function () { document.body.classList.remove('imprimindoPlano'); }, 500);
+    });
     triOut.focus();
   }
   TRIAGE.forEach(function (t) {

@@ -447,6 +447,33 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .termTip a{font-weight:600}
 @media (max-width:560px){.searchToggle span{display:none}.searchToggle{padding:0;width:40px;justify-content:center}}
 
+/* ---------- 13d. "Que documento é este?" e calculadora ---------- */
+.docList{display:grid;gap:var(--s5);grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.docCard{scroll-margin-top:90px}
+.docCard h3{font-size:var(--fs-lg)}
+.docCard dl{margin:var(--s3) 0 0;display:grid;gap:var(--s3)}
+.docCard dt{font:700 var(--fs-xs)/1.3 var(--font-text);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-strong)}
+.docCard dd{margin:2px 0 0;color:var(--ink);font-size:var(--fs-sm);line-height:1.55}
+.docCard .pathlinks{margin:var(--s4) 0 0}
+.docCard:target{outline:3px solid var(--focus);outline-offset:4px}
+.docPicker a{min-height:44px}
+#acrSaida table{width:100%;border-collapse:collapse}
+#acrSaida tfoot th{border-top:2px solid var(--hard);font-size:var(--fs-md);padding-top:var(--s3)}
+#acrSaida tfoot th:last-child{text-align:right}
+#acrSaida .deepDive td,#acrSaida .deepDive th{text-align:left}
+#acrSaida > table td:nth-child(2),#acrSaida > table th:nth-child(2){text-align:left}
+.toolGrid input[aria-invalid=true]{border-color:var(--danger);outline:2px solid var(--danger);outline-offset:1px}
+
+.planSteps{margin:var(--s4) 0}
+.planActions{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin:var(--s4) 0 var(--s2)}
+.planActions .linkbtn{background:var(--surface);color:var(--ink)}
+@media print{
+  body.imprimindoPlano *{visibility:hidden}
+  body.imprimindoPlano #planoAcao,body.imprimindoPlano #planoAcao *{visibility:visible}
+  body.imprimindoPlano #planoAcao{position:absolute;left:0;top:0;width:100%;box-shadow:none;border:1px solid #000}
+  body.imprimindoPlano .planActions{display:none}
+}
+
 /* ---------- 13c. Guia introdutório (guia-tributos-previdencia.html) ---------- */
 .guia .wrap{max-width:none}
 .guia .sectionHead{max-width:var(--measure);margin-bottom:var(--s5)}

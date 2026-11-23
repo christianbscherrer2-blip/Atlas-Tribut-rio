@@ -34,6 +34,10 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 `python3 scripts/eval_assistant.py` mede acerto na 1ª posição (hit@1) e entre as 3 primeiras (hit@3) com `tests/queries.json` (ajuste) e `tests/queries_validacao.json` (validação, não use para ajustar). Meta: hit@3 ≥ 85%. Ao mudar a busca, meça antes e depois.
 
 ## Ferramentas
+- `acrescimos.html` + `acrescimos.js`: calculadora de multa de mora e juros Selic de tributo federal pago em atraso (Lei 9.430/1996, art. 61). Usa `selic.json`.
+- `selic.json`: Selic acumulada por mês (Banco Central, série SGS 4390), só meses encerrados. Atualizado por `scripts/update_selic.py` no mesmo robô do radar; reserva em `/api/selic` do servidor do assistente.
+- `documentos.html`: "Que documento é este?", com os documentos fiscais mais comuns, como reconhecer, o que significam, primeiro passo e prazo legal.
+- Triagem do assistente: termina num plano de ação numerado, com copiar e imprimir.
 - `jornada.js`: calculadora do custo da jornada (página do 6x1). Roda no navegador.
 - `mudancas.js`: filtros de "O que mudou"; guarda a escolha em localStorage.
 
