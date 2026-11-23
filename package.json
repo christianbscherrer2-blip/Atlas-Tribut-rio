@@ -2,7 +2,7 @@
   "name": "atlas-tributario-assistant",
   "version": "1.0.0",
   "private": true,
-  "description": "Backend seguro do assistente educativo do Atlas Tributário",
+  "description": "Backend seguro do assistente educativo do Prumo",
   "scripts": {
     "start": "node assistant-server.js"
   },
