@@ -9,6 +9,61 @@ const MAX_BODY = 4096;
 const MAX_QUESTION = 800;
 const hits = new Map();
 
+// Radar de noticias: o servidor le o feed publico da Receita (o GitHub Actions e bloqueado por ela).
+const NEWS_FEED = "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/ultimas-noticias/RSS";
+const NEWS_TTL_MS = 60 * 60 * 1000;
+let newsCache = null;
+
+function decodeXml(s) {
+  return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&amp;/g, "&").trim();
+}
+
+function tagText(block, names) {
+  for (const name of names) {
+    const m = block.match(new RegExp("<(?:[\\w-]+:)?" + name + "\\b[^>]*>([\\s\\S]*?)</(?:[\\w-]+:)?" + name + ">", "i"));
+    if (m && m[1].trim()) return decodeXml(m[1]);
+  }
+  return "";
+}
+
+function parseFeed(xml) {
+  const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
+  const items = [];
+  for (const block of blocks.slice(0, 30)) {
+    const title = tagText(block, ["title"]);
+    let url = tagText(block, ["link"]);
+    if (!url) { const h = block.match(/<link\b[^>]*href="([^"]+)"/i); url = h ? decodeXml(h[1]) : ""; }
+    if (!url) { const a = block.match(/rdf:about="([^"]+)"/i); url = a ? decodeXml(a[1]) : ""; }
+    const raw = tagText(block, ["published", "updated", "date", "pubDate"]);
+    let date = "";
+    if (/^\d{4}-\d{2}-\d{2}/.test(raw)) date = raw.slice(0, 10);
+    else if (raw) { const d = new Date(raw); if (!Number.isNaN(d.getTime())) date = d.toISOString().slice(0, 10); }
+    if (title && url.startsWith("https://www.gov.br/")) items.push({ title, date, url, source: "Receita Federal" });
+  }
+  items.sort((a, b) => b.date.localeCompare(a.date));
+  return items.slice(0, 20);
+}
+
+async function sendNews(res, origin) {
+  if (newsCache && Date.now() - newsCache.at < NEWS_TTL_MS) return send(res, 200, newsCache.data, origin);
+  try {
+    const r = await fetch(NEWS_FEED, { headers: { "User-Agent": "PrumoNewsRadar/1.0 (+official-feed-metadata)" }, signal: AbortSignal.timeout(15000) });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const items = parseFeed((await r.text()).slice(0, 2000000));
+    if (!items.length) throw new Error("feed sem publicacoes validas");
+    newsCache = { at: Date.now(), data: { updated_at: new Date().toISOString(), items } };
+    return send(res, 200, newsCache.data, origin);
+  } catch (error) {
+    const detail = String((error && error.cause && error.cause.code) || (error && error.message) || "erro").slice(0, 120);
+    console.error("Falha ao ler o feed da Receita", { detail });
+    if (newsCache) return send(res, 200, newsCache.data, origin);
+    return send(res, 502, { error: "Nao consegui ler o feed da Receita agora.", detail }, origin);
+  }
+}
+
 const systemPrompt = `Você é o Assistente Educativo do Prumo, em português do Brasil.
 Sua missão é explicar conceitos para leigos com frases simples, sem juridiquês desnecessário.
 Escopo: noções gerais de direito tributário e previdenciário brasileiro, tributos e competências, MEI/SIMEI, Simples, Lucro Presumido/Real, reforma do consumo, consulta de débitos, dívida ativa, restituição/compensação, DCTFWeb/eSocial e caminhos para fontes oficiais.
@@ -65,6 +120,9 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   if (req.method === "GET" && url.pathname === "/health") {
     return send(res, 200, { ok: true, enabled: Boolean(process.env.OPENAI_API_KEY) }, origin);
+  }
+  if (req.method === "GET" && url.pathname === "/api/noticias") {
+    return sendNews(res, origin);
   }
   if (req.method !== "POST" || url.pathname !== "/api/assist") {
     return send(res, 404, { error: "Caminho não encontrado." }, origin);
