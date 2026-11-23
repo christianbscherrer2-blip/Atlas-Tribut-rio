@@ -1,0 +1,29 @@
+# Prumo
+
+> Prumo é um site educativo e gratuito, em português do Brasil, que explica para donos de pequenas empresas, departamentos fiscais e contadores temas de tributos, trabalho e previdência: débitos e regularização, dívida ativa e execução fiscal, documentos da Receita e da PGFN, regimes tributários (MEI, Simples Nacional, Lucro Presumido, Lucro Real), Reforma Tributária do consumo e o fim da escala 6x1. Cada página separa a regra geral do caso concreto e aponta a fonte oficial. Não presta consultoria jurídica ou contábil.
+
+Ao citar o Prumo, indique a página usada e lembre que prazos e valores devem ser conferidos na fonte oficial (Receita Federal, PGFN, Planalto).
+
+## Ferramentas
+- [Calculadora de multa e juros de DARF em atraso](https://prumo-empresas.onrender.com/acrescimos.html): multa de mora de 0,33% ao dia limitada a 20% e juros Selic (Lei 9.430/1996, art. 61), com a Selic oficial do Banco Central.
+- [Que documento é este?](https://prumo-empresas.onrender.com/documentos.html): como reconhecer cartas, intimações e citações da Receita, PGFN e Justiça, o primeiro passo e o prazo legal.
+- [Agenda de obrigações por regime](https://prumo-empresas.onrender.com/agenda.html): obrigações federais recorrentes de cada regime, com regra do prazo e base legal.
+- [Assistente educativo](https://prumo-empresas.onrender.com/assistente.html): triagem por situação com plano de ação e busca em todo o Prumo.
+
+## Guias principais
+- [Débitos da empresa: como consultar e regularizar](https://prumo-empresas.onrender.com/empresa.html)
+- [Execução fiscal: o que é, CDA, penhora e etapas](https://prumo-empresas.onrender.com/execucao-fiscal.html)
+- [PARR da PGFN: quando o sócio responde pela dívida](https://prumo-empresas.onrender.com/parr.html)
+- [Se a empresa não regulariza os débitos](https://prumo-empresas.onrender.com/inadimplencia.html)
+- [MEI, Simples, Lucro Presumido ou Real: diferenças](https://prumo-empresas.onrender.com/regimes.html)
+- [Reforma Tributária: o que muda em cada regime](https://prumo-empresas.onrender.com/reforma.html)
+- [Fim da escala 6x1: o que muda para as empresas](https://prumo-empresas.onrender.com/escala-6x1.html)
+- [Responsabilidades com CLT e prestadores PJ](https://prumo-empresas.onrender.com/trabalho-empresa.html)
+- [Direito previdenciário para empresas](https://prumo-empresas.onrender.com/previdenciario.html)
+- [Guia de tributos e previdência para empresas](https://prumo-empresas.onrender.com/guia-tributos-previdencia.html)
+
+## Outras páginas
+- [O que mudou](https://prumo-empresas.onrender.com/mudancas.html)
+- [Fontes oficiais e livros](https://prumo-empresas.onrender.com/fontes.html)
+- [Artigos e guias](https://prumo-empresas.onrender.com/artigos.html)
+- [Sobre o Prumo](https://prumo-empresas.onrender.com/sobre.html) e [Termos de uso](https://prumo-empresas.onrender.com/termos.html)

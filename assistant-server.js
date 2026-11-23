@@ -291,8 +291,8 @@ Se houver TRECHOS DO PRUMO na entrada, baseie a resposta primeiro neles e cite o
 Use somente links desta lista e só quando úteis:
 CTN: https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm
 Constituição: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
-Reforma e cronograma Receita: https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/reforma-tributaria-do-consumo/entenda
-PER/DCOMP Web (DCTFWeb): https://www.gov.br/receitafederal/pt-br/pt-br/assuntos/orientacao-tributaria/restituicao-ressarcimento-reembolso-e-compensacao/perdcomp/perdcomp-web/perdcomp-web
+Reforma e cronograma Receita: https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/reforma-tributaria-do-consumo/entenda
+PER/DCOMP Web (DCTFWeb): https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/restituicao-ressarcimento-reembolso-e-compensacao/perdcomp/perdcomp-web/perdcomp-web
 Compensação cruzada (Receita): https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/restituicao-ressarcimento-reembolso-e-compensacao/perguntas-e-respostas/compensacao-contribuinte/compensacao-cruzada
 Compensar tributos federais: https://www.gov.br/pt-br/servicos/compensar-tributos-federais
 Portal Regularize/PGFN: https://www.regularize.pgfn.gov.br/

@@ -16,8 +16,8 @@
     lef: ['Lei de Execução Fiscal (6.830/1980)', 'https://www.planalto.gov.br/ccivil_03/leis/l6830.htm'],
     reg: ['Portal REGULARIZE (PGFN)', 'https://www.regularize.pgfn.gov.br/'],
     sn:  ['Portal do Simples Nacional', 'https://www8.receita.fazenda.gov.br/SimplesNacional/'],
-    ref: ['Reforma do consumo (Receita)', 'https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/reforma-tributaria-do-consumo/entenda'],
-    per: ['PER/DCOMP Web', 'https://www.gov.br/receitafederal/pt-br/pt-br/assuntos/orientacao-tributaria/restituicao-ressarcimento-reembolso-e-compensacao/perdcomp/perdcomp-web/perdcomp-web'],
+    ref: ['Reforma do consumo (Receita)', 'https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/reforma-tributaria-do-consumo/entenda'],
+    per: ['PER/DCOMP Web', 'https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/restituicao-ressarcimento-reembolso-e-compensacao/perdcomp/perdcomp-web/perdcomp-web'],
     comp:['Compensar tributos federais', 'https://www.gov.br/pt-br/servicos/compensar-tributos-federais']
   };
   var TRIAGE = [
