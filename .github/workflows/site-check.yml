@@ -3,6 +3,8 @@
 name: site-check
 on:
   push:
+    # O branch "metricas" só guarda as contagens de uso gravadas pelo servidor; não é site.
+    branches-ignore: [metricas]
   pull_request:
 jobs:
   check:

@@ -4,6 +4,39 @@
   var d = document, root = d.documentElement;
   root.classList.add('js');
 
+  /* Medição sem cookies: só contagens por mês (visitas, "Esta página ajudou?" e uso das ferramentas).
+     Nada identifica a pessoa: sem cookie, sem identificador, sem IP guardado e sem o texto digitado
+     (só o termo de uma busca sem resultado, se tiver apenas palavras). Visitas e uso não são contados
+     quando o navegador pede "não rastrear" ou o controle global de privacidade. Painel: /painel.html */
+  var MEDIR_API = 'https://atlas-tributario-assistente.onrender.com/api/m';
+  var ambienteReal = location.protocol === 'https:' && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var naoRastrear = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+  var caminho = location.pathname.replace(/\/index\.html$/, '/');
+  var paginaIndexavel = !d.querySelector('meta[name="robots"][content*="noindex"]');
+  window.prumoMedidas = []; /* registro local, para conferência e testes */
+  function enviarMedida(dados, pedidoDaPessoa) {
+    window.prumoMedidas.push(dados);
+    if (!ambienteReal || (naoRastrear && !pedidoDaPessoa)) return;
+    var corpo = JSON.stringify(dados);
+    try { if (navigator.sendBeacon && navigator.sendBeacon(MEDIR_API, corpo)) return; } catch (e) {}
+    try { fetch(MEDIR_API, { method: 'POST', body: corpo, keepalive: true, mode: 'no-cors' }); } catch (e) {}
+  }
+  window.prumoMedir = function (evento, extra) {
+    var o = { t: 'e', p: caminho, e: evento };
+    if (extra && typeof extra.q === 'string' && !/[\d@]/.test(extra.q) && extra.q.length <= 40) o.q = extra.q;
+    enviarMedida(o, false);
+  };
+  if (paginaIndexavel) {
+    var origemVisita = 'direta';
+    try {
+      if (d.referrer) {
+        var hRef = new URL(d.referrer).hostname;
+        origemVisita = hRef === location.hostname ? 'interna' : /(^|\.)(google|bing|duckduckgo|yahoo|ecosia|yandex|brave)\./.test(hRef) ? 'buscador' : 'outro_site';
+      }
+    } catch (e) {}
+    enviarMedida({ t: 'v', p: caminho, r: origemVisita }, false);
+  }
+
   /* Avisos com data de validade: somem sozinhos depois do prazo (evita urgência desatualizada) */
   d.querySelectorAll('[data-until]').forEach(function (el) {
     if (Date.now() > new Date(el.getAttribute('data-until') + 'T23:59:59').getTime()) el.hidden = true;
@@ -30,6 +63,7 @@
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('prumo-tema', next); } catch (e) {}
       paintThemeButton();
+      window.prumoMedir('tema_trocado');
     });
     paintThemeButton();
   }
@@ -211,6 +245,7 @@
       var b = e.target.closest('button'); if (!b) return;
       var r = b.classList.contains('regimeEsquecer') ? null : b.getAttribute('data-escolha');
       gravarRegime(r); aplicarRegime(r, false); mostrarTodas = false; filtrarAgenda();
+      if (r) window.prumoMedir('regime_escolhido');
     });
     aplicarRegime(lerRegime(), true);
   }
@@ -319,7 +354,7 @@
       if (!b) return;
       e.preventDefault();
       if (aberto === b && porClique) { fecharTip(); porClique = false; }
-      else { abrirTip(b); porClique = true; }
+      else { abrirTip(b); porClique = true; window.prumoMedir('glossario'); }
     });
     d.addEventListener('click', function (e) { if (tip && !e.target.closest('.term,.termTip')) fecharTip(); });
     d.addEventListener('keydown', function (e) { if (e.key === 'Escape' && aberto) { var b = aberto; fecharTip(); b.focus(); } });
@@ -364,4 +399,40 @@
       setTimeout(tick, wait);
     })();
   });
+
+  /* "Esta página ajudou?": uma pergunta curta no fim do conteúdo (resposta binária tem a menor
+     carga e a maior taxa de resposta), com o motivo opcional em opções fechadas, sem texto livre,
+     para não receber dado pessoal. A resposta é contada mesmo com "não rastrear", porque é um ato
+     voluntário da pessoa. O navegador lembra só que já respondeu nesta página neste mês. */
+  var conteudoAjudou = d.getElementById('conteudo');
+  if (conteudoAjudou && paginaIndexavel && caminho !== '/') {
+    var MOTIVOS = [['faltou_informacao', 'Faltou informação'], ['dificil_entender', 'Difícil de entender'], ['desatualizado', 'Parece desatualizado'], ['nao_era_isso', 'Não era o que eu buscava']];
+    var mesAgora = new Date().toISOString().slice(0, 7);
+    var jaRespondeu = function () { try { return (JSON.parse(localStorage.getItem('prumo-ajudou') || '{}'))[caminho] === mesAgora; } catch (e) { return false; } };
+    var marcarRespondido = function () { try { var o = JSON.parse(localStorage.getItem('prumo-ajudou') || '{}'); o[caminho] = mesAgora; localStorage.setItem('prumo-ajudou', JSON.stringify(o)); } catch (e) {} };
+    var caixa = d.createElement('section'); caixa.className = 'ajudou'; caixa.setAttribute('aria-labelledby', 'ajudouPergunta');
+    caixa.innerHTML = '<p id="ajudouPergunta" class="ajudouPergunta">Esta página ajudou?</p>' +
+      '<div class="ajudouOpcoes"><button type="button" class="chip" data-s="sim">Sim</button><button type="button" class="chip" data-s="nao">Não</button></div>' +
+      '<div class="ajudouMotivos" role="group" aria-labelledby="ajudouMotivoTitulo" hidden><p id="ajudouMotivoTitulo" class="fine">O que mais atrapalhou? (opcional)</p><div class="ajudouOpcoes">' +
+      MOTIVOS.map(function (m) { return '<button type="button" class="chip" data-m="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
+      '<p class="fine ajudouStatus" role="status"></p>' +
+      '<p class="fine ajudouNota">Contamos só o total de respostas por página, sem identificar você. <a href="/sobre.html#privacidade">Como medimos</a></p>';
+    var ancoraAjudou = conteudoAjudou.querySelector('.ctaBlock') || conteudoAjudou.querySelector('.reviewStamp');
+    if (ancoraAjudou && ancoraAjudou.parentNode === conteudoAjudou) conteudoAjudou.insertBefore(caixa, ancoraAjudou); else conteudoAjudou.appendChild(caixa);
+    var statusAjudou = caixa.querySelector('.ajudouStatus'), opcoesSimNao = caixa.querySelector('.ajudouOpcoes'), motivos = caixa.querySelector('.ajudouMotivos');
+    if (jaRespondeu()) { opcoesSimNao.hidden = true; statusAjudou.textContent = 'Você já respondeu sobre esta página neste mês. Obrigado.'; }
+    caixa.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.s) {
+        enviarMedida({ t: 'f', p: caminho, s: b.dataset.s }, true); marcarRespondido();
+        opcoesSimNao.hidden = true;
+        if (b.dataset.s === 'nao') { motivos.hidden = false; statusAjudou.textContent = 'Obrigado. Se quiser, diga o que mais atrapalhou.'; motivos.querySelector('button').focus(); }
+        else statusAjudou.textContent = 'Obrigado pela resposta.';
+      } else if (b.dataset.m) {
+        enviarMedida({ t: 'm', p: caminho, m: b.dataset.m }, true);
+        motivos.hidden = true; statusAjudou.textContent = 'Obrigado. Isso mostra o que corrigir primeiro nesta página.';
+        statusAjudou.setAttribute('tabindex', '-1'); statusAjudou.focus();
+      }
+    });
+  }
 })();

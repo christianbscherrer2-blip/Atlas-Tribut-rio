@@ -483,6 +483,25 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .meuRegime{outline:3px solid var(--accent);outline-offset:3px}
 .seloRegime{display:inline-block;background:var(--brand);color:#e3c47a;font:700 var(--fs-xs)/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:3px;margin:0 var(--s2) var(--s2) 0}
 
+/* ---------- 13f. "Esta página ajudou?" e painel de medição ---------- */
+/* Caixa discreta (contorno sem sombra deslocada): é secundária ao conteúdo e ao próximo passo */
+.ajudou{border:2px solid var(--hard);border-radius:4px;background:var(--surface);padding:var(--s4) var(--s5);margin:var(--s6) 0 var(--s5);max-width:var(--measure)}
+.ajudouPergunta{margin:0 0 var(--s3);font:700 var(--fs-lg)/1.3 var(--font-display);color:var(--ink)}
+.ajudouOpcoes{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.ajudouMotivos p{margin:0 0 var(--s2)}
+.ajudouStatus{margin:var(--s2) 0 0;font-weight:600;color:var(--ink)}
+.ajudouStatus:empty{display:none}
+.ajudouNota{margin:var(--s3) 0 0}
+.painelResumo{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--s3);margin:var(--s4) 0}
+.painelNumero{background:var(--surface);border:2px solid var(--hard);border-radius:4px;padding:var(--s3) var(--s4)}
+.painelNumero b{display:block;font:700 var(--fs-xl)/1.1 var(--font-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.painelNumero span{font-size:var(--fs-sm);color:var(--muted)}
+.painelTabela{width:100%;overflow-x:auto}
+.painelTabela td.num,.painelTabela th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.painelFiltros{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:end;margin:var(--s3) 0}
+.painelFiltros label{display:grid;gap:4px;font-weight:600;font-size:var(--fs-sm)}
+.painelFiltros select{min-height:44px;padding:0 var(--s3);border:2px solid var(--hard);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit}
+
 /* ---------- 13c. Guia introdutório (guia-tributos-previdencia.html) ---------- */
 .guia .wrap{max-width:none}
 .guia .sectionHead{max-width:var(--measure);margin-bottom:var(--s5)}

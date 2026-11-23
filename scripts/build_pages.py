@@ -41,7 +41,7 @@ STAMP_RE = re.compile(r'class="reviewStamp".*?(\d{2})/(\d{2})/(\d{4})', re.S)
 RESUMO_RE = re.compile(r'<div class="callout quick30" data-prumo="resumo">.*?</div>', re.S)
 RESUMOS = {k: v for k, v in json.loads((ROOT / "scripts" / "resumos.json").read_text(encoding="utf-8")).items()
            if not k.startswith("_")}
-ASSETS = ["site.css", "site.js", "assistente.js", "jornada.js", "mudancas.js", "acrescimos.js"]
+ASSETS = ["site.css", "site.js", "assistente.js", "jornada.js", "mudancas.js", "acrescimos.js", "painel.js"]
 ASSET_DIGESTS = {
     name: hashlib.sha256((ROOT / name).read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
     for name in ASSETS if (ROOT / name).exists()

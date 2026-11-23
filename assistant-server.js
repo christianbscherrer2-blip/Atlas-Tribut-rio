@@ -90,6 +90,163 @@ async function sendSelic(res, origin) {
   }
 }
 
+// Medição sem cookies: só contagens agregadas por mês. Nada de IP, navegador, identificador ou texto livre é guardado.
+// Com METRICAS_GITHUB_TOKEN, as contagens são gravadas no branch "metricas" do repositório (metricas/AAAA-MM.json);
+// sem ele, ficam só na memória do servidor até ele reiniciar.
+const MET_REPO = process.env.METRICAS_REPO || "christianbscherrer2-blip/Atlas-Tribut-rio";
+const MET_BRANCH = process.env.METRICAS_BRANCH || "metricas";
+const MET_TOKEN = process.env.METRICAS_GITHUB_TOKEN || "";
+const MET_EVENTOS = new Set(["calculo_acrescimos", "plano_acao", "plano_copiado", "plano_impresso", "busca", "busca_vazia", "ia_pergunta", "glossario", "regime_escolhido", "tema_trocado"]);
+const MET_ORIGENS = new Set(["interna", "buscador", "outro_site", "direta"]);
+const MET_MOTIVOS = new Set(["faltou_informacao", "dificil_entender", "desatualizado", "nao_era_isso"]);
+const MET_MAX_PAGINAS = 300;
+const MET_MAX_TERMOS = 200;
+const metHits = new Map();
+const metMeses = new Map(); // "AAAA-MM" -> { base, delta, carregado, sha }
+let metUltimaGravacao = "";
+
+function mesAtual() { return new Date().toISOString().slice(0, 7); }
+function metVazio(mes) { return { mes, paginas: {}, eventos: {}, origens: {}, buscas_vazias: {} }; }
+function somar(obj, chave, n) { obj[chave] = (obj[chave] || 0) + n; }
+
+function metMesclar(alvo, extra) {
+  for (const [p, d] of Object.entries(extra.paginas || {})) {
+    const a = alvo.paginas[p] || (alvo.paginas[p] = { visitas: 0, sim: 0, nao: 0, motivos: {} });
+    a.visitas += d.visitas || 0; a.sim += d.sim || 0; a.nao += d.nao || 0;
+    for (const [m, n] of Object.entries(d.motivos || {})) somar(a.motivos, m, n);
+  }
+  for (const k of ["eventos", "origens", "buscas_vazias"]) {
+    for (const [c, n] of Object.entries(extra[k] || {})) somar(alvo[k], c, n);
+  }
+  return alvo;
+}
+
+async function gh(caminho, opcoes = {}) {
+  return fetch("https://api.github.com/repos/" + MET_REPO + caminho, {
+    ...opcoes,
+    headers: { "Authorization": "Bearer " + MET_TOKEN, "Accept": "application/vnd.github+json", "User-Agent": "PrumoMetricas/1.0", "X-GitHub-Api-Version": "2022-11-28", ...(opcoes.headers || {}) },
+    signal: AbortSignal.timeout(15000)
+  });
+}
+
+async function metLerArquivo(mes) {
+  if (!MET_TOKEN) return { dados: metVazio(mes), sha: null };
+  const r = await gh("/contents/metricas/" + mes + ".json?ref=" + encodeURIComponent(MET_BRANCH));
+  if (r.status === 404) return { dados: metVazio(mes), sha: null };
+  if (!r.ok) throw new Error("GitHub HTTP " + r.status);
+  const j = await r.json();
+  const dados = metMesclar(metVazio(mes), JSON.parse(Buffer.from(j.content || "", "base64").toString("utf8") || "{}"));
+  return { dados, sha: j.sha };
+}
+
+async function metMes(mes) {
+  let m = metMeses.get(mes);
+  if (!m) { m = { base: metVazio(mes), delta: metVazio(mes), carregado: false }; metMeses.set(mes, m); }
+  if (!m.carregado && MET_TOKEN && Date.now() - (m.tentativa || 0) > 5 * 60 * 1000) {
+    m.tentativa = Date.now();
+    try { m.base = (await metLerArquivo(mes)).dados; m.carregado = true; }
+    catch (e) { console.error("Falha ao ler métricas", { detail: String(e && e.message).slice(0, 120) }); }
+  }
+  if (!MET_TOKEN) m.carregado = true;
+  return m;
+}
+
+async function metGarantirBranch() {
+  const r = await gh("/git/ref/heads/" + encodeURIComponent(MET_BRANCH));
+  if (r.ok) return;
+  if (r.status !== 404) throw new Error("GitHub HTTP " + r.status);
+  const main = await gh("/git/ref/heads/main");
+  if (!main.ok) throw new Error("GitHub HTTP " + main.status);
+  const sha = (await main.json()).object.sha;
+  const c = await gh("/git/refs", { method: "POST", body: JSON.stringify({ ref: "refs/heads/" + MET_BRANCH, sha }) });
+  if (!c.ok && c.status !== 422) throw new Error("GitHub HTTP " + c.status);
+}
+
+let metGravando = false;
+async function metGravar() {
+  if (!MET_TOKEN || metGravando) return;
+  metGravando = true;
+  try {
+    for (const [mes, m] of metMeses) {
+      const temDelta = Object.keys(m.delta.paginas).length || Object.keys(m.delta.eventos).length || Object.keys(m.delta.origens).length || Object.keys(m.delta.buscas_vazias).length;
+      if (!temDelta) continue;
+      await metGarantirBranch();
+      const enviado = m.delta; m.delta = metVazio(mes);
+      try {
+        const atual = await metLerArquivo(mes);
+        const novo = metMesclar(atual.dados, enviado);
+        novo.atualizado_em = new Date().toISOString();
+        const corpo = { message: "Métricas de " + mes, branch: MET_BRANCH, content: Buffer.from(JSON.stringify(novo, null, 1) + "\n").toString("base64") };
+        if (atual.sha) corpo.sha = atual.sha;
+        const r = await gh("/contents/metricas/" + mes + ".json", { method: "PUT", body: JSON.stringify(corpo) });
+        if (!r.ok) throw new Error("GitHub HTTP " + r.status);
+        m.base = novo; m.carregado = true;
+        metUltimaGravacao = novo.atualizado_em;
+      } catch (e) {
+        metMesclar(m.delta, enviado); // devolve o que não foi gravado
+        throw e;
+      }
+    }
+  } catch (e) {
+    console.error("Falha ao gravar métricas", { detail: String(e && e.message).slice(0, 120) });
+  } finally { metGravando = false; }
+}
+setInterval(metGravar, 10 * 60 * 1000).unref();
+process.on("SIGTERM", () => { metGravar().finally(() => process.exit(0)); setTimeout(() => process.exit(0), 8000).unref(); });
+
+function metTermo(q) {
+  // Só palavras: sem dígitos, e-mail ou texto longo, para não guardar dado pessoal.
+  if (typeof q !== "string" || /[\d@]/.test(q)) return "";
+  const t = q.toLowerCase().normalize("NFC").replace(/[^a-zà-ú\s-]/g, " ").replace(/\s+/g, " ").trim();
+  if (t.length < 3 || t.length > 40 || t.split(" ").length > 5) return "";
+  return t;
+}
+
+async function receberMetrica(req, res, origin) {
+  if (!isAllowed(origin)) return send(res, 403, { error: "Origem não autorizada." }, origin);
+  const key = rateKey(req); const now = Date.now();
+  const e = metHits.get(key);
+  if (e && now < e.until && e.count >= 120) return send(res, 429, { ok: false }, origin);
+  if (!e || now >= e.until) metHits.set(key, { count: 1, until: now + WINDOW_MS }); else e.count += 1;
+  if (metHits.size > 5000) for (const [k, v] of metHits) if (now >= v.until) metHits.delete(k);
+  let texto = "";
+  for await (const chunk of req) { texto += chunk; if (texto.length > 1024) return send(res, 413, { ok: false }, origin); }
+  let d; try { d = JSON.parse(texto); } catch { return send(res, 400, { ok: false }, origin); }
+  let p = typeof d.p === "string" ? d.p : "";
+  if (p === "/index.html") p = "/";
+  if (!/^\/([a-z0-9-]+\/)*([a-z0-9-]+\.html)?$/.test(p) || p.length > 80) return send(res, 400, { ok: false }, origin);
+  const m = await metMes(mesAtual());
+  const delta = m.delta;
+  const totalPaginas = new Set([...Object.keys(m.base.paginas), ...Object.keys(delta.paginas)]).size;
+  const novaPagina = !(p in m.base.paginas) && !(p in delta.paginas);
+  if (novaPagina && totalPaginas >= MET_MAX_PAGINAS) return send(res, 200, { ok: false }, origin);
+  const pag = () => delta.paginas[p] || (delta.paginas[p] = { visitas: 0, sim: 0, nao: 0, motivos: {} });
+  if (d.t === "v") {
+    pag().visitas += 1;
+    if (MET_ORIGENS.has(d.r)) somar(delta.origens, d.r, 1);
+  } else if (d.t === "f" && (d.s === "sim" || d.s === "nao")) {
+    pag()[d.s] += 1;
+  } else if (d.t === "m" && MET_MOTIVOS.has(d.m)) {
+    somar(pag().motivos, d.m, 1);
+  } else if (d.t === "e" && MET_EVENTOS.has(d.e)) {
+    somar(delta.eventos, d.e, 1);
+    if (d.e === "busca_vazia") {
+      const termo = metTermo(d.q);
+      const termos = new Set([...Object.keys(m.base.buscas_vazias), ...Object.keys(delta.buscas_vazias)]);
+      if (termo && (termos.has(termo) || termos.size < MET_MAX_TERMOS)) somar(delta.buscas_vazias, termo, 1);
+    }
+  } else return send(res, 400, { ok: false }, origin);
+  return send(res, 200, { ok: true }, origin);
+}
+
+async function enviarMetricas(res, origin, mesPedido) {
+  const hoje = mesAtual();
+  const mes = /^20\d{2}-(0[1-9]|1[0-2])$/.test(mesPedido || "") && mesPedido >= "2026-01" && mesPedido <= hoje ? mesPedido : hoje;
+  const m = await metMes(mes);
+  const total = metMesclar(metMesclar(metVazio(mes), m.base), m.delta);
+  return send(res, 200, { ...total, persistente: Boolean(MET_TOKEN), lido_do_github: m.carregado && Boolean(MET_TOKEN), ultima_gravacao: metUltimaGravacao || null }, origin);
+}
+
 const systemPrompt = `Você é o Assistente Educativo do Prumo, em português do Brasil.
 Sua missão é explicar conceitos para leigos com frases simples, sem juridiquês desnecessário.
 Escopo: noções gerais de direito tributário e previdenciário brasileiro, tributos e competências, MEI/SIMEI, Simples, Lucro Presumido/Real, reforma do consumo, consulta de débitos, dívida ativa, restituição/compensação, DCTFWeb/eSocial e caminhos para fontes oficiais.
@@ -152,6 +309,12 @@ const server = http.createServer(async (req, res) => {
   }
   if (req.method === "GET" && url.pathname === "/api/selic") {
     return sendSelic(res, origin);
+  }
+  if (req.method === "POST" && url.pathname === "/api/m") {
+    return receberMetrica(req, res, origin);
+  }
+  if (req.method === "GET" && url.pathname === "/api/metricas") {
+    return enviarMetricas(res, origin, url.searchParams.get("mes"));
   }
   if (req.method !== "POST" || url.pathname !== "/api/assist") {
     return send(res, 404, { error: "Caminho não encontrado." }, origin);

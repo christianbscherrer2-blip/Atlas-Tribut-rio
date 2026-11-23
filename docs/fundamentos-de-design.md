@@ -93,6 +93,18 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | **Agenda** mostra a regra do prazo e a base legal, e manda para a Agenda Tributária oficial para a data exata | Uma data calculada errada causa multa; a fonte oficial resolve dias úteis e feriados | Nielsen (1994), heurística 5 (prevenção de erro). Forte |
 | Teto diário de perguntas à IA (`OPENAI_MAX_DIARIO`) | Custo previsível; quando o teto é atingido, a mensagem indica a alternativa gratuita | Prevenção e recuperação de erro (heurísticas 5 e 9). Forte |
 
+## 6d. Medição contínua (Fase 5)
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **Contagens agregadas por mês, sem cookie, identificador ou IP guardado** | Coletar só o necessário para a finalidade (melhorar páginas); sem dado pessoal, nada a pedir consentimento nem a proteger | LGPD, art. 6º, III (necessidade). Norma |
+| Respeita "não rastrear" e o controle global de privacidade nas visitas | Recusa expressa pelo navegador deve valer | LGPD, art. 18; especificação Global Privacy Control. Norma |
+| **"Esta página ajudou?" com resposta sim/não** | Pergunta binária tem custo mínimo de resposta; quanto maior o esforço, menor e mais enviesada a taxa de resposta | Krosnick (1991), *satisficing* em questionários. Moderada |
+| Motivo opcional em quatro opções fechadas, sem texto livre | Diagnóstico acionável sem receber dado pessoal; opções fechadas reduzem esforço | Krosnick (1991); LGPD, art. 6º, III. Moderada |
+| Caixa no fim do conteúdo, depois dos links relacionados | A pergunta só faz sentido depois da leitura e não compete com o conteúdo | Nielsen (1994), heurística 8. Moderada |
+| **Buscas sem resultado** guardam só o termo (até 5 palavras, sem números ou e-mail) | É o sinal mais direto de lacuna de conteúdo ou de vocabulário da busca | Rosenfeld, Morville e Arango (2015), *Information Architecture*, análise de logs de busca. Moderada |
+| Painel avisa que menos de 10 respostas não sustentam conclusão e que quem responde é autosselecionado | Evitar decisão com amostra pequena ou enviesada | Kohavi, Tang e Xu (2020). Forte |
+
 ---
 
 ## 7. Avaliação heurística (estado após a Fase 2)
@@ -146,7 +158,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 
 **O que medir:** taxa de sucesso por tarefa, tempo por tarefa, erros, a pergunta de facilidade de 1 a 7 depois de cada tarefa (SEQ; Sauro e Dumas, 2009) e o questionário SUS ao final (Brooke, 1996; a média de referência é 68).
 
-**Depois de publicar:** estatística de uso sem cookies (por exemplo, Plausible ou GoatCounter), botão "esta página ajudou?" e lista de buscas sem resultado. Testes A/B só com tráfego suficiente para resultado estatístico (Kohavi, Tang e Xu, 2020); com pouco tráfego, os testes com pessoas são mais confiáveis.
+**Depois de publicar (em funcionamento desde a Fase 5):** contagem de uso sem cookies, pergunta "Esta página ajudou?" e lista de buscas sem resultado, no painel `/painel.html`. Rotina mensal: abrir o painel, corrigir primeiro as páginas com mais respostas "não" (usando o motivo mais citado), transformar as buscas sem resultado em conteúdo ou sinônimo na busca (`SYN` em `assistente.js`) e comparar com o mês anterior. Testes A/B só com tráfego suficiente para resultado estatístico (Kohavi, Tang e Xu, 2020); com pouco tráfego, os testes com pessoas são mais confiáveis.
 
 ---
 
@@ -165,10 +177,12 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
 - ISO 24495-1:2023. Plain language — Part 1: Governing principles and guidelines.
 - Kohavi, R.; Tang, D.; Xu, Y. (2020). *Trustworthy Online Controlled Experiments*. Cambridge University Press.
+- Krosnick, J. A. (1991). Response strategies for coping with the cognitive demands of attitude measures in surveys. *Applied Cognitive Psychology*, 5(3).
 - Mayer, R. E. (2009). *Multimedia Learning* (2ª ed.). Cambridge University Press.
 - Mayer, R. E.; Mathias, A.; Wetzell, K. (2002). Fostering understanding of multimedia messages through pre-training. *Journal of Experimental Psychology: Applied*, 8(3).
 - Miller, G. A. (1956). The magical number seven, plus or minus two. *Psychological Review*, 63(2).
 - Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. *CHI '94*.
+- Rosenfeld, L.; Morville, P.; Arango, J. (2015). *Information Architecture: For the Web and Beyond*. 4. ed. O'Reilly.
 - Nielsen, J.; Landauer, T. K. (1993). A mathematical model of the finding of usability problems. *INTERCHI '93*.
 - Nielsen, J.; Molich, R. (1990). Heuristic evaluation of user interfaces. *CHI '90*.
 - Norman, D. A. (1988). *The Design of Everyday Things*.

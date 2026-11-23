@@ -92,8 +92,14 @@
     $saida.innerHTML = html;
   }
 
-  ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, calcular); });
-  form.addEventListener('submit', function (e) { e.preventDefault(); calcular(); });
+  /* Conta um cálculo por visita, só quando a pessoa mexe nos campos e o resultado é válido (o exemplo inicial não conta) */
+  var medido = false;
+  function calcularPelaPessoa() {
+    calcular();
+    if (!medido && !$erro.textContent && $saida.innerHTML) { medido = true; if (window.prumoMedir) window.prumoMedir('calculo_acrescimos'); }
+  }
+  ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, calcularPelaPessoa); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); calcularPelaPessoa(); });
 
   fetch('/selic.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (j) {
     SELIC = j.meses || {}; ULTIMO = j.ultimo_mes || Object.keys(SELIC).sort().pop();

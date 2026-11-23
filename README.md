@@ -40,6 +40,8 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 - Triagem do assistente: termina num plano de ação numerado, com copiar e imprimir.
 - `agenda.html`: obrigações recorrentes por regime, com regra de prazo e base legal; links para a Agenda Tributária oficial do mês corrente e do seguinte (gerados em `site.js`).
 - Perfil do regime: seletor em regimes, Reforma, débitos e agenda; guarda a escolha em `localStorage` (`prumo-regime`), destaca o cartão do regime, pré-seleciona os painéis e filtra a agenda. Itens marcados com `data-regime="mei simples presumido real"`.
+- Medição sem cookies (`site.js`): conta por mês visitas por página e origem, respostas a "Esta página ajudou?" (com motivo opcional em lista fechada) e uso das ferramentas (`window.prumoMedir('evento')`; a lista de eventos aceitos fica em `MET_EVENTOS` no `assistant-server.js`). Não guarda IP, identificador nem texto, exceto o termo de busca sem resultado (até 5 palavras, sem números ou e-mail). Respeita "não rastrear" e o controle global de privacidade. Explicação pública em `sobre.html#privacidade`.
+- `painel.html` + `painel.js`: painel mensal (fora do menu e dos buscadores) com páginas que precisam de atenção, buscas sem resultado, páginas mais visitadas, uso das ferramentas e origem das visitas. Lê `GET /api/metricas?mes=AAAA-MM`.
 - `jornada.js`: calculadora do custo da jornada (página do 6x1). Roda no navegador.
 - `mudancas.js`: filtros de "O que mudou"; guarda a escolha em localStorage.
 
@@ -48,7 +50,7 @@ A verificação automática (`.github/workflows/site-check.yml`) roda os passos 
 3. IA opcional: só aparece se `GET /health` do backend retornar `enabled: true` (exige `OPENAI_API_KEY`). CPF/CNPJ são bloqueados no navegador e no servidor.
 
 ## Variáveis do backend
-`OPENAI_API_KEY`, `OPENAI_MODEL` (opcional), `OPENAI_MAX_DIARIO` (opcional, teto diário total de perguntas à IA; padrão 200), `SITE_ORIGINS` (opcional, lista separada por vírgula).
+`OPENAI_API_KEY`, `OPENAI_MODEL` (opcional), `OPENAI_MAX_DIARIO` (opcional, teto diário total de perguntas à IA; padrão 200), `SITE_ORIGINS` (opcional, lista separada por vírgula), `METRICAS_GITHUB_TOKEN` (opcional; token do GitHub com permissão "Contents: read and write" só neste repositório. Com ele, as contagens são gravadas a cada 10 minutos e ao desligar no branch `metricas`, arquivo `metricas/AAAA-MM.json`, que o Render não publica; sem ele, ficam só na memória até o servidor reiniciar), `METRICAS_REPO` e `METRICAS_BRANCH` (opcionais).
 
 ## Domínio
 `python3 scripts/set_domain.py https://www.seudominio.com.br`; no serviço do assistente, defina `SITE_ORIGINS`.

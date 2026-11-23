@@ -7,6 +7,8 @@
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
   var CPF = /\b\d{3}[.\s]?\d{3}[.\s]?\d{3}[-\s]?\d{2}\b/, CNPJ = /\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[\/\s]?\d{4}[-\s]?\d{2}\b/;
   var hasId = function (t) { return CPF.test(t) || CNPJ.test(t); };
+  /* Contagem agregada de uso (site.js). O texto digitado não é enviado, exceto o termo de uma busca sem resultado. */
+  var medir = function (evento, extra) { if (window.prumoMedir) window.prumoMedir(evento, extra); };
 
   /* ---------- 1) Triagem por situação ---------- */
   var OFF = {
@@ -116,11 +118,12 @@
     var status = triOut.querySelector('.planStatus');
     triOut.querySelector('[data-plano="copiar"]').addEventListener('click', function () {
       var texto = planoTexto(t);
-      var ok = function () { status.textContent = 'Plano copiado. Cole onde quiser guardar.'; };
+      var ok = function () { status.textContent = 'Plano copiado. Cole onde quiser guardar.'; medir('plano_copiado'); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(ok, function () { status.textContent = 'Não consegui copiar. Selecione o texto do plano e copie.'; });
       else status.textContent = 'Seu navegador não permite copiar daqui. Selecione o texto do plano e copie.';
     });
     triOut.querySelector('[data-plano="imprimir"]').addEventListener('click', function () {
+      medir('plano_impresso');
       document.body.classList.add('imprimindoPlano');
       window.print();
       setTimeout(function () { document.body.classList.remove('imprimindoPlano'); }, 500);
@@ -129,7 +132,7 @@
   }
   TRIAGE.forEach(function (t) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'triBtn'; b.textContent = t.label; b.setAttribute('aria-pressed', 'false');
-    b.addEventListener('click', function () { [].forEach.call(tri.children, function (x) { x.setAttribute('aria-pressed', 'false'); }); b.setAttribute('aria-pressed', 'true'); showTriage(t); });
+    b.addEventListener('click', function () { [].forEach.call(tri.children, function (x) { x.setAttribute('aria-pressed', 'false'); }); b.setAttribute('aria-pressed', 'true'); showTriage(t); medir('plano_acao'); });
     tri.appendChild(b);
   });
 
@@ -179,7 +182,8 @@
     out.innerHTML = '<p class="fine">Buscando…</p>';
     load().then(function () {
       var r = search(q); lastHits = r.hits.map(function (x) { return x.d.c; });
-      if (!r.hits.length) { out.innerHTML = '<p class="alert">Não achei um trecho sobre isso. Tente outras palavras (por exemplo "penhora", "regime", "dívida ativa") ou escolha uma situação acima. Veja também as <a href="/fontes.html">fontes oficiais</a>.</p>'; return; }
+      medir('busca');
+      if (!r.hits.length) { medir('busca_vazia', { q: q }); out.innerHTML = '<p class="alert">Não achei um trecho sobre isso. Tente outras palavras (por exemplo "penhora", "regime", "dívida ativa") ou escolha uma situação acima. Veja também as <a href="/fontes.html">fontes oficiais</a>.</p>'; return; }
       out.innerHTML = '<p class="fine">' + r.hits.length + ' trecho(s) do Prumo. São extratos das páginas, não uma resposta gerada.</p>' + r.hits.map(function (x) {
         var c = x.d.c; return '<article class="card searchHit"><span class="tag">' + esc(c.page) + '</span><h3><a href="' + c.url + '">' + esc(c.title) + '</a></h3><p>' + snippet(c.text, r.q) + '</p><a class="linkbtn" href="' + c.url + '">Abrir a seção →</a></article>'; }).join('');
       updateAi();
@@ -204,6 +208,7 @@
     if (q.length < 3) return;
     if (!aiConsent.checked) { aiOut.textContent = 'Marque a caixa de ciência para enviar a pergunta à IA.'; return; }
     if (hasId(q)) { aiOut.textContent = 'Por segurança, não envie CPF ou CNPJ. Reformule a pergunta sem dados identificáveis.'; return; }
+    medir('ia_pergunta');
     aiBtn.disabled = true; aiOut.textContent = 'Consultando… (na primeira vez o serviço pode levar alguns segundos para acordar)';
     load().then(function () {
       var r = search(q), ctx = r.hits.slice(0, 3).map(function (x) { return { title: x.d.c.page + ': ' + x.d.c.title, text: x.d.c.text.slice(0, 900) }; });
