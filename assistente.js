@@ -62,7 +62,7 @@
       gather: 'Contrato, notas fiscais emitidas, comunicações sobre ordens e horários.',
       avoid: 'Usar PJ apenas para reduzir encargos quando a rotina é de empregado.',
       pro: 'O tema é debatido nos tribunais e muda: confirme a orientação atual com advogado trabalhista.',
-      atlas: [['/trabalho-empresa.html', 'CLT, PJ e responsabilidades'], ['/previdenciario.html', 'Previdência e folha']], off: [] },
+      atlas: [['/trabalho-empresa.html', 'Folha, pró-labore e PJ'], ['/previdenciario.html', 'Previdência e folha']], off: [] },
     { id: 'rest', label: 'Paguei em duplicidade ou quero restituição/compensação',
       what: 'Restituição é pedir a devolução do valor indevido. Compensação é usar um crédito elegível para quitar débito permitido. A origem do crédito e o regime definem o canal.',
       first: 'Concilie os comprovantes, a competência e o código de receita, e confira como o pagamento foi apropriado no sistema fiscal.',
@@ -83,7 +83,7 @@
       gather: 'Escalas atuais, convenção coletiva da categoria, controle de ponto, contratos de preço fixo e contratos públicos.',
       avoid: 'Esperar a regulamentação para começar: a primeira etapa vence em cerca de 60 dias.',
       pro: 'Ajustes de escala, banco de horas e custo pedem advogado trabalhista e contador.',
-      atlas: [['/escala-6x1.html', 'Fim da escala 6x1: página completa'], ['/trabalho-empresa.html', 'CLT, PJ e responsabilidades']], off: [] }
+      atlas: [['/escala-6x1.html', 'Fim da escala 6x1: página completa'], ['/trabalho-empresa.html', 'Folha, pró-labore e PJ']], off: [] }
   ];
   var tri = $('#triageButtons'), triOut = $('#triageOut');
   function dateNote(t) {
@@ -183,11 +183,11 @@
     load().then(function () {
       var r = search(q); lastHits = r.hits.map(function (x) { return x.d.c; });
       medir('busca');
-      if (!r.hits.length) { medir('busca_vazia', { q: q }); out.innerHTML = '<p class="alert">Não achei um trecho sobre isso. Tente outras palavras (por exemplo "penhora", "regime", "dívida ativa") ou escolha uma situação acima. Veja também as <a href="/fontes.html">fontes oficiais</a>.</p>'; return; }
+      if (!r.hits.length) { medir('busca_vazia', { q: q }); out.innerHTML = '<p class="alert">Não achei um trecho sobre isso. Tente outras palavras (por exemplo "penhora", "regime", "dívida ativa") ou escolha uma situação acima. Veja também as <a href="/biblioteca.html#fontes">fontes oficiais</a>.</p>'; return; }
       out.innerHTML = '<p class="fine">' + r.hits.length + ' trecho(s) do Prumo. São extratos das páginas, não uma resposta gerada.</p>' + r.hits.map(function (x) {
         var c = x.d.c; return '<article class="card searchHit"><span class="tag">' + esc(c.page) + '</span><h3><a href="' + c.url + '">' + esc(c.title) + '</a></h3><p>' + snippet(c.text, r.q) + '</p><a class="linkbtn" href="' + c.url + '">Abrir a seção →</a></article>'; }).join('');
       updateAi();
-    }).catch(function () { out.innerHTML = '<p class="alert">Não consegui carregar a busca agora. Use as situações acima ou as <a href="/fontes.html">fontes oficiais</a>.</p>'; });
+    }).catch(function () { out.innerHTML = '<p class="alert">Não consegui carregar a busca agora. Use as situações acima ou as <a href="/biblioteca.html#fontes">fontes oficiais</a>.</p>'; });
   });
 
   /* Busca vinda do botão "Buscar" do cabeçalho de qualquer página: /assistente.html?q=termo#busca */

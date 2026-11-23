@@ -116,6 +116,18 @@ Identidade preservada (regra do projeto): fundo papel, azul-marinho e dourado, t
 | Carteira de CDAs só no navegador, com exportação para planilha e bloqueio de CPF e CNPJ | Privacidade por padrão e portabilidade dos dados | LGPD, art. 6º, III (necessidade). Norma |
 | Prazos baixados para a agenda do celular (.ics), com lembrete 3 dias antes | Lembretes externos compensam a memória prospectiva falha | Einstein e McDaniel (1990), memória prospectiva. Moderada |
 
+## 6g. Especialização em Direito Tributário e Previdenciário
+
+| Decisão | Princípio | Evidência |
+|---|---|---|
+| **Menu em quatro grupos por tema** (Tributário; Débitos e cobrança; Previdência e folha; Atualizações), cada um com 4 a 7 itens | Grupos com rótulo claro e poucos itens reduzem o tempo de escolha e a carga da memória de trabalho | Hick (1952) e Hyman (1953); Cowan (2001). Moderada |
+| Página inicial com as mesmas quatro portas do menu | Consistência entre navegação e conteúdo: a pessoa aprende um modelo mental só | Nielsen (1994), heurística 4. Forte |
+| Retiradas: Direito Administrativo, Áreas e processos do Direito e Navegar por área; item NR-1 de "O que mudou" | Conteúdo fora do foco compete por atenção e dilui o "cheiro de informação" dos caminhos principais | Pirolli e Card (1999), teoria do forrageamento de informação. Moderada |
+| "Fontes e livros" fundida em "Legislação, jurisprudência e fontes" | Duas páginas com o mesmo propósito obrigam a pessoa a decidir entre elas sem ganho | Nielsen (1994), heurística 8 (minimalismo). Forte |
+| "CLT, PJ e responsabilidades" reescrita como "Folha, pró-labore e PJ: tributos e contribuições" | Mesmo assunto, pelo ângulo do público-alvo (custeio, retenções, regime) | Arquitetura da informação orientada à tarefa (Rosenfeld, Morville e Arango, 2015). Moderada |
+| Páginas retiradas viram redirecionamento, com canonical para o destino e fora do sitemap | Links antigos e o histórico do Google continuam funcionando | Prevenção de erro (Nielsen, 1994, heurística 5). Forte |
+| Escala 6x1 e calculadoras mantidas, a pedido do autor | Tema mais buscado do Prumo e ligado ao custo da folha | Dados do Semrush (cerca de 135 mil buscas por mês) |
+
 ## 6d. Medição contínua (Fase 5)
 
 | Decisão | Princípio | Evidência |
@@ -195,6 +207,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Cowan, N. (2001). The magical number 4 in short-term memory. *Behavioral and Brain Sciences*, 24(1).
 - Dyson, M. C.; Haselgrove, M. (2001). The influence of reading speed and line length on the effectiveness of reading from screen. *International Journal of Human-Computer Studies*, 54(4).
 - Findlater, L.; McGrenere, J. (2004). A comparison of static, adaptive, and adaptable menus. *CHI '04*.
+- Cowan, N. (2001). The magical number 4 in short-term memory. *Behavioral and Brain Sciences*, 24(1).
 - Einstein, G. O.; McDaniel, M. A. (1990). Normal aging and prospective memory. *Journal of Experimental Psychology: Learning, Memory, and Cognition*, 16(4).
 - Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. *Journal of Experimental Psychology*, 47(6).
 - Hick, W. E. (1952). On the rate of gain of information. *Quarterly Journal of Experimental Psychology*, 4(1).
@@ -209,6 +222,7 @@ Medições automáticas e avaliação heurística não substituem observar pesso
 - Miller, G. A. (1956). The magical number seven, plus or minus two. *Psychological Review*, 63(2).
 - Hyman, R. (1953). Stimulus information as a determinant of reaction time. *Journal of Experimental Psychology*, 45(3).
 - Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. *CHI '94*.
+- Pirolli, P.; Card, S. (1999). Information foraging. *Psychological Review*, 106(4).
 - Rosenfeld, L.; Morville, P.; Arango, J. (2015). *Information Architecture: For the Web and Beyond*. 4. ed. O'Reilly.
 - Nielsen, J.; Landauer, T. K. (1993). A mathematical model of the finding of usability problems. *INTERCHI '93*.
 - Nielsen, J.; Molich, R. (1990). Heuristic evaluation of user interfaces. *CHI '90*.

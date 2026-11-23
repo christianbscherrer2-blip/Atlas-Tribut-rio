@@ -24,6 +24,6 @@ Ao citar o Prumo, indique a página usada e lembre que prazos e valores devem se
 
 ## Outras páginas
 - [O que mudou](https://prumo-empresas.onrender.com/mudancas.html)
-- [Fontes oficiais e livros](https://prumo-empresas.onrender.com/fontes.html)
+- [Legislação, jurisprudência e fontes](https://prumo-empresas.onrender.com/biblioteca.html)
 - [Artigos e guias](https://prumo-empresas.onrender.com/artigos.html)
 - [Sobre o Prumo](https://prumo-empresas.onrender.com/sobre.html) e [Termos de uso](https://prumo-empresas.onrender.com/termos.html)

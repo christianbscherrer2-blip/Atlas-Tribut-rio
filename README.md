@@ -1,5 +1,7 @@
 # Prumo (repositório do site)
 
+Especializado em Direito Tributário e Previdenciário. Conteúdo fora desse foco não entra no menu nem na página inicial; páginas retiradas (`administrativo`, `processos`, `areas`, `fontes`) ficam como redirecionamento, fora do sitemap e da busca.
+
 Site estático (Render, serviço `atlas-tributario`) + backend opcional do assistente (serviço `atlas-tributario-assistente`).
 
 ## Direitos e licença
