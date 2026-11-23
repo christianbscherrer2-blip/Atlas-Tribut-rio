@@ -139,9 +139,20 @@
     }
   }
 
-  /* Frase de apoio do topo da página inicial: mostra a primeira, sem animação de digitação */
+  /* Máquina de escrever do topo da página inicial (frases separadas por |).
+     Com "reduzir movimento" ativado no aparelho, mostra só a primeira frase, parada. */
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   d.querySelectorAll('.typeCue').forEach(function (el) {
-    var first = (el.getAttribute('data-phrases') || '').split('|')[0].trim();
-    if (first) el.textContent = first;
+    var phrases = (el.getAttribute('data-phrases') || el.textContent).split('|').map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!phrases.length) return;
+    if (reduce) { el.textContent = phrases[0]; return; }
+    el.classList.add('live'); el.textContent = '';
+    var pi = 0, ci = 0, del = false;
+    (function tick() {
+      var p = phrases[pi], wait = del ? 18 : 38;
+      if (!del) { ci++; el.textContent = p.slice(0, ci); if (ci === p.length) { if (phrases.length === 1) return; del = true; wait = 1900; } }
+      else { ci--; el.textContent = p.slice(0, ci); if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; wait = 350; } }
+      setTimeout(tick, wait);
+    })();
   });
 })();

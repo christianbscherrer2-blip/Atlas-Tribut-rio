@@ -3,6 +3,7 @@
 Site estático (Render, serviço `atlas-tributario`) + backend opcional do assistente (serviço `atlas-tributario-assistente`).
 
 ## Sistema de design
+- **Identidade do Prumo (preservar):** fundo papel, azul-marinho e dourado, títulos em Georgia, faixas pretas nos sobretítulos, barra dourada sob os títulos de seção, contorno escuro com sombra dourada deslocada em cartões e botões, etiquetas douradas inclinadas e a máquina de escrever da página inicial. Melhorias devem evoluir o que existe, não trocar essa identidade (seção 13 de `site.css`).
 - `site.css` é uma camada única organizada por tokens (cores com função, tipografia, espaçamento de 4 px, raios). Para mudar a aparência, mude os tokens no topo do arquivo; os componentes só usam variáveis.
 - Tema claro e escuro: segue o aparelho até a pessoa escolher no botão do cabeçalho; a escolha fica só no navegador dela.
 - Contraste mínimo 4,5:1 (WCAG AA) nos dois temas; alvos de toque de pelo menos 24 px (44 px nos botões).
