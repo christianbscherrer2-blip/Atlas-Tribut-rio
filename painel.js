@@ -19,6 +19,20 @@
   var MIN_RESPOSTAS = 10; /* abaixo disso, o percentual oscila demais para orientar decisão */
   var nomes = {};
 
+  /* Chave pessoal: chega no link (#chave=...), que não é enviado ao servidor pelo navegador.
+     Fica guardada só neste navegador e sai da barra de endereço. */
+  var CHAVE_LS = 'prumo-painel-chave', chave = '';
+  try {
+    var mHash = location.hash.match(/chave=([A-Za-z0-9_-]{16,100})/);
+    if (mHash) { localStorage.setItem(CHAVE_LS, mHash[1]); history.replaceState(null, '', location.pathname); }
+    chave = localStorage.getItem(CHAVE_LS) || '';
+  } catch (e) {}
+  var secoes = [].slice.call(d.querySelectorAll('#conteudo > section'));
+  function mostrarBloqueio(bloq) {
+    secoes.forEach(function (s) { s.hidden = bloq ? s.id !== 'bloqueio' : s.id === 'bloqueio'; });
+    var alerta = d.querySelector('#conteudo > .alert'); if (alerta) alerta.hidden = bloq;
+  }
+
   var rotuloMes = function (m) { var p = m.split('-'); return MESES[+p[1] - 1] + ' de ' + p[0]; };
   var pct = function (a, b) { return b ? Math.round(100 * a / b) + '%' : '—'; };
   var nomePagina = function (p) { return nomes[p] || p; };
@@ -78,15 +92,39 @@
       Object.keys(termos).sort(function (a, b) { return termos[b] - termos[a]; }).slice(0, 20).map(function (t) { return [esc(t), num.format(termos[t])]; }), 'Nenhuma busca sem resultado registrada neste mês.');
   }
 
+  function mostrarAgora(dados, mes) {
+    var ag = dados.agora || {}, sec = $('#agora');
+    sec.hidden = mes !== atual;
+    $('#agoraResumo').innerHTML = [
+      [num.format(ag.ultimos_5min || 0), 'visitas nos últimos 5 minutos'],
+      [num.format(ag.ultimos_30min || 0), 'visitas nos últimos 30 minutos'],
+      [num.format(ag.hoje || 0), 'visitas hoje (horário de Brasília)']
+    ].map(function (c) { return '<div class="painelNumero"><b>' + c[0] + '</b><span>' + esc(c[1]) + '</span></div>'; }).join('');
+    var pg = ag.paginas_30min || {};
+    $('#agoraPaginas').innerHTML = tabela('Páginas vistas na última meia hora', ['Página', 'Visitas'],
+      Object.keys(pg).sort(function (a, b) { return pg[b] - pg[a]; }).slice(0, 10).map(function (p) { return [link(p), num.format(pg[p])]; }), 'Ninguém abriu páginas na última meia hora.');
+    var dias = dados.dias || {};
+    $('#porDia').innerHTML = tabela('Visitas por dia em ' + rotuloMes(mes), ['Dia', 'Visitas'],
+      Object.keys(dias).sort().reverse().map(function (k) { var p = k.split('-'); return [p[2] + '/' + p[1], num.format(dias[k])]; }), 'Ainda sem visitas registradas por dia neste mês.');
+    $('#agoraStatus').textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR') + '. Atualiza sozinho a cada 30 segundos enquanto esta aba estiver aberta.' +
+      (ag.servidor_desde ? ' Os números de 5 e 30 minutos contam desde que o servidor ligou (' + new Date(ag.servidor_desde).toLocaleString('pt-BR') + ').' : '');
+  }
+
   var status = $('#painelStatus');
   function carregar() {
     var mes = sel.value;
     status.textContent = 'Carregando ' + rotuloMes(mes) + '… (na primeira vez o servidor pode levar alguns segundos para acordar)';
-    fetch(API + '?mes=' + mes, { signal: AbortSignal.timeout(40000) }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (j) {
-      mostrar(j);
+    if (!chave) { mostrarBloqueio(true); return; }
+    fetch(API + '?mes=' + mes, { headers: { Authorization: 'Bearer ' + chave }, signal: AbortSignal.timeout(40000) }).then(function (r) {
+      if (r.status === 401) { mostrarBloqueio(true); throw new Error('privado'); }
+      if (!r.ok) throw new Error(); return r.json();
+    }).then(function (j) {
+      mostrarBloqueio(false);
+      mostrar(j); mostrarAgora(j, mes);
       status.textContent = 'Números de ' + rotuloMes(mes) + (j.persistente ? (j.ultima_gravacao ? '. Última gravação em ' + new Date(j.ultima_gravacao).toLocaleString('pt-BR') + '.' : '.') :
         '. Atenção: o armazenamento permanente ainda não foi configurado no servidor, então estes números são só desde que ele ligou pela última vez.');
-    }).catch(function () {
+    }).catch(function (e) {
+      if (e && e.message === 'privado') return;
       status.textContent = 'Não consegui ler os números agora. O servidor pode estar acordando; tente de novo em um minuto.';
     });
   }
@@ -95,6 +133,10 @@
     nomes['/'] = 'Página inicial';
   }).catch(function () {}).then(carregar);
   sel.addEventListener('change', carregar);
+  $('#painelSair').addEventListener('click', function () { try { localStorage.removeItem(CHAVE_LS); } catch (e) {} chave = ''; mostrarBloqueio(true); });
+  /* Atualiza sozinho a cada 30 segundos enquanto a aba está visível e o mês escolhido é o atual */
+  setInterval(function () { if (chave && !d.hidden && sel.value === atual) carregar(); }, 30000);
+  d.addEventListener('visibilitychange', function () { if (!d.hidden && chave && sel.value === atual) carregar(); });
   $('#painelAtualizar').addEventListener('click', carregar);
-  window.prumoPainel = { mostrar: mostrar }; /* usado nos testes do painel */
+  window.prumoPainel = { mostrar: mostrar, mostrarAgora: mostrarAgora }; /* usado nos testes do painel */
 })();

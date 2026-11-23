@@ -11,6 +11,8 @@
   var MEDIR_API = 'https://atlas-tributario-assistente.onrender.com/api/m';
   var ambienteReal = location.protocol === 'https:' && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   var naoRastrear = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+  /* Quem abre o painel privado neste navegador não entra nas próprias contagens de visitas */
+  try { if (localStorage.getItem('prumo-painel-chave')) naoRastrear = true; } catch (e) {}
   var caminho = location.pathname.replace(/\/index\.html$/, '/');
   var paginaIndexavel = !d.querySelector('meta[name="robots"][content*="noindex"]');
   window.prumoMedidas = []; /* registro local, para conferência e testes */

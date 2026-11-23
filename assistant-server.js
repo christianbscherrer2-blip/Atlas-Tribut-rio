@@ -102,11 +102,25 @@ const MET_MOTIVOS = new Set(["faltou_informacao", "dificil_entender", "desatuali
 const MET_MAX_PAGINAS = 300;
 const MET_MAX_TERMOS = 200;
 const metHits = new Map();
+const INICIO_SERVIDOR = Date.now();
 const metMeses = new Map(); // "AAAA-MM" -> { base, delta, carregado, sha }
 let metUltimaGravacao = "";
 
 function mesAtual() { return new Date().toISOString().slice(0, 7); }
-function metVazio(mes) { return { mes, paginas: {}, eventos: {}, origens: {}, buscas_vazias: {} }; }
+function metVazio(mes) { return { mes, paginas: {}, eventos: {}, origens: {}, buscas_vazias: {}, dias: {} }; }
+// Painel privado: só quem tem a chave pessoal lê os números. O repositório guarda apenas o hash SHA-256 da chave.
+const PAINEL_HASH = process.env.PAINEL_CHAVE_HASH || "085aeb94a371e535d9c16d16ca74499fb0b59e52059a525928c394426eb4adda";
+const crypto = require("node:crypto");
+function painelAutorizado(req) {
+  const h = String(req.headers.authorization || "");
+  if (!h.startsWith("Bearer ") || h.length > 200) return false;
+  const dado = crypto.createHash("sha256").update(h.slice(7)).digest();
+  const esperado = Buffer.from(PAINEL_HASH, "hex");
+  return esperado.length === dado.length && crypto.timingSafeEqual(dado, esperado);
+}
+// Visitas recentes para o "agora" do painel: só horário e página, nada que identifique a pessoa; fica na memória.
+const recentes = [];
+function diaBR(ts) { return new Date(ts || Date.now()).toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }); }
 function somar(obj, chave, n) { obj[chave] = (obj[chave] || 0) + n; }
 
 function metMesclar(alvo, extra) {
@@ -115,7 +129,8 @@ function metMesclar(alvo, extra) {
     a.visitas += d.visitas || 0; a.sim += d.sim || 0; a.nao += d.nao || 0;
     for (const [m, n] of Object.entries(d.motivos || {})) somar(a.motivos, m, n);
   }
-  for (const k of ["eventos", "origens", "buscas_vazias"]) {
+  for (const k of ["eventos", "origens", "buscas_vazias", "dias"]) {
+    if (!alvo[k]) alvo[k] = {};
     for (const [c, n] of Object.entries(extra[k] || {})) somar(alvo[k], c, n);
   }
   return alvo;
@@ -168,7 +183,7 @@ async function metGravar() {
   metGravando = true;
   try {
     for (const [mes, m] of metMeses) {
-      const temDelta = Object.keys(m.delta.paginas).length || Object.keys(m.delta.eventos).length || Object.keys(m.delta.origens).length || Object.keys(m.delta.buscas_vazias).length;
+      const temDelta = Object.keys(m.delta.paginas).length || Object.keys(m.delta.eventos).length || Object.keys(m.delta.origens).length || Object.keys(m.delta.buscas_vazias).length || Object.keys(m.delta.dias).length;
       if (!temDelta) continue;
       await metGarantirBranch();
       const enviado = m.delta; m.delta = metVazio(mes);
@@ -223,6 +238,9 @@ async function receberMetrica(req, res, origin) {
   const pag = () => delta.paginas[p] || (delta.paginas[p] = { visitas: 0, sim: 0, nao: 0, motivos: {} });
   if (d.t === "v") {
     pag().visitas += 1;
+    somar(delta.dias, diaBR(now), 1);
+    recentes.push({ t: now, p });
+    while (recentes.length && (recentes[0].t < now - 30 * 60 * 1000 || recentes.length > 5000)) recentes.shift();
     if (MET_ORIGENS.has(d.r)) somar(delta.origens, d.r, 1);
   } else if (d.t === "f" && (d.s === "sim" || d.s === "nao")) {
     pag()[d.s] += 1;
@@ -239,12 +257,19 @@ async function receberMetrica(req, res, origin) {
   return send(res, 200, { ok: true }, origin);
 }
 
-async function enviarMetricas(res, origin, mesPedido) {
+async function enviarMetricas(req, res, origin, mesPedido) {
+  if (!painelAutorizado(req)) return send(res, 401, { error: "Painel privado." }, origin);
   const hoje = mesAtual();
   const mes = /^20\d{2}-(0[1-9]|1[0-2])$/.test(mesPedido || "") && mesPedido >= "2026-01" && mesPedido <= hoje ? mesPedido : hoje;
   const m = await metMes(mes);
   const total = metMesclar(metMesclar(metVazio(mes), m.base), m.delta);
-  return send(res, 200, { ...total, persistente: Boolean(MET_TOKEN), lido_do_github: m.carregado && Boolean(MET_TOKEN), ultima_gravacao: metUltimaGravacao || null }, origin);
+  const agoraMs = Date.now(), porPagina = {};
+  let ult5 = 0, ult30 = 0;
+  for (const r of recentes) {
+    if (r.t >= agoraMs - 30 * 60 * 1000) { ult30 += 1; somar(porPagina, r.p, 1); if (r.t >= agoraMs - 5 * 60 * 1000) ult5 += 1; }
+  }
+  const agora = { ultimos_5min: ult5, ultimos_30min: ult30, hoje: (total.dias || {})[diaBR(agoraMs)] || 0, paginas_30min: porPagina, servidor_desde: new Date(INICIO_SERVIDOR).toISOString() };
+  return send(res, 200, { ...total, agora, persistente: Boolean(MET_TOKEN), lido_do_github: m.carregado && Boolean(MET_TOKEN), ultima_gravacao: metUltimaGravacao || null }, origin);
 }
 
 const systemPrompt = `Você é o Assistente Educativo do Prumo, em português do Brasil.
@@ -294,7 +319,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": isAllowed(origin) ? origin : SITE_ORIGIN,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
       "Access-Control-Max-Age": "600",
       "Vary": "Origin"
     });
@@ -314,7 +339,7 @@ const server = http.createServer(async (req, res) => {
     return receberMetrica(req, res, origin);
   }
   if (req.method === "GET" && url.pathname === "/api/metricas") {
-    return enviarMetricas(res, origin, url.searchParams.get("mes"));
+    return enviarMetricas(req, res, origin, url.searchParams.get("mes"));
   }
   if (req.method !== "POST" || url.pathname !== "/api/assist") {
     return send(res, 404, { error: "Caminho não encontrado." }, origin);
