@@ -1,0 +1,24 @@
+# Verificação automática: roda a cada envio ao GitHub e em cada pedido de mudança (pull request).
+# Se algo falhar, o GitHub mostra um X vermelho no commit e o motivo no registro.
+name: site-check
+on:
+  push:
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Todas as páginas seguem o modelo comum (menu, rodapé, tema, datas)
+        run: python3 scripts/build_pages.py --check
+      - name: Links, âncoras, títulos, canonical, JSON-LD e sitemap
+        run: python3 scripts/site_check.py
+      - name: Preparar navegador e axe (acessibilidade)
+        run: |
+          pip install playwright && playwright install --with-deps chromium
+          mkdir -p /tmp/axe && cd /tmp/axe && npm i axe-core
+      - name: Erros de JavaScript, rolagem lateral, alvos de toque, acessibilidade e busca
+        run: python3 scripts/browser_check.py

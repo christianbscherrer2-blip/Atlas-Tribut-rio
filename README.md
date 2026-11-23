@@ -2,13 +2,24 @@
 
 Site estático (Render, serviço `atlas-tributario`) + backend opcional do assistente (serviço `atlas-tributario-assistente`).
 
+## Sistema de design
+- `site.css` é uma camada única organizada por tokens (cores com função, tipografia, espaçamento de 4 px, raios). Para mudar a aparência, mude os tokens no topo do arquivo; os componentes só usam variáveis.
+- Tema claro e escuro: segue o aparelho até a pessoa escolher no botão do cabeçalho; a escolha fica só no navegador dela.
+- Contraste mínimo 4,5:1 (WCAG AA) nos dois temas; alvos de toque de pelo menos 24 px (44 px nos botões).
+- Movimento mínimo: nada fica escondido esperando rolagem; tudo respeita "reduzir movimento".
+
+## Layout comum (menu e rodapé em um lugar só)
+O menu e o rodapé ficam em `scripts/templates/header.html` e `footer.html`. Depois de editar um modelo ou criar uma página, rode `python3 scripts/build_pages.py`. Ele aplica o modelo às páginas, marca o item de menu da página atual, coloca o script de tema, grava a data de revisão (do selo "Última atualização") no JSON-LD e põe a impressão digital no endereço de `site.css`/`site.js`, para o navegador baixar a versão nova. O site continua estático.
+
 ## Antes de publicar (rotina)
-1. Edite as páginas. A página inicial deve ser linkada como `/` (nunca `/index.html`).
-2. `python3 scripts/build_index.py`: atualiza o índice de busca do assistente.
-3. `python3 scripts/update_sitemap.py`: corrige as datas do sitemap a partir do git.
-4. `python3 scripts/site_check.py`: links, âncoras, JSON-LD, títulos, canonical, sitemap (estático).
-5. `python3 scripts/browser_check.py`: erros de JS, rolagem lateral, alvos de toque, acessibilidade (axe) e qualidade da busca. Requer `pip install playwright && playwright install chromium` e `npm i axe-core` (veja `AXE_PATH`).
-6. Para ativar a verificação automática no GitHub, copie `scripts/site-check.workflow.yml` para `.github/workflows/`.
+1. Edite as páginas. A página inicial deve ser linkada como `/` (nunca `/index.html`). Atualize a data do selo "Última atualização" quando revisar o conteúdo.
+2. `python3 scripts/build_pages.py`: aplica o layout comum.
+3. `python3 scripts/build_index.py`: atualiza o índice de busca do assistente.
+4. `python3 scripts/update_sitemap.py`: corrige as datas do sitemap a partir do git.
+5. `python3 scripts/site_check.py`: links, âncoras, JSON-LD, títulos, canonical, sitemap (estático).
+6. `python3 scripts/browser_check.py`: erros de JS, rolagem lateral, alvos de toque, acessibilidade (axe) e qualidade da busca. Requer `pip install playwright && playwright install chromium` e `npm i axe-core` (veja `AXE_PATH`).
+
+A verificação automática (`.github/workflows/site-check.yml`) roda os passos 2 (em modo `--check`), 5 e 6 a cada envio ao GitHub.
 
 ## Qualidade da busca do assistente
 `python3 scripts/eval_assistant.py` mede acerto na 1ª posição (hit@1) e entre as 3 primeiras (hit@3) com `tests/queries.json` (ajuste) e `tests/queries_validacao.json` (validação, não use para ajustar). Meta: hit@3 ≥ 85%. Ao mudar a busca, meça antes e depois.
