@@ -157,6 +157,14 @@
     }).catch(function () { out.innerHTML = '<p class="alert">Não consegui carregar a busca agora. Use as situações acima ou as <a href="/fontes.html">fontes oficiais</a>.</p>'; });
   });
 
+  /* Busca vinda do botão "Buscar" do cabeçalho de qualquer página: /assistente.html?q=termo#busca */
+  var qParam = new URLSearchParams(location.search).get('q');
+  if (qParam && qParam.trim().length >= 2) {
+    input.value = qParam.trim().slice(0, 120);
+    if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true }));
+    var alvo = document.getElementById('busca'); if (alvo) alvo.scrollIntoView();
+  }
+
   /* ---------- 3) IA opcional (só aparece se o backend estiver ligado) ---------- */
   var ai = $('#aiPanel'), aiForm = $('#aiForm'), aiQ = $('#aiQuestion'), aiOut = $('#aiOut'), aiBtn = $('#aiBtn'), aiConsent = $('#aiConsent');
   function updateAi() { /* reservado para estado */ }

@@ -17,7 +17,7 @@
   /* marca */
   --brand:#0c1a33; --brand-2:#16294f; --brand-ink:#f2f4f8; --brand-muted:#c3cbdb;
   --accent:#c9a24b; --accent-soft:#f1e7c9; --accent-ink:#0c1a33; --accent-strong:#6f540f; --accent-hover:#b8913c;
-  --link:#1b4a8c; --link-hover:#0c1a33; --focus:#c9a24b;
+  --link:#1b4a8c; --link-hover:#0c1a33; --focus:#6f540f; /* dourado escuro: 6,4:1 sobre o papel (WCAG 2.2, 1.4.11 pede 3:1) */
   /* estados */
   --ok:#17663f; --ok-soft:#e3f2ea; --warn:#8a5a00; --warn-soft:#fbf0d9; --danger:#a12a1e; --danger-soft:#fbe5e2;
   /* tipografia */
@@ -59,6 +59,8 @@ img,svg{max-width:100%;height:auto}
 a{color:var(--link);text-underline-offset:3px;text-decoration-thickness:1px}
 a:hover{color:var(--link-hover);text-decoration-thickness:2px}
 :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:2px}
+/* Sobre o azul-marinho, o foco usa o dourado claro (7,2:1) */
+.top :focus-visible,.pageHero :focus-visible,.ctaBlock :focus-visible,.whyBox :focus-visible,.siteFooter :focus-visible,.doorHead :focus-visible{outline-color:var(--accent)}
 p{margin:0 0 var(--s4)}
 ul,ol{padding-left:1.4em;margin:0 0 var(--s4)}
 li{margin:var(--s1) 0}
@@ -424,6 +426,53 @@ a.card:active,a.articleCard:active,.relGrid a:active{transform:translate(3px,3px
 .typeCue{color:#e3c47a;letter-spacing:.09em;min-height:1.6em}
 .typeCue.live{border-right:2px solid #e3c47a;padding-right:4px;display:inline-block;animation:prumoCaret .8s step-end infinite}
 @keyframes prumoCaret{50%{border-color:transparent}}
+
+/* ---------- 13b. Resumo "Em 30 segundos", busca em toda página e glossário ---------- */
+.quick30{border:2px solid var(--hard);border-left:6px solid var(--accent);border-radius:4px;box-shadow:6px 6px 0 var(--offset);font-size:var(--fs-md);line-height:1.6;max-width:none;margin:var(--s5) 0 var(--s4)}
+.quick30 strong{display:inline;color:var(--ink)}
+.searchToggle{order:3;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 var(--s3);border:1px solid color-mix(in srgb,var(--brand-ink) 35%,transparent);border-radius:var(--r-sm);color:var(--brand-ink);font:600 var(--fs-sm)/1 var(--font-text);text-decoration:none}
+.searchToggle:hover{background:var(--brand-2);color:var(--brand-ink)}
+.searchToggle svg{width:18px;height:18px}
+.searchDialog{width:min(640px,calc(100vw - 32px));max-width:none;border:3px solid var(--hard);border-radius:6px;box-shadow:10px 10px 0 var(--offset);background:var(--surface);color:var(--ink);padding:var(--s5);margin-top:12vh}
+.searchDialog::backdrop{background:rgba(7,9,15,.55)}
+.searchDialog form{position:relative}
+.searchDialog label{display:block;font:500 var(--fs-2xl)/1.2 var(--font-display);margin:0 var(--s7) var(--s3) 0}
+.searchDialog .fine{margin:var(--s3) 0 0}
+.searchClose{position:absolute;top:-6px;right:-6px;width:44px;height:44px;border:2px solid var(--hard);border-radius:4px;background:var(--surface);color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer}
+.searchClose:hover{background:var(--surface-2)}
+.term{display:inline;font:inherit;color:inherit;background:none;border:0;padding:4px 2px;margin:-4px -2px;border-radius:3px;cursor:help;text-decoration:underline dotted var(--accent-strong);text-decoration-thickness:2px;text-underline-offset:3px}
+.term:hover,.term[aria-expanded=true]{background:var(--accent-soft)}
+.termTip{position:absolute;z-index:45;max-width:min(340px,calc(100vw - 32px));background:var(--surface);color:var(--ink);border:2px solid var(--hard);border-radius:4px;box-shadow:6px 6px 0 var(--offset);padding:var(--s3) var(--s4);font:400 var(--fs-sm)/1.5 var(--font-text);text-align:left}
+.termTip b{display:block;margin-bottom:2px}
+.termTip a{font-weight:600}
+@media (max-width:560px){.searchToggle span{display:none}.searchToggle{padding:0;width:40px;justify-content:center}}
+
+/* ---------- 13c. Guia introdutório (guia-tributos-previdencia.html) ---------- */
+.guia .wrap{max-width:none}
+.guia .sectionHead{max-width:var(--measure);margin-bottom:var(--s5)}
+.guia .sectionHead p{color:var(--muted)}
+.guia .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s4)}
+.guia .span4{grid-column:span 4}.guia .span6{grid-column:span 6}.guia .span8{grid-column:span 8}.guia .span12{grid-column:span 12}
+.guia .flow{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.guia .timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:var(--s5);border-top:3px solid var(--brand)}
+.guia .time{padding:var(--s4) var(--s4) 0 0;position:relative}
+.guia .time::before{content:"";position:absolute;width:14px;height:14px;background:var(--accent);border:2px solid var(--hard);border-radius:50%;top:-9px;left:0}
+.guia .time b{font-size:var(--fs-lg)}
+.guia .time p{font-size:var(--fs-sm);color:var(--muted);margin:var(--s2) 0}
+.guia .accordion details{border-bottom:1px solid var(--line);padding:var(--s3) 0}
+.guia .accordion summary{font-weight:650;cursor:pointer}
+.guia .accordion details p{color:var(--muted);margin:var(--s2) 0 0}
+.guia .glossary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
+.guia .gterm{background:var(--surface);border:2px solid var(--hard);border-radius:4px;box-shadow:4px 4px 0 var(--offset);padding:var(--s3) var(--s4)}
+.guia .gterm summary{font-weight:700;cursor:pointer}
+.guia .gterm p{margin:var(--s2) 0 0;color:var(--muted);font-size:var(--fs-sm)}
+.guia .checklist{list-style:none;padding:0;margin:0}
+.guia .checklist li{padding:var(--s2) 0 var(--s2) 30px;border-bottom:1px solid var(--line);position:relative;margin:0}
+.guia .checklist li::before{content:"✓";position:absolute;left:2px;top:var(--s2);color:var(--accent-strong);font-weight:800}
+.guia .sourceList li{margin:var(--s2) 0}
+.guia .section h2{font-size:var(--fs-3xl)}
+@media (max-width:860px){.guia .span4{grid-column:span 6}.guia .span8{grid-column:span 12}.guia .timeline,.guia .glossary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.guia .span4,.guia .span6{grid-column:span 12}.guia .timeline,.guia .glossary{grid-template-columns:minmax(0,1fr)}.guia .time{padding-left:var(--s5)}.guia .time::before{left:-7px}}
 
 /* ---------- 14. Responsivo ---------- */
 @media (max-width:860px){
