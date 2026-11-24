@@ -97,6 +97,23 @@ table{border-collapse:collapse}
 .siteNav a[aria-current=page],.navGroup:has(a[aria-current=page])>summary{color:var(--brand-ink);box-shadow:inset 0 -2px 0 var(--accent)}
 .navGroup{position:relative}
 .navGroup summary::after{content:"";display:inline-block;width:.45em;height:.45em;margin-left:.45em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-.15em) rotate(45deg);opacity:.7}
+/* Menu em uma linha: rótulo e seta sempre juntos, mesma altura e mesmo respiro em todos os itens */
+@media (min-width:901px){
+  .siteNav{gap:2px;flex-wrap:nowrap}
+  .siteNav>a,.siteNav summary{display:inline-flex;align-items:center;min-height:40px;white-space:nowrap;line-height:1}
+  .navGroup summary::after{transform:translateY(-.2em) rotate(45deg);flex:none}
+  .navGroup[open] summary::after{transform:translateY(.1em) rotate(-135deg)}
+  .siteNav .navCta{margin-left:var(--s3)}
+  .navPanel a{white-space:nowrap}
+  .navGroup:last-of-type .navPanel{left:auto;right:0}
+}
+/* Entre 901 e 1180 px: sem o subtítulo da marca e com respiro menor, para tudo caber numa linha */
+@media (min-width:901px) and (max-width:1180px){
+  .brand em{display:none}
+  .topin{gap:var(--s3)}
+  .siteNav>a,.siteNav summary{padding:var(--s2) 10px}
+  .searchToggle span{display:none}.searchToggle{padding:0;width:40px;justify-content:center}
+}
 .navPanel{position:absolute;top:calc(100% + 6px);left:0;min-width:240px;display:grid;gap:2px;padding:var(--s2);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-2);z-index:40}
 .navPanel a{padding:var(--s2) var(--s3);border-radius:var(--r-sm);color:var(--ink);text-decoration:none;font-size:var(--fs-sm)}
 .navPanel a:hover{background:var(--surface-2)}
