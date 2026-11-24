@@ -90,6 +90,27 @@
     paintThemeButton();
   }
 
+  /* Cabeçalho: se o conteúdo não couber numa linha no computador, entra no modo compacto */
+  var topoEl = d.querySelector('.top'), topoIn = d.querySelector('.topin');
+  /* Mede e decide no mesmo passo (sem pintar entre um e outro), para não criar e tirar barra de
+     rolagem e disparar outro "resize" em seguida. Só volta ao normal se a tela crescer bem. */
+  var larguraCompacto = 0, pedido = 0;
+  var naoCabe = function () { return topoIn.scrollWidth > topoIn.clientWidth + 1; };
+  function ajustarTopo() {
+    pedido = 0;
+    if (!topoEl || !topoIn) return;
+    if (innerWidth <= 900) { topoEl.classList.remove('compacto'); return; }
+    if (!topoEl.classList.contains('compacto')) {
+      if (naoCabe()) { topoEl.classList.add('compacto'); larguraCompacto = innerWidth; }
+    } else if (innerWidth > larguraCompacto + 80) {
+      topoEl.classList.remove('compacto');
+      if (naoCabe()) { topoEl.classList.add('compacto'); larguraCompacto = innerWidth; }
+    }
+  }
+  ajustarTopo();
+  addEventListener('resize', function () { if (!pedido) pedido = requestAnimationFrame(ajustarTopo); });
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(ajustarTopo);
+
   /* Busca em toda página: o botão "Buscar" abre um campo; a pesquisa roda na busca do assistente.
      Sem JavaScript, o botão é só um link para /assistente.html#busca. Atalho: tecla "/". */
   var searchBtn = d.getElementById('searchToggle'), searchDlg = null;

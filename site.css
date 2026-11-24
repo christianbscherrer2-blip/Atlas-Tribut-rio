@@ -107,8 +107,16 @@ table{border-collapse:collapse}
   .navPanel a{white-space:nowrap}
   .navGroup:last-of-type .navPanel{left:auto;right:0}
 }
-/* Entre 901 e 1180 px: sem o subtítulo da marca e com respiro menor, para tudo caber numa linha */
-@media (min-width:901px) and (max-width:1180px){
+/* Cabeçalho compacto: aplicado pelo site.js quando o conteúdo não cabe numa linha (fontes diferentes
+   mudam a largura do texto; a regra por largura de tela sozinha não garante) */
+@media (min-width:901px){
+  .top.compacto .brand em{display:none}
+  .top.compacto .siteNav>a,.top.compacto .siteNav summary{padding:var(--s2) 10px}
+  .top.compacto .searchToggle span{display:none}
+  .top.compacto .searchToggle{padding:0;width:40px;justify-content:center}
+}
+/* Entre 901 e 1279 px: sem o subtítulo da marca e com respiro menor, para tudo caber numa linha */
+@media (min-width:901px) and (max-width:1279px){
   .brand em{display:none}
   .topin{gap:var(--s3)}
   .siteNav>a,.siteNav summary{padding:var(--s2) 10px}
