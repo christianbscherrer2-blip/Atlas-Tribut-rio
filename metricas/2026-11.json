@@ -8,13 +8,13 @@
    "motivos": {}
   },
   "/": {
-   "visitas": 3,
+   "visitas": 4,
    "sim": 0,
    "nao": 0,
    "motivos": {}
   },
   "/calculadora-jornada.html": {
-   "visitas": 2,
+   "visitas": 3,
    "sim": 0,
    "nao": 0,
    "motivos": {}
@@ -38,13 +38,13 @@
  },
  "origens": {
   "direta": 1,
-  "interna": 6,
+  "interna": 8,
   "outro_site": 1
  },
  "buscas_vazias": {},
  "dias": {
-  "2026-11-23": 8
+  "2026-11-23": 10
  },
  "campanhas": {},
- "atualizado_em": "2026-11-23T23:28:47.527Z"
+ "atualizado_em": "2026-11-24T01:38:59.492Z"
 }
