@@ -8,7 +8,7 @@
    "motivos": {}
   },
   "/": {
-   "visitas": 4,
+   "visitas": 5,
    "sim": 0,
    "nao": 0,
    "motivos": {}
@@ -38,13 +38,13 @@
  },
  "origens": {
   "direta": 1,
-  "interna": 8,
+  "interna": 9,
   "outro_site": 1
  },
  "buscas_vazias": {},
  "dias": {
-  "2026-11-23": 10
+  "2026-11-23": 11
  },
  "campanhas": {},
- "atualizado_em": "2026-11-24T01:38:59.492Z"
+ "atualizado_em": "2026-11-24T01:48:59.495Z"
 }
