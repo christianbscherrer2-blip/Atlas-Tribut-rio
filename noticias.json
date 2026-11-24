@@ -1,6 +1,24 @@
 {
-  "updated_at": "2026-11-23T13:40:46+00:00",
+  "updated_at": "2026-11-24T00:00:02+00:00",
   "items": [
+    {
+      "title": "Receita Federal comenta nesta terça-feira (24/11) a arrecadação do mês de outubro",
+      "date": "2026-11-23",
+      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/receita-federal-comenta-nesta-terca-feira-24-11-a-arrecadacao-do-mes-de-outubro",
+      "source": "Receita Federal"
+    },
+    {
+      "title": "Receita Federal retém 1 tonelada de maconha oculta em carga de milho em Ponta Grossa",
+      "date": "2026-11-23",
+      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/receita-federal-retem-1-tonelada-de-maconha-oculta-em-carga-de-milho-em-ponta-grossa",
+      "source": "Receita Federal"
+    },
+    {
+      "title": "Receita Federal abre consulta ao lote residual de restituição do IRPF 2026 nesta segunda-feira (23)",
+      "date": "2026-11-23",
+      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/receita-federal-abre-consulta-ao-lote-residual-de-restituicao-do-irpf-2026-nesta-segunda-feira-23",
+      "source": "Receita Federal"
+    },
     {
       "title": "Receita Federal amplia acesso ao Ambiente de Produção Restrita do Piloto da CBS",
       "date": "2026-11-20",
@@ -71,24 +89,6 @@
       "title": "Virando a Chave na Reforma Tributária: API do RAD - documentação técnica já está disponível",
       "date": "2026-11-17",
       "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/virando-a-chave-para-a-reforma-tributaria-api-para-emissao-do-rad-ja-esta-disponivel",
-      "source": "Receita Federal"
-    },
-    {
-      "title": "Receita Federal retém mais de 830 kg de substância análoga à maconha durante abordagem de rotina",
-      "date": "2026-11-17",
-      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/receita-federal-retem-mais-de-830-kg-de-substancia-analoga-a-maconha-durante-abordagem-de-rotina-2",
-      "source": "Receita Federal"
-    },
-    {
-      "title": "Operação Fronteira Receita Federal 2026 retira de circulação R$ 581 milhões em mercadorias ilícitas e drogas",
-      "date": "2026-11-16",
-      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/operacao-fronteira-receita-federal-2026-retira-de-circulacao-r-581-milhoes-em-mercadorias-ilicitas-e-drogas",
-      "source": "Receita Federal"
-    },
-    {
-      "title": "Receita Federal publica primeiro código-fonte aberto no GitHub e amplia transparência da Reforma Tributária",
-      "date": "2026-11-16",
-      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/novembro/receita-federal-publica-primeiro-codigo-fonte-aberto-no-github-e-amplia-transparencia-da-reforma-tributaria",
       "source": "Receita Federal"
     }
   ]
